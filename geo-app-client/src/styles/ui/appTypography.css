@@ -1,0 +1,19 @@
+.app-title-1 {
+  @apply text-2xl font-sans font-bold;
+}
+
+.app-title-2 {
+  @apply text-lg font-sans font-bold;
+}
+
+.app-title-3 {
+  @apply text-base font-sans font-bold;
+}
+
+.app-text-1 {
+  @apply text-base font-sans;
+}
+
+.app-text-2 {
+  @apply text-sm font-sans;
+}

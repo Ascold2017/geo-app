@@ -1,0 +1,7 @@
+.app-modal {
+    @apply fixed inset-0 items-center justify-center z-10;
+  }
+  
+  .app-modal-content {
+    @apply bg-white p-4 rounded-lg shadow-lg;
+  }

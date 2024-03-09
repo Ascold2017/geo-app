@@ -1,0 +1,26 @@
+{
+  "name": "geo-app-runner",
+  "version": "1.0.0",
+  "description": "",
+  "author": "",
+  "license": "ISC",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently --names \"FRONT,ADMIN,SERVER\" -c \"bgBlue.bold,bgRed.bold,bgMagenta.bold\" \"npm run start:client\" \"npm run start:admin\" \"npm run start:server\"",
+    "start:client": "cd geo-app-client && npm start",
+    "start:admin": "cd geo-app-admin && npm start",
+    "start:server": "cd geo-app-server && npm start",
+    "dev": "concurrently --names \"FRONT,ADMIN,SERVER\" -c \"bgBlue.bold,bgRed.bold,bgMagenta.bold\" \"npm run dev:client\" \"npm run dev:admin\" \"npm run dev:backend\"",
+    "dev:client": "cd geo-app-client && npm run dev",
+    "dev:admin": "cd geo-app-admin && npm run dev",
+    "dev:backend": "cd geo-app-server && npm run dev",
+    "build": "concurrently --names \"FRONT,ADMIN,SERVER\" -c \"bgBlue.bold,bgRed.boldbgMagenta.bold\" \"npm run build:client\" \"npm run build:admin\" \"npm run build:backend\"",
+    "build:client": "cd geo-app-client && npm run build",
+    "build:admin": "cd geo-app-admin && npm run build",
+    "build:backend": "echo No build needed",
+    "postinstall": "concurrently \"cd geo-app-client && npm install\" \"cd geo-app-server && npm install\" \"cd geo-app-admin && npm install\""
+  },
+  "dependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

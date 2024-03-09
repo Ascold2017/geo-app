@@ -1,0 +1,1 @@
+export const PROGRESS_PATH = '/progress'
