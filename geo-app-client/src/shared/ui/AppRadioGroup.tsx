@@ -13,7 +13,7 @@ type AppRadioGroupProps<T> = {
     className?: string;
 };
 
-const AppRadioGroup = <T,>({ value, onChanged, items, buttons, className }: AppRadioGroupProps<T>) => {
+export const AppRadioGroup = <T,>({ value, onChanged, items, buttons, className }: AppRadioGroupProps<T>) => {
 
     return (
         <div className={`flex items-center ${className || ''}`}>
@@ -33,5 +33,3 @@ const AppRadioGroup = <T,>({ value, onChanged, items, buttons, className }: AppR
         </div>
     );
 };
-
-export default AppRadioGroup;

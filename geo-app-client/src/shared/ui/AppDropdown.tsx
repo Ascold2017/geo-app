@@ -3,7 +3,7 @@ type AppDropdownProps = {
     activator: React.ReactNode;
     children: React.ReactNode;
 }
-export default function AppDropdown({ children, activator, className, ...props }: AppDropdownProps & React.HTMLProps<HTMLDetailsElement>) {
+export function AppDropdown({ children, activator, className, ...props }: AppDropdownProps & React.HTMLProps<HTMLDetailsElement>) {
 
     return (
         <details className={`dropdown dropdown-end ${className}`} {...props}>

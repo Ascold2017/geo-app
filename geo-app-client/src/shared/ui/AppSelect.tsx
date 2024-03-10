@@ -6,7 +6,7 @@ interface AppSelectProps {
     onChange: (e: string) => void;
 }
 
-const AppSelect: React.FC<AppSelectProps & React.HTMLProps<HTMLSelectElement>> = ({ items, value, onChange, className, ...props }) => {
+export const AppSelect: React.FC<AppSelectProps & React.HTMLProps<HTMLSelectElement>> = ({ items, value, onChange, className, ...props }) => {
     return (
         <select
             className={`select w-full max-w-xs ${className || ''}`} {...props}
@@ -19,5 +19,3 @@ const AppSelect: React.FC<AppSelectProps & React.HTMLProps<HTMLSelectElement>> =
         </select>
     );
 };
-
-export default AppSelect;

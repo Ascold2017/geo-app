@@ -5,7 +5,7 @@ type AppBadgeProps = {
     color: string;
 };
 
-const AppBadge: React.FC<AppBadgeProps & HTMLProps<HTMLSpanElement>> = ({ text, color, className, ...props }) => {
+export const AppBadge: React.FC<AppBadgeProps & HTMLProps<HTMLSpanElement>> = ({ text, color, className, ...props }) => {
     return (
         <span
             {...props}
@@ -15,5 +15,3 @@ const AppBadge: React.FC<AppBadgeProps & HTMLProps<HTMLSpanElement>> = ({ text, 
         </span>
     );
 };
-
-export default AppBadge;

@@ -5,6 +5,8 @@
       "@shared": ["./src/shared/index"],
       "@features/*": ["./src/features/*"],
       "@widgets/*": ["./src/widgets/*"],
+      "@entities/*": ["./src/entities/*"],
+      "@pages/*": ["./src/pages/*"],
     },
     
     "target": "ES2020",

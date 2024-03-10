@@ -6,7 +6,7 @@ interface CheckboxProps {
     onChecked: (value: boolean) => void;
 }
 
-const Checkbox: React.FC<CheckboxProps & HTMLProps<HTMLDivElement>> = ({ checked, label, onChecked, ...props }) => {
+export const Checkbox: React.FC<CheckboxProps & HTMLProps<HTMLDivElement>> = ({ checked, label, onChecked, ...props }) => {
     return (
         <div className={`form-control ${props.className || ''}`} {...props}>
             <label className="label cursor-pointer">

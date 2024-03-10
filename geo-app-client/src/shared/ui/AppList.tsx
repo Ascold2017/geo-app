@@ -5,7 +5,7 @@ type AppListProps<T> = {
     renderItem: (item: T) => React.ReactNode;
 };
 
-const AppList = <T,>({ items, renderItem, ...props }: AppListProps<T> & HTMLProps<HTMLDivElement>) => {
+export const AppList = <T,>({ items, renderItem, ...props }: AppListProps<T> & HTMLProps<HTMLDivElement>) => {
     return (
         <div className={`flex flex-col space-y-4 ${props.className || ''}`} {...props} >
             {items.map((item, index) => (
@@ -16,5 +16,3 @@ const AppList = <T,>({ items, renderItem, ...props }: AppListProps<T> & HTMLProp
         </div>
     );
 };
-
-export default AppList;
