@@ -15,7 +15,7 @@ type NotificationStore = {
     showNotification: (payload: NotificationPayload) => void;
 };
 
-const useNotificationStore = create<NotificationStore>((set) => ({
+export const useNotificationStore = create<NotificationStore>((set) => ({
     notification: null,
     showNotification: ({ message, type, duration = 3000 }) => {
         const notification: Notification = {
@@ -32,5 +32,3 @@ const useNotificationStore = create<NotificationStore>((set) => ({
         }, duration);
     },
 }));
-
-export default useNotificationStore;

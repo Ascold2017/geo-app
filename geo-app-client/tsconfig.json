@@ -2,9 +2,9 @@
   "compilerOptions": {
     "paths": {
       "@app/*": ["./src/app/*"],
-      "@common/*": ["./src/app/common/*"],
-      "@utils/*": ["./src/utils/*"],
-      "@api/*": ["./src/api/*"],
+      "@shared": ["./src/shared/index"],
+      "@features/*": ["./src/features/*"],
+      "@widgets/*": ["./src/widgets/*"],
     },
     
     "target": "ES2020",

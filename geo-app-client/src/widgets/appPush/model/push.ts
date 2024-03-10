@@ -1,21 +1,20 @@
 import {create} from 'zustand';
-import { useGetVapidKeyRequest, usePostSubscriptionRequest } from "@api/push";
-import { useUpdate } from './update';
+import { getVapidKeyRequest, postSubscriptionRequest } from "../api";
 
 interface PushState {
     subscription: PushSubscriptionJSON | null;
     setSubscription: (subscription: PushSubscriptionJSON | null) => void;
     subscribePush: (swReg: ServiceWorkerRegistration) => Promise<void>;
     postPushSubscription: () => Promise<void>;
+    getDeviceId: () => string;
 }
 
-export const usePush = create<PushState>((set, get) => ({
+export const usePushStore = create<PushState>((set, get) => ({
     subscription: null,
     setSubscription: (subscription) => set({ subscription }),
     subscribePush: async (swReg) => {
         
-        const getVapidKeyReq = useGetVapidKeyRequest();
-        const { publicKey } = await getVapidKeyReq();
+        const { publicKey } = await getVapidKeyRequest();
         const sub = await swReg.pushManager.subscribe({
             userVisibleOnly: true,
             applicationServerKey: publicKey
@@ -36,8 +35,23 @@ export const usePush = create<PushState>((set, get) => ({
     postPushSubscription: async () => {
         const { subscription } = get();
         if (!subscription) return;
-        const postSubscriptionReq = usePostSubscriptionRequest();
-        const getDeviceId = useUpdate.getState().getDeviceId
-        await postSubscriptionReq(getDeviceId(), subscription);
-    }
+        await postSubscriptionRequest(get().getDeviceId(), subscription);
+    },
+    getDeviceId: () => {
+        const genDeviceId = () => {
+          const userAgent = window.navigator.userAgent;
+          const platform = window.navigator.platform;
+          const timestamp = Date.now();
+          
+          return `${userAgent}-${platform}-${timestamp}`;
+        };
+        const lsDeviceId = localStorage.getItem('device-id');
+        if (lsDeviceId) {
+          return lsDeviceId;
+        } else {
+          const deviceId = genDeviceId();
+          localStorage.setItem('device-id', deviceId);
+          return deviceId;
+        }
+      }
 }));

@@ -22,7 +22,7 @@ const defaultConfirm: Confirm = {
     cancelText: 'Нет',
 };
 
-const useConfirmStore = create<ConfirmStore>((set) => ({
+export const useConfirmStore = create<ConfirmStore>((set) => ({
     isOpen: false,
     confirm: defaultConfirm,
     openConfirm: (props) => {
@@ -44,5 +44,3 @@ const useConfirmStore = create<ConfirmStore>((set) => ({
         set({ isOpen: false });
     },
 }));
-
-export default useConfirmStore;
