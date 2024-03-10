@@ -2,11 +2,12 @@
 import React from "react";
 import { Route, createBrowserRouter, createRoutesFromElements } from "react-router-dom";
 import { AuthLayout } from "@widgets/authLayout";
-import { AUTH_PATH } from "@shared";
+import { AUTH_PATH, TOPICS_PATH } from "@shared";
 
 
 const AuthPage = React.lazy(() => import("@pages/authPage"));
 const UserLayout = React.lazy(() => import("@widgets/userLayout"));
+const TopicsPage = React.lazy(() => import("@pages/topicsPage"));
 
 export const router = createBrowserRouter(createRoutesFromElements(
   <>
@@ -14,16 +15,15 @@ export const router = createBrowserRouter(createRoutesFromElements(
       <Route path="" element={<AuthPage />} />
     </Route>
 
-    <Route path="" element={<UserLayout />}>
-
+    <Route path="/" element={<UserLayout />}>
+      <Route path={TOPICS_PATH} element={<TopicsPage />} />
+      <Route index element={<TopicsPage />} />
     </Route>
   </>
 ));
 
 /*
 
-<Route path="/" element={<TopicsPage />} />
-      <Route path={TOPICS_PATH} element={<TopicsPage />} />
  
       <Route path={TOPIC_PATH} element={<TopicIndex />} />
       <Route path={TOPIC_VIDEO_PATH} element={<TopicVideo />} />
