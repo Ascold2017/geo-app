@@ -1,31 +1,19 @@
 import { useNavigate, Outlet } from "react-router-dom";
 import { BrowserView, MobileView, isMobile } from 'react-device-detect';
 import { CommentOutlined, RiseOutlined, SettingFilled, TableOutlined } from "@ant-design/icons";
-import { useEffect, useState } from "react";
-//import bgImage from '../assets/bg2.jpg'
-import useAuthService from "@app/auth/stores/auth";
-import { useSections } from "../stores/sections";
 import { useMount } from "ahooks";
 import { useConfirmStore } from "@widgets/appConfirm";
-import { AppDropdown, AppMenu, AppMenuItem, AppModal, AppSelect, AppSpin, AUTH_PATH, PRACTICE_PATH, PROGRESS_PATH, TOPICS_PATH } from "@shared";
+import { AppDropdown, AppMenu, AppMenuItem, AppSpin, AUTH_PATH, PRACTICE_PATH, PROGRESS_PATH, TOPICS_PATH } from "@shared";
+import { useAppModel } from "@app/model";
+import { SelectSection, UserOnboardingModal } from "@widgets/userOnboarding";
 
 export function UserLayout() {
     const navigate = useNavigate();
-    const auth = useAuthService();
-    const sectionsService = useSections()
-    const [isShowOnboarding, setIsShowOnboarding] = useState(false);
+    const auth = useAppModel();
+    
     const { openConfirm } = useConfirmStore();
 
     useMount(() => init());
-
-    useEffect(() => {
-        if (auth.user.token) {
-            sectionsService.getSections();
-        }
-        if (auth.user.token && !auth.user.currentSectionId) {
-            setIsShowOnboarding(true);
-        }
-    }, [auth.user])
 
     async function init() {
         const isAuth = await auth.getCurrentUser()
@@ -34,11 +22,7 @@ export function UserLayout() {
         }
     }
 
-    async function selectSection(sectionId: number) {
-        sectionsService.changeSection(sectionId)
-        setIsShowOnboarding(false)
-    }
-
+   
     function onLogout() {
         openConfirm({
             title: 'Выход',
@@ -62,11 +46,7 @@ export function UserLayout() {
         return <div className="card w-56 bg-base-100 px-3 py-3 z-10">
             <div className="app-text-2 text-white">Пользователь: {auth.user.username}</div>
             <div className="app-text-2 text-white mb-3">Аккаунт: {auth.user.isPremium ? 'Premium' : 'Обычный'}</div>
-            <AppSelect value={auth.user.currentSectionId}
-                onChange={(id) => sectionsService.changeSection(+id)}
-                items={sectionsService.sections.map(s => ({ title: s.title, value: s.id }))}
-            />
-
+            <SelectSection />
             <div className="divider" />
             <button onClick={onLogout} className="btn btn-error block w-full">Выйти</button>
         </div>
@@ -104,10 +84,7 @@ export function UserLayout() {
         <main className={`container mx-auto py-3 px-3 ${isMobile && 'py-16'}`}>
             {auth.user.token ? <Outlet /> : <AppSpin spinning />}
 
-            <AppModal value={isShowOnboarding}>
-                <div className="app-title-3 text-center mb-3">Выберите секцию, которую хотите изучить</div>
-                {sectionsService.sections?.map(section => <button className="btn block w-full mb-3" key={section.id} onClick={() => selectSection(section.id)}>{section.title}</button>)}
-            </AppModal>
+            <UserOnboardingModal />
         </main>
         <MobileView className="navbar navbar-center bg-primary text-white fixed bottom-0 justify-center">
             <AppMenu mobile items={menuList} />

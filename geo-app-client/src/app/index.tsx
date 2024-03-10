@@ -5,6 +5,7 @@ import { AppNotification, useNotificationStore } from '@widgets/appNotifications
 import { usePushStore } from '@widgets/appPush';
 import { AppConfirm } from '@widgets/appConfirm';
 import './styles.css';
+import { router } from '@pages/index';
 
 export function App() {
     const showNotification = useNotificationStore(s => s.showNotification);
@@ -21,7 +22,7 @@ export function App() {
     });
 
     return <>
-        <RouterProvider router={null} />
+        <RouterProvider router={router} />
         <AppNotification />
         <AppConfirm />
     </>
