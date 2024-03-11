@@ -3,7 +3,7 @@
     "paths": {
       "@app/*": ["./src/app/*"],
       "@shared": ["./src/shared/index"],
-      "@features/*": ["./src/features/*"],
+      "@components/*": ["./src/components/*"],
       "@widgets/*": ["./src/widgets/*"],
       "@entities/*": ["./src/entities/*"],
       "@pages/*": ["./src/pages/*"],

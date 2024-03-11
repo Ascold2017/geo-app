@@ -3,7 +3,7 @@ import { useSectionsModel } from "@entities/sections";
 import { AppModal } from "@shared";
 import { useEffect, useState } from "react";
 
-export function UserOnboardingModal() {
+export function UserSelectSectionModal() {
     const [isShowOnboarding, setIsShowOnboarding] = useState(false);
     const { sections, getSections } = useSectionsModel()
     const changeSection = useAppModel(s => s.changeSection)

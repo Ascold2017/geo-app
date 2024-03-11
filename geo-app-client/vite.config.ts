@@ -8,7 +8,7 @@ export default defineConfig({
       '@app': new URL('./src/app', import.meta.url).pathname,
       '@shared':  new URL('./src/shared/index', import.meta.url).pathname,
       '@widgets':  new URL('./src/widgets', import.meta.url).pathname,
-      '@features':  new URL('./src/features', import.meta.url).pathname,
+      '@components':  new URL('./src/components', import.meta.url).pathname,
       '@entities':  new URL('./src/entities', import.meta.url).pathname,
       '@pages':  new URL('./src/pages', import.meta.url).pathname,
     }

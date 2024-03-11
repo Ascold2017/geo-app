@@ -1,5 +1,6 @@
 import { create } from "zustand";
-import { getUserTopics } from "../api";
+import { getUserTopic, getUserTopics } from "../api";
+import { UserTask } from "@entities/task";
 
 interface BaseTopic {
     id: number;
@@ -10,10 +11,18 @@ interface BaseTopic {
     sectionId: number;
 }
 
+
 export interface UserTopic extends BaseTopic {
     completed: boolean;
     progress: number;
 }
+
+
+
+export interface UserTopicWithTasks extends UserTopic {
+    tasks: UserTask[]
+}
+
 
 interface TopicsModel {
     topics: UserTopic[];
@@ -27,3 +36,15 @@ export const useTopicsModel = create<TopicsModel>((set) => ({
         set({ topics });
     }
 }));
+
+interface TopicModel {
+    topic: UserTopicWithTasks | null;
+    getTopic: (id: string) => Promise<void>
+}
+export const useTopicModel = create<TopicModel>((set) => ({
+    topic: null,
+    getTopic: async (id) => {
+        const data = await getUserTopic(id)
+        set({ topic: data })
+    }
+}))

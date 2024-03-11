@@ -5,7 +5,7 @@ import { useMount } from "ahooks";
 import { useConfirmStore } from "@widgets/appConfirm";
 import { AppDropdown, AppMenu, AppMenuItem, AppSpin, AUTH_PATH, PRACTICE_PATH, PROGRESS_PATH, TOPICS_PATH } from "@shared";
 import { useAppModel } from "@app/model";
-import { SelectSection, UserOnboardingModal } from "@widgets/userOnboarding";
+import { SelectSection, UserSelectSectionModal } from "@widgets/userSelectSection";
 
 export function UserLayout() {
     const navigate = useNavigate();
@@ -84,7 +84,7 @@ export function UserLayout() {
         <main className={`container mx-auto py-3 px-3 ${isMobile && 'py-16'}`}>
             {auth.user.token ? <Outlet /> : <AppSpin spinning />}
 
-            <UserOnboardingModal />
+            <UserSelectSectionModal />
         </main>
         <MobileView className="navbar navbar-center bg-primary text-white fixed bottom-0 justify-center">
             <AppMenu mobile items={menuList} />

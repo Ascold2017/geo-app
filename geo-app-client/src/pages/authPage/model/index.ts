@@ -10,26 +10,19 @@ type State = {
 };
 
 export const useAuthModel = create<State>(() => ({
-   
+
     signIn: async (login, password) => {
-        try {
-            const response = await axiosInstance.post<User>('/users/sign-in', { login, password });
-            const user = response.data;
-            useAppModel.getState().setUser(user)
-            localStorage.setItem('token', user.token);
-        } catch (error) {
-            useAppModel.getState().setUser(null)
-        }
+
+        const response = await axiosInstance.post<User>('/users/sign-in', { login, password });
+        const user = response.data;
+        useAppModel.getState().setUser(user)
+        localStorage.setItem('token', user.token);
     },
     signUp: async (login, password) => {
-        try {
-            const response = await axiosInstance.post<User>('/users/sign-up', { login, password });
-            const user = response.data;
-            useAppModel.getState().setUser(user)
-            localStorage.setItem('token', user.token);
-        } catch (error) {
-            useAppModel.getState().setUser(null)
-        }
+        const response = await axiosInstance.post<User>('/users/sign-up', { login, password });
+        const user = response.data;
+        useAppModel.getState().setUser(user)
+        localStorage.setItem('token', user.token);
     },
-   
+
 }));
