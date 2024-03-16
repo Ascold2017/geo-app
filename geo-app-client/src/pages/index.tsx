@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import React from "react";
 import { Route, createBrowserRouter, createRoutesFromElements } from "react-router-dom";
-import { AUTH_PATH, TOPICS_PATH, TOPIC_LECTURE_PATH, TOPIC_LETTERS_PATH, TOPIC_PATH, TOPIC_VIDEO_PATH, TOPIC_WORDS_PATH } from "@shared";
+import { AUTH_PATH, PRACTICE_PATH, PROGRESS_PATH, TOPICS_PATH, TOPIC_LECTURE_PATH, TOPIC_LETTERS_PATH, TOPIC_PATH, TOPIC_PRACTICE_PATH, TOPIC_VIDEO_PATH, TOPIC_WORDS_PATH } from "@shared";
 
 const AuthPage = React.lazy(() => import("@pages/authPage"));
 const UserLayout = React.lazy(() => import("@widgets/userLayout"));
@@ -11,6 +11,9 @@ const TopicVideoPage = React.lazy(() => import("@pages/topicVideoPage"));
 const TopicLecturePage = React.lazy(() => import("@pages/topicLecturePage"));
 const TopicWordsPage = React.lazy(() => import("@pages/topicWordsPage"));
 const TopicLettersPage = React.lazy(() => import("@pages/topicLettersPage"));
+const TopicPracticePage = React.lazy(() => import("@pages/topicPracticePage"));
+const PracticePage = React.lazy(() => import("@pages/practicePage"));
+const ProgressPage = React.lazy(() => import("@pages/progressPage"));
 
 export const router = createBrowserRouter(createRoutesFromElements(
   <>
@@ -23,12 +26,9 @@ export const router = createBrowserRouter(createRoutesFromElements(
       <Route path={TOPIC_LECTURE_PATH} element={<TopicLecturePage />} />
       <Route path={TOPIC_WORDS_PATH} element={<TopicWordsPage />} />
       <Route path={TOPIC_LETTERS_PATH} element={<TopicLettersPage />} />
+      <Route path={TOPIC_PRACTICE_PATH} element={<TopicPracticePage />} />
+      <Route path={PRACTICE_PATH} element={<PracticePage />} />
+      <Route path={PROGRESS_PATH} element={<ProgressPage />} />
     </Route>
   </>
 ));
-
-/*
-  <Route path={TOPIC_PRACTICE_PATH} element={<TopicPractice />} />
-  <Route path={PRACTICE_PATH} element={<PracticePage />} />
-  <Route path={PROGRESS_PATH} element={<ProgressPage />} />
-*/

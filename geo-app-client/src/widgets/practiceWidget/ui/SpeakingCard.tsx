@@ -1,10 +1,8 @@
 import { PlaySquareOutlined, CheckCircleFilled, QuestionCircleFilled, LoadingOutlined } from '@ant-design/icons';
 import { useEffect, useState } from 'react';
-// @ts-ignore sds
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
-import { UserTask } from '@common/constants/types';
-import useAudio from '@utils/useAudio';
-import { isMatchQA, splitVariant, } from '@utils/stringUtils';
+import { UserTask } from '@entities/task';
+import { isMatchQA, splitVariant, useAudio} from '@shared';
 
 type Props = { task: UserTask, onCheckReaded: () => void };
 

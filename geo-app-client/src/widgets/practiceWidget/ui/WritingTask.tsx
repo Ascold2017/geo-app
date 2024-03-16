@@ -1,8 +1,7 @@
 import { CheckCircleFilled, EditOutlined, PlayCircleFilled, QuestionCircleFilled } from "@ant-design/icons";
 import { useEffect, useState } from "react";
-import { UserTask } from "@common/constants/types";
-import useAudio from "@utils/useAudio";
-import { isMatchQA, splitVariant } from "@utils/stringUtils";
+import { UserTask } from "@entities/task";
+import { isMatchQA, splitVariant, useAudio } from "@shared";
 import Keyboard from "./Keyboard";
 type Props = { isRevert: boolean; task: UserTask, onCheckReaded: () => void };
 

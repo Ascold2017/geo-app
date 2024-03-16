@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { UserTask } from "../../constants/types"
+import { UserTask } from "@entities/task"
 import ComposeBlocksTask from "./ComposeBlocksTask";
 import ListeningTask from "./ListeningTask";
 import SpeakingCard from "./SpeakingCard";
@@ -22,7 +22,7 @@ export enum TaskTypes {
     SPEAKING = 'speaking'
 }
 
-export default function TaskCard({ tasks, id, checkReaded, forcedTaskTypes }: Props) {
+export function PracticeWidgetTask({ tasks, id, checkReaded, forcedTaskTypes }: Props) {
     const task = tasks.find(e => e.id === id)!;
     const [type, setType] = useState<TaskTypes>(TaskTypes.COMPOSE);
 
@@ -32,16 +32,15 @@ export default function TaskCard({ tasks, id, checkReaded, forcedTaskTypes }: Pr
             setType(forcedTaskTypes[forcedTaskTypes.length * Math.random() << 0])
         } else {
             const keys = Object.keys(TaskTypes);
-            // @ts-ignore asdsasd
             const type = TaskTypes[keys[keys.length * Math.random() << 0]];
             setType(type)
         }
     }, [])
 
     return <article className="app-card">
-            {type.includes('compose') && <ComposeBlocksTask isRevert={type === 'compose_revert'} task={task} tasks={tasks} onCheckReaded={() => checkReaded(id)} />}
-            {type.includes('writing') && <WritingTask isRevert={type === 'writing_revert'}  task={task} onCheckReaded={() => checkReaded(id)}/>}
-            {type.includes('listening') && <ListeningTask task={task} tasks={tasks} onCheckReaded={() => checkReaded(id)} />}
-            {type.includes('speaking') && <SpeakingCard task={task} onCheckReaded={() => checkReaded(id)} />}
+        {type.includes('compose') && <ComposeBlocksTask isRevert={type === 'compose_revert'} task={task} tasks={tasks} onCheckReaded={() => checkReaded(id)} />}
+        {type.includes('writing') && <WritingTask isRevert={type === 'writing_revert'} task={task} onCheckReaded={() => checkReaded(id)} />}
+        {type.includes('listening') && <ListeningTask task={task} tasks={tasks} onCheckReaded={() => checkReaded(id)} />}
+        {type.includes('speaking') && <SpeakingCard task={task} onCheckReaded={() => checkReaded(id)} />}
     </article>
 }

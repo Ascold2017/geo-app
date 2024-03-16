@@ -13,6 +13,7 @@ export default function Keyboard({ inputHandler, value }: Props) {
         ["SPACE", s("ზ", "ძ"), "ხ", s("ც", "ჩ"), "ვ", "ბ", "ნ", "მ"],
     ];
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const onClick = (input: string | any) => {
         let key = input;
         if (typeof input === "object") {
