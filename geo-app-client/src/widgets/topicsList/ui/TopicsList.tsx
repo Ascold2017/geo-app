@@ -1,15 +1,15 @@
-import { useAppModel } from '@app/model';
 import {  useTopicsModel } from '@entities/topics'
 import { AppSpin } from '@shared';
 import { useRequest } from 'ahooks';
 import { useEffect } from 'react';
 import { TopicCard } from './TopicCard';
+import { useUserModel } from '@entities/user';
 
 
 export function TopicsList() {
     const { getTopics, topics } = useTopicsModel()
     
-    const user = useAppModel(s => s.user);
+    const user = useUserModel(s => s.user);
 
     const { loading, error, runAsync } = useRequest(getTopics, { manual: true })
 

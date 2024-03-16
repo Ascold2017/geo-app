@@ -12,13 +12,16 @@ export interface UserSection extends BaseSection { }
 
 
 interface SectionsModelState {
+    loaded: boolean;
     sections: BaseSection[];
-    getSections: () => Promise<void>;
+    getSectionsOnce: () => Promise<void>;
 }
-export const useSectionsModel = create<SectionsModelState>((set) => ({
+export const useSectionsModel = create<SectionsModelState>((set, get) => ({
+    loaded: false,
     sections: [],
-    getSections: async () => {
+    getSectionsOnce: async () => {
+        if (get().loaded) return;
         const data = await getSections();
-        set({ sections: data });
+        set({ sections: data, loaded: true });
     }
 }));

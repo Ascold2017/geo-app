@@ -1,4 +1,5 @@
 
+export const ADMIN_PATH = '/admin';
 export const AUTH_PATH = '/auth';
 export const PRACTICE_PATH = '/practice'
 export const PROGRESS_PATH = '/progress'

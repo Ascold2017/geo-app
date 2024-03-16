@@ -1,16 +1,15 @@
 import { useMount } from 'ahooks'
 import { RouterProvider } from 'react-router-dom';
-import { register } from './servicesWorkerRegistration';
-import { AppNotification, useNotificationStore } from '@widgets/appNotifications';
-import { usePushStore } from '@widgets/appPush';
-import { AppConfirm } from '@widgets/appConfirm';
+import { Notifications, useNotificationModel } from '@features/notifications';
+import { usePushModel, register } from '@features/push';
+import { ConfirmModal } from '@features/confirm';
 import './styles.css';
 import { router } from '@pages/index';
 import { Suspense } from 'react';
 
 export function App() {
-    const showNotification = useNotificationStore(s => s.showNotification);
-    const { subscribePush } = usePushStore();
+    const showNotification = useNotificationModel(s => s.showNotification);
+    const { subscribePush } = usePushModel();
     useMount(() => {
         register({
             async onRegister(registration) {
@@ -23,12 +22,12 @@ export function App() {
     });
 
     return <>
-    <Suspense>
-    <RouterProvider router={router} />
-    </Suspense>
-        
-        <AppNotification />
-        <AppConfirm />
+        <Suspense>
+            <RouterProvider router={router} />
+        </Suspense>
+
+        <Notifications />
+        <ConfirmModal />
     </>
 }
 
