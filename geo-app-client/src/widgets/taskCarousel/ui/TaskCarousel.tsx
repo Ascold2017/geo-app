@@ -1,15 +1,16 @@
 import { useState } from "react";
-import { UserTask, useTaskModel } from "@entities/task"
-import { TaskCard } from "@components/TaskCard";
+import { UserTask } from "@entities/task"
+import { TaskCard } from "@entities/task";
+import { useCheckReadedTask } from "@features/checkReadedTask";
 
 interface Props {
     tasks: UserTask[]
     renderFooter: (next: () => void, isLastTask: boolean) => React.ReactNode;
 }
-export function TasksToLearn({ tasks, renderFooter }: Props) {
+export function TaskCarousel({ tasks, renderFooter }: Props) {
     const [currentTaskId, setCurrentTaskId] = useState<number | null>(tasks[0]?.id || null)
     const [isLastTask, setIsLastTask] = useState(false);
-    const { checkReaded } = useTaskModel()
+    const { checkReadedTask } = useCheckReadedTask()
 
     function next() {
         const tsks = tasks.sort((a, b) => a.id >= b.id ? 1 : -1);
@@ -25,7 +26,7 @@ export function TasksToLearn({ tasks, renderFooter }: Props) {
     const currentTask = tasks.find(task => task.id === currentTaskId);
     if (!currentTask) return null;
     return <div>
-        <TaskCard task={currentTask} checkReaded={checkReaded} className="mb-3" />
+        <TaskCard task={currentTask} onTapTask={checkReadedTask} className="mb-3" />
         {renderFooter(next, isLastTask)}
     </div>
 }

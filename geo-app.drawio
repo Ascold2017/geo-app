@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2024-03-16T15:15:34.380Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36" etag="YMC9vrHk4aPL08LghELQ" version="24.0.6" type="device">
+<mxfile host="app.diagrams.net" modified="2024-03-16T15:30:06.408Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36" etag="u1c4FLyyXNXjxi_Du-eG" version="24.0.6" type="device">
   <diagram name="Page-1" id="sZi7YRQUznMkWtvt5kRm">
     <mxGraphModel dx="1313" dy="1832" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -372,14 +372,8 @@
         <mxCell id="1uYXqPGWu5NtH5E6OTEn-21" value="&lt;b&gt;Widgets&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="40" y="1480" width="60" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="1uYXqPGWu5NtH5E6OTEn-22" value="NewTopicWords" style="whiteSpace=wrap;html=1;align=center;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
-          <mxGeometry x="650" y="1480" width="100" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="1uYXqPGWu5NtH5E6OTEn-23" value="NewTopicLetters" style="whiteSpace=wrap;html=1;align=center;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+        <mxCell id="1uYXqPGWu5NtH5E6OTEn-24" value="taskCarousel" style="whiteSpace=wrap;html=1;align=center;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
           <mxGeometry x="790" y="1480" width="100" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="1uYXqPGWu5NtH5E6OTEn-24" value="taskCarousel" style="whiteSpace=wrap;html=1;align=center;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
-          <mxGeometry x="720" y="1355" width="100" height="40" as="geometry" />
         </mxCell>
         <mxCell id="1uYXqPGWu5NtH5E6OTEn-25" value="TopicPractice" style="whiteSpace=wrap;html=1;align=center;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
           <mxGeometry x="960" y="1480" width="100" height="40" as="geometry" />
@@ -410,6 +404,12 @@
         </mxCell>
         <mxCell id="1uYXqPGWu5NtH5E6OTEn-34" value="UserLayout" style="whiteSpace=wrap;html=1;align=center;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
           <mxGeometry x="160" y="1480" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="1uYXqPGWu5NtH5E6OTEn-35" value="checkReadedTask" style="whiteSpace=wrap;html=1;align=center;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="630" y="1355" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="1uYXqPGWu5NtH5E6OTEn-36" value="checkCompletedTask" style="whiteSpace=wrap;html=1;align=center;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="800" y="1355" width="130" height="40" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

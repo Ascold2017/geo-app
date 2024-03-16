@@ -1,1 +1,0 @@
-export { TasksToLearn as default } from './ui/TasksToLearn';

@@ -1,14 +1,14 @@
 import { CheckCircleFilled, PlayCircleFilled } from "@ant-design/icons";
-import { UserTask } from "@entities/task";
 import { HTMLProps, useState, useEffect } from "react";
 import { useAudio } from "@shared";
 import './taskCard.css';
+import { UserTask } from "../model";
 
 interface TaskCardProps {
     task: UserTask;
-    checkReaded: (id: number) => Promise<void>
+    onTapTask: (id: number) => Promise<void>
 }
-export function TaskCard({ task, checkReaded, className }: TaskCardProps & HTMLProps<HTMLDivElement>) {
+export function TaskCard({ task, onTapTask, className }: TaskCardProps & HTMLProps<HTMLDivElement>) {
     const [flip, setFlip] = useState(false);
     const [readed, setIsReaded] = useState(task.repeated > 0);
     const { playUrl, play } = useAudio(task.soundUrl || null);
@@ -21,7 +21,7 @@ export function TaskCard({ task, checkReaded, className }: TaskCardProps & HTMLP
         play();
         setFlip(!flip);
         if (!readed) {
-            await checkReaded(task.id);
+            await onTapTask(task.id);
             setIsReaded(true);
         }
     }

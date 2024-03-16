@@ -1,5 +1,3 @@
-import { create } from "zustand";
-import { postCheckCompleted, postCheckReaded } from "../api";
 
 export enum TaskTypesEnum {
     LETTER = 'letter',
@@ -22,17 +20,3 @@ export interface UserTask extends BaseTask {
     isCompleted: boolean;
     nextRepeat: number;
 }
-
-interface TaskModel {
-    checkReaded: (id: number) => Promise<void>;
-    checkCompleted: (id: number, value: boolean) => Promise<void>;
-}
-
-export const useTaskModel = create<TaskModel>(() => ({
-    checkReaded: async (id) => {
-        await postCheckReaded(id)
-    },
-    checkCompleted: async (id, value) => {
-        await postCheckCompleted(id, value)
-    }
-}));
