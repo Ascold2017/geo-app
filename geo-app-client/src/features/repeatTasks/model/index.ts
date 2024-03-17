@@ -56,7 +56,7 @@ export const useRepeatTasks = (tasks: UserTask[], forcedTaskTypes: PracticeTypes
     function next() {
         const currentStepType = allSteps[currentStep]?.taskType;
 
-        if (currentStep < 2) {
+        if (currentStep < steps.length) {
             const tsks = tasks.filter(ex => ex.type === currentStepType).sort((a, b) => a.id >= b.id ? 1 : -1);
             const progressDelta = 100 / tsks.length;
             const index = tsks.findIndex(ex => ex.id === currentTaskId);
