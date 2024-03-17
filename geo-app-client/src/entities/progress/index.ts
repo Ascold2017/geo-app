@@ -1,1 +1,0 @@
-export { useProgressModel } from './model/index'

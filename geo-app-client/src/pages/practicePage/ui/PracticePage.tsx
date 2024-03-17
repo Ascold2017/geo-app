@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { usePracticeModel } from "@entities/practice";
+import { usePracticeModel } from "@entities/task";
 import { PracticeTypes, SelectPracticeType } from "@features/repeatTasks";
 import { PracticeWidget } from "@widgets/practiceWidget";
 import { AppSpin, useLoading, formatDDHHMM } from "@shared";
