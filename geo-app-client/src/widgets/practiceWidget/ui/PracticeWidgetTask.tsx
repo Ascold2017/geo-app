@@ -13,7 +13,7 @@ type Props = {
 }
 
 export function PracticeWidgetTask({ tasks, id, onSuccess, practiceType }: Props) {
-    return <article className="app-card">
+    return <article className="card">
         {practiceType.includes('compose') && <CheckCompositionPracticeCard isRevert={practiceType === 'compose_revert'} taskId={id} tasks={tasks} onSuccess={onSuccess} />}
         {practiceType.includes('listening') && <CheckListeningPracticeCard taskId={id} tasks={tasks} onSuccess={onSuccess} />}
         {practiceType.includes('writing') && <CheckWritingPracticeCard isRevert={practiceType === 'writing_revert'} task={tasks.find(t => t.id === id)!} onSuccess={onSuccess} />}

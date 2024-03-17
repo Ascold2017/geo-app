@@ -1,55 +1,51 @@
-import { UserTask } from "@entities/task";
+import { TaskCardPractice, UserTask } from "@entities/task";
 import { useCheckSpeakingPractice } from "../model";
-import { CheckCircleFilled, LoadingOutlined, PlaySquareOutlined, QuestionCircleFilled } from "@ant-design/icons";
-import { splitVariant, useAudio } from "@shared";
-import { useEffect, useState } from "react";
+import { LoadingOutlined, PlaySquareOutlined } from "@ant-design/icons";
+import { useAudio } from "@shared";
+import { useEffect } from "react";
 
 interface CheckSpeakingPracticeCardProps {
-    task: UserTask;
-    onSuccess: () => void;
+  task: UserTask;
+  onSuccess: () => void;
 }
 export function CheckSpeakingPracticeCard({ task, onSuccess }: CheckSpeakingPracticeCardProps) {
-    const { play } = useAudio(task.soundUrl || null);
-    const { isSuccess, isRecording, record, listening, onPressEnd, onPressStart} = useCheckSpeakingPractice(task);
-    const [isShowTranscription, setIsShowTranscription] = useState(false);
-    const toggleTranscription = () => setIsShowTranscription(!isShowTranscription);
+  const { play } = useAudio(task.soundUrl || null);
+  const { isSuccess, isRecording, record, listening, onPressEnd, onPressStart } = useCheckSpeakingPractice(task);
 
-    useEffect(() => {
-        play();
-        onSuccess()
-    }, [isSuccess]);
-    
-    return (
-        <>
-          <div className='task-card'>
-            <div className="task-card-container">
-              <CheckCircleFilled className='task-card-status' style={{ color: isSuccess ? 'green' : 'red' }} />
-              {task.imageUrl && <img src={task.imageUrl} className='task-card-image' />}
-              <p className="app-text-2 text-center px-9">
-                {
-                  isShowTranscription
-                    ? <span>Транскр.: {task.transcription}</span>
-                    : <span>{splitVariant(task.ka)}</span>
-                }
-              </p>
-              <button title="Показать транскрипцию" onClick={toggleTranscription} className='task-card-transcription'><QuestionCircleFilled /></button>
-    
-              <button
-                onMouseDown={onPressStart}
-                onMouseUp={onPressEnd}
-                onTouchStart={onPressStart}
-                onTouchEnd={onPressEnd}
-                className='btn task-card-play'
-              >
-                {isRecording && listening ? <LoadingOutlined /> : <PlaySquareOutlined />} Говорить
-              </button>
-            </div>
+  useEffect(() => {
+    play();
+    onSuccess()
+  }, [isSuccess]);
+
+  return (
+    <>
+      <TaskCardPractice
+        task={task}
+        isRevert={false}
+        isSuccess={isSuccess}
+        playSlot={
+          <button
+            onMouseDown={onPressStart}
+            onMouseUp={onPressEnd}
+            onTouchStart={onPressStart}
+            onTouchEnd={onPressEnd}
+            className='btn task-card-play'
+          >
+            {isRecording && listening ? <LoadingOutlined /> : <PlaySquareOutlined />} Говорить
+          </button>
+        }
+        footerSlot={
+          <div className="flex wrap items-center mt-6">
+            <span className="app-text-2 mr-3">Ответ: </span>
+            {record && <button className="btn mr-1 mb-1" onClick={onPressEnd}>{record}</button>}
           </div>
-    
-          <div className="divider" />
-    
-          <div>Вы сказали: {record || '_________'}</div>
-          {isSuccess && <div>Перевод: {task.ru}</div>}
-        </>
-      );
+        }
+      />
+
+      <div className="divider" />
+
+      <div>Вы сказали: {record || '_________'}</div>
+      {isSuccess && <div>Перевод: {task.ru}</div>}
+    </>
+  );
 }

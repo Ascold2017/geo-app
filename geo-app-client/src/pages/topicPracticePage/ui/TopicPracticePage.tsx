@@ -21,7 +21,7 @@ export function TopicPracticePage() {
         <AppSpin spinning={loadingTopic} />
         <PracticeWidget
             tasks={topic.tasks}
-            practiceTypes={[PracticeTypes.WRITING]}
+            practiceTypes={[PracticeTypes.COMPOSE, PracticeTypes.COMPOSE_REVERT]}
             renderFooter={() => <button onClick={() => navigate(TOPIC_PATH_GEN(+id!))} className="btn"><BackwardOutlined /> Покинуть урок</button>}
         />
     </>
