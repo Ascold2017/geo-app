@@ -1,41 +1,28 @@
-import { CheckCircleFilled, PlayCircleFilled, QuestionCircleFilled } from "@ant-design/icons";
-import { useState, useEffect } from "react";
 import { UserTask } from "@entities/task";
-import { useAudio, shuffle, generateBlocks, isMatchQA, splitVariant } from "@shared";
-import { useMount } from "ahooks";
+import { useCheckCompositionPractice } from "../model"
+import { CheckCircleFilled, PlayCircleFilled, QuestionCircleFilled } from "@ant-design/icons";
+import { splitVariant, useAudio } from "@shared";
+import { useEffect, useState } from "react";
 
-type Props = { isRevert: boolean; task: UserTask, tasks: UserTask[], onCheckReaded: () => void };
+interface CheckCompositionPracticeCard {
+    taskId: number;
+    tasks: UserTask[];
+    isRevert: boolean;
+    onSuccess: () => void;
+}
+export function CheckCompositionPracticeCard({ taskId, tasks, isRevert, onSuccess }: CheckCompositionPracticeCard) {
 
-export default function ComposeBlocksTask({ isRevert, task, tasks, onCheckReaded }: Props) {
+    const { task, blocks, answerBlocks, addBlock, removeBlock, isSuccess } = useCheckCompositionPractice(taskId, tasks, isRevert);
     const { play } = useAudio(task.soundUrl || null);
     const [isShowTranscription, setIsShowTranscription] = useState(false);
-
-    const [kaBlocks, setKaBlocks] = useState<string[]>([])
-    const [ruBlocks, setRuBlocks] = useState<string[]>([])
-    const [answerBlocks, setAnswerBlocks] = useState<string[]>([]);
-    const isSuccess = isMatchQA(answerBlocks, isRevert ? task.ka : task.ru);
-
-    useMount(() => init())
-
-    useEffect(() => {
-        if (isSuccess) onCheckReaded();
-    }, [isSuccess]);
-
-    useEffect(() => {
-        if (isSuccess) play();
-    }, [isSuccess])
-
-    function init() {
-        setKaBlocks(generateBlocks(task.ka, shuffle(tasks).slice(0, 3).map(t => t.ka)));
-        setRuBlocks(generateBlocks(task.ru, shuffle(tasks).slice(0, 3).map(t => t.ru)));
-    }
-
-    const addBlock = (block: string) => {
-        setAnswerBlocks([...answerBlocks, block])
-    };
-    const removeBlock = (i: number) => setAnswerBlocks(answerBlocks.filter((_b, index) => index !== i));
     const toggleTranscription = () => setIsShowTranscription(!isShowTranscription)
-
+    useEffect(() => {
+        if (isSuccess) {
+            play();
+            onSuccess();
+        }
+    }, [isSuccess])
+    
     return <>
         <div className="task-card">
             <div className="task-card-container" >
@@ -59,7 +46,7 @@ export default function ComposeBlocksTask({ isRevert, task, tasks, onCheckReaded
         </div>
         <div className="app-divider" />
         <div>
-            {(isRevert ? kaBlocks : ruBlocks).map((b, i) => <button key={i} onClick={() => addBlock(b)} className="btn mx-1 my-1">{b}</button>)}
+            {blocks.map((b, i) => <button key={i} onClick={() => addBlock(b)} className="btn mx-1 my-1">{b}</button>)}
         </div>
     </>
 }

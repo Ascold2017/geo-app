@@ -1,26 +1,29 @@
-import { CheckCircleFilled, EditOutlined, PlayCircleFilled, QuestionCircleFilled } from "@ant-design/icons";
-import { useEffect, useState } from "react";
+import { CheckCircleFilled, QuestionCircleFilled, PlayCircleFilled, EditOutlined } from "@ant-design/icons";
+
+import { useState, useEffect } from "react";
+import { useAudio, splitVariant } from "@shared";
 import { UserTask } from "@entities/task";
-import { isMatchQA, splitVariant, useAudio } from "@shared";
+import { useCheckWritingPractice } from "../model";
 import Keyboard from "./Keyboard";
-type Props = { isRevert: boolean; task: UserTask, onCheckReaded: () => void };
 
-
-export default function WritingTask({ task, isRevert, onCheckReaded }: Props) {
+interface CheckWritingPracticeCardProps {
+    task: UserTask;
+    isRevert: boolean;
+    onSuccess: () => void;
+}
+export function CheckWritingPracticeCard({ task, isRevert, onSuccess }: CheckWritingPracticeCardProps) {
+    const { userAnswer, setUserAnswer, isSuccess } = useCheckWritingPractice(task, isRevert)
     const { play } = useAudio(task.soundUrl || null);
     const [isShowTranscription, setIsShowTranscription] = useState(false);
     const [isShowKeyboard, setIsShowKeyboard] = useState(false);
-    const [userAnswer, setUserAnswer] = useState('');
-    const isSuccess = isMatchQA(userAnswer, isRevert ? task.ka : task.ru);
     const toggleTranscription = () => setIsShowTranscription(!isShowTranscription)
     const toggleKeyboard = () => setIsShowKeyboard(!isShowKeyboard);
 
     useEffect(() => {
-        if (isSuccess) onCheckReaded();
-    }, [userAnswer]);
-
-    useEffect(() => {
-        if (isSuccess) play();
+        if (isSuccess) {
+            play();
+            onSuccess()
+        }
     }, [isSuccess])
 
     return <>
@@ -48,7 +51,7 @@ export default function WritingTask({ task, isRevert, onCheckReaded }: Props) {
                     ><EditOutlined /></button>
                 }
 
-                <textarea className="input" placeholder={isRevert ? 'Пишите по-грузински' : 'Пишите по-русски'} value={userAnswer} onChange={e => setUserAnswer(e.target.value)} />
+                <textarea className="input w-full" placeholder={isRevert ? 'Пишите по-грузински' : 'Пишите по-русски'} value={userAnswer} onChange={e => setUserAnswer(e.target.value)} />
             </div>
 
             {isShowKeyboard && isRevert && <Keyboard value={userAnswer} inputHandler={setUserAnswer} />}

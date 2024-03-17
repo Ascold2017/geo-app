@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2024-03-16T16:18:42.001Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36" etag="6ltvqDJabc2m5XA9kPur" version="24.0.6" type="device">
+<mxfile host="app.diagrams.net" modified="2024-03-16T16:23:51.715Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36" etag="bGFwEGoSH3HtI-enYZ_j" version="24.0.6" type="device">
   <diagram name="Page-1" id="sZi7YRQUznMkWtvt5kRm">
     <mxGraphModel dx="1313" dy="1832" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -379,7 +379,7 @@
           <mxGeometry x="980" y="1480" width="100" height="40" as="geometry" />
         </mxCell>
         <mxCell id="1uYXqPGWu5NtH5E6OTEn-27" value="repeatTasks" style="whiteSpace=wrap;html=1;align=center;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
-          <mxGeometry x="1020" y="1355" width="100" height="40" as="geometry" />
+          <mxGeometry x="950" y="1355" width="100" height="40" as="geometry" />
         </mxCell>
         <mxCell id="1uYXqPGWu5NtH5E6OTEn-28" value="ProgressList" style="whiteSpace=wrap;html=1;align=center;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
           <mxGeometry x="1230" y="1480" width="100" height="40" as="geometry" />
@@ -403,7 +403,19 @@
           <mxGeometry x="810" y="1355" width="130" height="40" as="geometry" />
         </mxCell>
         <mxCell id="1uYXqPGWu5NtH5E6OTEn-36" value="checkCompletedTask" style="whiteSpace=wrap;html=1;align=center;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
-          <mxGeometry x="1241" y="1370" width="130" height="40" as="geometry" />
+          <mxGeometry x="1290" y="1320" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="1uYXqPGWu5NtH5E6OTEn-37" value="checkComposition" style="whiteSpace=wrap;html=1;align=center;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="820" y="1410" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="1uYXqPGWu5NtH5E6OTEn-38" value="checkListening" style="whiteSpace=wrap;html=1;align=center;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="955" y="1410" width="105" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="1uYXqPGWu5NtH5E6OTEn-39" value="checkSpeaking" style="whiteSpace=wrap;html=1;align=center;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="1060" y="1355" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="1uYXqPGWu5NtH5E6OTEn-40" value="checkWriting" style="whiteSpace=wrap;html=1;align=center;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="1080" y="1410" width="100" height="40" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

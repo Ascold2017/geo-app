@@ -1,46 +1,22 @@
-import { useEffect, useState } from "react";
 import { UserTask } from "@entities/task"
-import ComposeBlocksTask from "./ComposeBlocksTask";
-import ListeningTask from "./ListeningTask";
-import SpeakingCard from "./SpeakingCard";
-import WritingTask from "./WritingTask";
+import { PracticeTypes } from "@features/repeatTasks";
+import { CheckCompositionPracticeCard } from "@features/checkCompositionPractice";
+import { CheckListeningPracticeCard } from "@features/checkListeningPractice";
+import { CheckWritingPracticeCard } from "@features/checkWritingPractice";
+import { CheckSpeakingPracticeCard } from "@features/checkSpeakingPractice";
 
 type Props = {
     tasks: UserTask[],
     id: number;
-    checkReaded: (id: number) => void;
-    forcedTaskTypes?: TaskTypes[];
+    onSuccess: () => void;
+    practiceType: PracticeTypes;
 }
 
-// eslint-disable-next-line react-refresh/only-export-components
-export enum TaskTypes {
-    COMPOSE = 'compose',
-    COMPOSE_REVERT = 'compose_revert',
-    WRITING = 'writing',
-    WRITING_REVERT = 'writing_revert',
-    LISTENING = 'listening',
-    SPEAKING = 'speaking'
-}
-
-export function PracticeWidgetTask({ tasks, id, checkReaded, forcedTaskTypes }: Props) {
-    const task = tasks.find(e => e.id === id)!;
-    const [type, setType] = useState<TaskTypes>(TaskTypes.COMPOSE);
-
-    useEffect(() => {
-        if (forcedTaskTypes) {
-            // Pick one of forcedTaskTypes
-            setType(forcedTaskTypes[forcedTaskTypes.length * Math.random() << 0])
-        } else {
-            const keys = Object.keys(TaskTypes);
-            const type = TaskTypes[keys[keys.length * Math.random() << 0]];
-            setType(type)
-        }
-    }, [])
-
+export function PracticeWidgetTask({ tasks, id, onSuccess, practiceType }: Props) {
     return <article className="app-card">
-        {type.includes('compose') && <ComposeBlocksTask isRevert={type === 'compose_revert'} task={task} tasks={tasks} onCheckReaded={() => checkReaded(id)} />}
-        {type.includes('writing') && <WritingTask isRevert={type === 'writing_revert'} task={task} onCheckReaded={() => checkReaded(id)} />}
-        {type.includes('listening') && <ListeningTask task={task} tasks={tasks} onCheckReaded={() => checkReaded(id)} />}
-        {type.includes('speaking') && <SpeakingCard task={task} onCheckReaded={() => checkReaded(id)} />}
+        {practiceType.includes('compose') && <CheckCompositionPracticeCard isRevert={practiceType === 'compose_revert'} taskId={id} tasks={tasks} onSuccess={onSuccess} />}
+        {practiceType.includes('listening') && <CheckListeningPracticeCard taskId={id} tasks={tasks} onSuccess={onSuccess} />}
+        {practiceType.includes('writing') && <CheckWritingPracticeCard isRevert={practiceType === 'writing_revert'} task={tasks.find(t => t.id === id)!} onSuccess={onSuccess} />}
+        {practiceType.includes('speaking') && <CheckSpeakingPracticeCard task={tasks.find(t => t.id === id)!} onSuccess={onSuccess} />}
     </article>
 }

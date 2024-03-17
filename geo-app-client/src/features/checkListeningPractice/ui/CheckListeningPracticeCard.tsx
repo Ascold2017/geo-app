@@ -1,45 +1,30 @@
-import { CheckCircleFilled, PlaySquareOutlined, QuestionCircleFilled } from "@ant-design/icons";
-import { useEffect, useState } from "react";
 import { UserTask } from "@entities/task";
-import { generateBlocks, isMatchQA, splitVariant, shuffle, useAudio } from "@shared";
-import { useMount } from "ahooks";
+import { useCheckListeningPractice } from "../model";
+import { CheckCircleFilled, PlaySquareOutlined, QuestionCircleFilled } from "@ant-design/icons";
+import { splitVariant, useAudio } from "@shared";
+import { useEffect, useState } from "react";
 
-type Props = { task: UserTask, tasks: UserTask[], onCheckReaded: () => void };
-
-export default function ListeningTask({ task, tasks, onCheckReaded }: Props) {
+interface CheckListeningPracticeCardProps {
+    taskId: number;
+    tasks: UserTask[];
+    onSuccess: () => void;
+}
+export function CheckListeningPracticeCard({ taskId, tasks, onSuccess, }: CheckListeningPracticeCardProps) {
+    const { kaBlocks, answerBlocks, task, addBlock, removeBlock, isSuccess } = useCheckListeningPractice(taskId, tasks)
     const { play } = useAudio(task.soundUrl || null);
     const [isShowTranscription, setIsShowTranscription] = useState(false);
-
-    const [kaBlocks, setKaBlocks] = useState<string[]>([])
-    const [answerBlocks, setAnswerBlocks] = useState<string[]>([]);
-    const isSuccess = isMatchQA(answerBlocks, task.ka);
-
-    useMount(() => init())
-
-    useEffect(() => {
-        if (isSuccess) onCheckReaded();
-    }, [answerBlocks, isSuccess, onCheckReaded]);
-
-    useEffect(() => {
-        if (isSuccess) play();
-    }, [isSuccess, play])
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    function init() {
-        setKaBlocks(generateBlocks(task.ka, shuffle(tasks).slice(0, 3).map(t => t.ka)));
-
-    }
-
-    const addBlock = (block: string) => {
-        setAnswerBlocks([...answerBlocks, block])
-    };
-    const removeBlock = (i: number) => setAnswerBlocks(answerBlocks.filter((_b, index) => index !== i));
     const toggleTranscription = () => setIsShowTranscription(!isShowTranscription)
-
+    useEffect(() => {
+        if (isSuccess) {
+            play();
+            onSuccess();
+        }
+    }, [isSuccess]);
+    
     return <>
         <div className="task-card">
             <div className="task-card-container">
-                <CheckCircleFilled className="task-card-status" style={{ color: isSuccess ? 'green' : 'red' }}/>
+                <CheckCircleFilled className="task-card-status" style={{ color: isSuccess ? 'green' : 'red' }} />
                 {task.imageUrl && <img src={task.imageUrl} className="task-card-image" />}
                 <p className="app-text-1 text-center px-9">
                     {
@@ -60,9 +45,9 @@ export default function ListeningTask({ task, tasks, onCheckReaded }: Props) {
                 <span className="app-text-2 mr-3">Ответ: </span>{answerBlocks.map((b, i) => <button className="btn mr-1 mb-1" key={i} onClick={() => removeBlock(i)}>{b}</button>)}
             </div>
         </div>
-        <div className="divider"/>
+        <div className="divider" />
         <div>
-            {kaBlocks.map((b, i) =>  <button key={i} onClick={() => addBlock(b)} className="btn mx-1 my-1">{b}</button>)}
+            {kaBlocks.map((b, i) => <button key={i} onClick={() => addBlock(b)} className="btn mx-1 my-1">{b}</button>)}
         </div>
     </>
 }
