@@ -22,7 +22,7 @@ export function TopicPracticePage() {
         <PracticeWidget
             tasks={topic.tasks}
             practiceTypes={[PracticeTypes.COMPOSE, PracticeTypes.COMPOSE_REVERT]}
-            renderFooter={() => <button onClick={() => navigate(TOPIC_PATH_GEN(+id!))} className="btn"><BackwardOutlined /> Покинуть урок</button>}
+            renderFooter={<button onClick={() => navigate(TOPIC_PATH_GEN(+id!))} className="btn"><BackwardOutlined /> Покинуть урок</button>}
         />
     </>
 }

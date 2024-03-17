@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { TaskTypesEnum, UserTask } from "@entities/task";
+import { useMount } from "ahooks";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export enum PracticeTypes {
@@ -29,9 +30,13 @@ export const useRepeatTasks = (tasks: UserTask[], forcedTaskTypes: PracticeTypes
         }
     }, [currentTaskId])
 
-    
-    useEffect(() => {
+    useMount(() => {
         next()
+    })
+
+
+    useEffect(() => {
+
     }, [currentStep]);
 
     const allSteps = [
@@ -50,18 +55,22 @@ export const useRepeatTasks = (tasks: UserTask[], forcedTaskTypes: PracticeTypes
             title: 'Предложения',
             taskType: TaskTypesEnum.SENTENCE
         },
+        {
+            isShow: true,
+            title: 'Финиш'
+        }
     ]
-
+    const steps = allSteps.filter(s => s.isShow);
 
     function next() {
-        const currentStepType = allSteps[currentStep]?.taskType;
-
+        const currentStepType = steps[currentStep]?.taskType;
         if (currentStep < steps.length) {
             const tsks = tasks.filter(ex => ex.type === currentStepType).sort((a, b) => a.id >= b.id ? 1 : -1);
             const progressDelta = 100 / tsks.length;
             const index = tsks.findIndex(ex => ex.id === currentTaskId);
 
             const nextExId = tsks[index + 1]?.id || null;
+
             if (nextExId) {
                 setCurrentTaskId(nextExId);
                 setCurrentStepProgress(currentStepProgress + progressDelta);
@@ -71,13 +80,11 @@ export const useRepeatTasks = (tasks: UserTask[], forcedTaskTypes: PracticeTypes
                 setCurrentStep(currentStep + 1);
             }
             setIsDisabledNext(true)
-        } else {
-            // onLastStep();
         }
     }
 
     const currentTask = tasks.find(ex => ex.id === currentTaskId);
-    const steps = allSteps.filter(s => s.isShow);
+
     return {
         steps,
         currentStep,

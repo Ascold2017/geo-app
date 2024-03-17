@@ -15,10 +15,6 @@ export function PracticePage() {
     if (loading) return <AppSpin spinning />;
     if (error) return <p className="app-text-1 text-center">Произошла ошибка: {error?.message}</p>
 
-    const renderPractice = () => {
-        return <PracticeWidget tasks={practiceTasks} practiceTypes={selectedTaskTypes} renderFooter={() => null} />
-    }
-
     const renderNoTasks = () => {
         return (
             <>
@@ -35,7 +31,7 @@ export function PracticePage() {
                 {
                     practiceTasks.length
                         ? selectedTaskTypes.length
-                            ? renderPractice()
+                            ? <PracticeWidget tasks={practiceTasks} practiceTypes={selectedTaskTypes} />
                             : <SelectPracticeType
                                 headerSlot={<>
                                     <h3 className="app-title-2 text-center mb-6">Выберите вид тренировки</h3>

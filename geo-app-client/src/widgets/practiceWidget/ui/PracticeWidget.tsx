@@ -5,14 +5,14 @@ import { PracticeWidgetTask } from "./PracticeWidgetTask";
 import { PracticeTypes, useRepeatTasks } from "@features/repeatTasks";
 import { useCheckReadedTask } from "@features/checkReadedTask";
 import { ForwardOutlined } from "@ant-design/icons";
+import { memo } from "react";
 
 type Props = {
     tasks: UserTask[];
     practiceTypes: PracticeTypes[];
-    renderFooter: () => React.ReactNode;
+    renderFooter?: React.ReactNode;
 }
-
-export function PracticeWidget({ tasks, practiceTypes, renderFooter }: Props) {
+function PracticeWidgetInt({ tasks, practiceTypes, renderFooter }: Props) {
     const { steps, currentStep, isLastStep, currentTask, practiceType, isDisabledNext, next, enableNext } = useRepeatTasks(tasks, practiceTypes)
     const { checkReadedTask } = useCheckReadedTask()
 
@@ -29,9 +29,11 @@ export function PracticeWidget({ tasks, practiceTypes, renderFooter }: Props) {
             }
         </div>
         <div className="grid grid-cols-2 gap-4">
-            {renderFooter()}
+            {renderFooter || <span></span>}
             {isLastStep ? <span className="app-text-2">Ты прошел урок. Молодец :) </span>
                 : <button className="btn" disabled={isDisabledNext} onClick={next}>Далее <ForwardOutlined /></button>}
         </div>
     </>
 }
+
+export const PracticeWidget = memo(PracticeWidgetInt)
