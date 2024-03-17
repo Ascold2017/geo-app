@@ -1,0 +1,1 @@
+export { usePracticeModel } from './model'
