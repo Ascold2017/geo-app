@@ -1,9 +1,8 @@
 import { base64decode } from "nodejs-base64";
 import { Context, Next } from "koa";
-import { UserRoles } from "../api/user/user.entity";
-import { DI } from "../main";
-
-export default function authMiddleware(forUserRoles: UserRoles[]) {
+import { UserRoles } from "../entities/user.entity";
+import { DI } from '../utils/data-source'
+export function authMiddleware(forUserRoles: UserRoles[]) {
   return async function (ctx: Context, next: Next) {
     if (ctx.request.header["token"]) {
       const token = ctx.header["token"] as string;

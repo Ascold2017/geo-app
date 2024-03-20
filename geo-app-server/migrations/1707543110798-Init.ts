@@ -2,10 +2,10 @@ import { MigrationInterface, QueryRunner, Table } from "typeorm";
 import csv from 'csv-parser'
 import * as fs from 'fs'
 import path from 'path'
-import { User, UserRoles } from "../app/api/user/user.entity";
-import { Section } from "../app/api/section/section.entity";
-import { Topic } from "../app/api/section/topic/topic.entity";
-import { Task } from "../app/api/section/topic/task/task.entity";
+import { User, UserRoles } from "../src/entities/user.entity";
+import { Section } from "../src/entities/section.entity";
+import { Topic } from "../src/entities/topic.entity";
+import { Task } from "../src/entities/task.entity";
 
 
 function readCSVFile<T>(pathToCSV: string, onData: (item: T) => Promise<void>) {

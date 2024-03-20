@@ -1,7 +1,7 @@
 
-import { Progress } from "./progress/progress.entity";
-import { BaseEntity } from "../_common/base.entity";
-import { Section } from "../section/section.entity";
+import { Progress } from "./progress.entity";
+import { BaseEntity } from "./base.entity";
+import { Section } from "./section.entity";
 import { Column, Entity, ManyToOne, OneToMany } from "typeorm";
 
 export enum UserRoles {

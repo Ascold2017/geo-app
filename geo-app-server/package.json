@@ -2,14 +2,14 @@
   "name": "geo-app-server",
   "version": "1.0.0",
   "description": "",
-  "main": "app/main.ts",
+  "main": "src/main.ts",
   "scripts": {
-    "start": "ts-node app/main.ts",
-    "dev": "ts-node-dev app/main.ts",
+    "start": "ts-node src/main.ts",
+    "dev": "ts-node-dev src/main.ts",
     "format": "prettier . --write",
-    "schema:sync": "typeorm-ts-node-commonjs schema:sync -d ./app/data-source.ts",
-    "migration:up": "npm run schema:sync && typeorm-ts-node-commonjs migration:run -d ./app/data-source.ts",
-    "migration:drop": "typeorm-ts-node-commonjs schema:drop -d ./app/data-source.ts"
+    "schema:sync": "typeorm-ts-node-commonjs schema:sync -d ./src/utils/data-source.ts",
+    "migration:up": "npm run schema:sync && typeorm-ts-node-commonjs migration:run -d ./src/utils/data-source.ts",
+    "migration:drop": "typeorm-ts-node-commonjs schema:drop -d ./src/utils/data-source.ts"
   },
   "keywords": [],
   "author": "",
@@ -26,6 +26,7 @@
     "koa-router": "^12.0.1",
     "koa-static": "^5.0.0",
     "koa2-swagger-ui": "^5.10.0",
+    "moleculer": "^0.14.32",
     "nodejs-base64": "^2.0.0",
     "parser": "^0.1.4",
     "pg": "^8.11.3",
@@ -45,6 +46,7 @@
     "@types/web-push": "^3.6.3",
     "prettier": "3.2.5",
     "ts-node-dev": "^2.0.0",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.3.3"
   }
 }

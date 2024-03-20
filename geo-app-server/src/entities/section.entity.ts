@@ -1,5 +1,5 @@
-import { Topic } from "./topic/topic.entity";
-import { BaseEntity } from "../_common/base.entity";
+import { Topic } from "./topic.entity";
+import { BaseEntity } from "./base.entity";
 import { Entity, OneToMany, Column } from "typeorm";
 
 @Entity()

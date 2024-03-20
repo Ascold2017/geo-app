@@ -1,7 +1,7 @@
 
-import { BaseEntity } from "../../../_common/base.entity";
-import { Topic } from "../topic.entity";
-import { Progress } from "../../../user/progress/progress.entity";
+import { BaseEntity } from "./base.entity";
+import { Topic } from "./topic.entity";
+import { Progress } from "./progress.entity";
 import { Column, Entity, ManyToOne, OneToMany } from "typeorm";
 
 export enum TaskTypes {

@@ -1,6 +1,6 @@
-import { BaseEntity } from "../../_common/base.entity";
-import { User } from "../user.entity";
-import { Task } from "../../section/topic/task/task.entity";
+import { BaseEntity } from "./base.entity";
+import { User } from "./user.entity";
+import { Task } from "./task.entity";
 import { Column, Entity, ManyToOne } from "typeorm";
 
 @Entity()
