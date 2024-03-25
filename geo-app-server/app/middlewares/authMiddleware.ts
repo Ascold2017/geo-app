@@ -1,7 +1,7 @@
 import { base64decode } from "nodejs-base64";
 import { Context, Next } from "koa";
-import { UserRoles } from "../api/user/user.entity";
-import { DI } from "../main";
+import { UserRoles } from "../entities/user.entity";
+import { DI } from "../entities";
 
 export default function authMiddleware(forUserRoles: UserRoles[]) {
   return async function (ctx: Context, next: Next) {

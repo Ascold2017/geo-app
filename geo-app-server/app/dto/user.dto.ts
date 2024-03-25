@@ -1,5 +1,5 @@
 import { base64encode } from "nodejs-base64";
-import { User, UserRoles } from "./user.entity";
+import { User, UserRoles } from "../entities/user.entity";
 
 export class BaseUserDTO {
   public id: number;

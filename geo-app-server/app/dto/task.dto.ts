@@ -1,4 +1,4 @@
-import { Task } from "./task.entity";
+import { Task } from "../entities/task.entity"
 
 export class TaskDTO {
   public id: number;

@@ -1,7 +1,7 @@
 
-import { BaseEntity } from "../../_common/base.entity";
-import { Task } from "./task/task.entity";
-import { Section } from "../section.entity";
+import { BaseEntity } from "./base.entity";
+import { Task } from "./task.entity";
+import { Section } from "./section.entity";
 import { Column, Entity, ManyToOne, OneToMany } from "typeorm";
 
 @Entity()

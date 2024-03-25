@@ -1,4 +1,4 @@
-import { Section } from "./section.entity";
+import { Section } from "../entities/section.entity";
 
 export class BaseSectionDTO {
   public id: number;

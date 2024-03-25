@@ -1,7 +1,7 @@
 
 import { Entity, Column, ManyToOne } from "typeorm";
-import { BaseEntity } from "../_common/base.entity";
-import { User } from "../user/user.entity";
+import { BaseEntity } from "./base.entity";
+import { User } from "./user.entity";
 import { PushSubscription } from "web-push";
 
 @Entity()

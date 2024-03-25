@@ -1,6 +1,6 @@
-import { Topic } from "./topic.entity";
-import { TaskDTO, UserTaskDTO } from "./task/task.dto";
-import { Progress } from "../../user/progress/progress.entity";
+import { Topic } from "../entities/topic.entity";
+import { TaskDTO, UserTaskDTO } from "./task.dto";
+import { Progress } from "../entities/progress.entity";
 
 export class TopicDTO {
   public id: number;

@@ -1,5 +1,5 @@
-import { TaskDTO, UserTaskDTO } from "../../section/topic/task/task.dto";
-import { Progress } from "./progress.entity";
+import { TaskDTO, UserTaskDTO } from "./task.dto";
+import { Progress } from "../entities/progress.entity";
 
 export class ProgressListDTO {
   public nextRepeat?: number;
