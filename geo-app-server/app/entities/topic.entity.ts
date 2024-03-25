@@ -22,7 +22,7 @@ export class Topic extends BaseEntity {
   isPremium = false;
 
   @Column({ type: 'numeric', default: -1 })
-  order: -1;
+  order: number = -1;
 
   @OneToMany(() => Task, t => t.topic)
   tasks: Task[];
