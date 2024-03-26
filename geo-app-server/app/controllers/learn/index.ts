@@ -10,8 +10,9 @@ import { getTasksToRepeatRoute } from "./getTasksToRepeat";
 import { UserState } from "../../config/route-state";
 import { authMiddleware } from "../../middlewares/authMiddleware";
 import { UserRoles } from "../../entities/user.entity";
+import { appRouter } from "../../config/appRouter";
 
-export const learnRouter = zodRouter<UserState>({ koaRouter: { prefix: '/learn' } })
+export const learnRouter = appRouter<UserState>({ prefix: '/learn' })
 learnRouter.use(authMiddleware([UserRoles.USER]))
 
 learnRouter.register(getSectionsRoute)

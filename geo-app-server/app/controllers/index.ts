@@ -2,9 +2,9 @@ import { pushRouter } from "./push";
 import { adminRouter } from "./admin";
 import { authRouter } from "./auth";
 import { learnRouter } from "./learn";
-import zodRouter from "koa-zod-router";
+import { appRouter } from "../config/appRouter";
 
-export const apiRouter = zodRouter({ koaRouter: { prefix: '/api' } });
+export const apiRouter = appRouter({ prefix: '/api' });
 
 apiRouter.use(pushRouter.routes());
 apiRouter.use(adminRouter.routes());

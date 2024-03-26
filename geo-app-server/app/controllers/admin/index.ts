@@ -14,8 +14,9 @@ import { postTopicTaskRoute } from "./topicTasks/postTopicTask";
 import { patchTopicTaskRoute } from "./topicTasks/patchTopicTask";
 import { deleteTopicTaskRoute } from "./topicTasks/deleteTopicTask";
 import { UserState } from "../../config/route-state";
+import { appRouter } from "../../config/appRouter";
 
-export const adminRouter = zodRouter<UserState>({ koaRouter: { prefix: '/adm' }, })
+export const adminRouter = appRouter<UserState>({ prefix: '/adm' })
 adminRouter.use(authMiddleware([UserRoles.ADMIN]));
 
 adminRouter.register(getUsersRoute);

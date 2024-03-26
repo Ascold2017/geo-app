@@ -1,7 +1,23 @@
 import Router from "koa-router";
-import zodRouter from "koa-zod-router";
+import zodRouter, { ValidationErrorHandler } from "koa-zod-router";
 
-export const appRouter = (options: Router.IRouterOptions) => zodRouter({
-    zodRouter: { exposeRequestErrors: true, exposeResponseErrors: true },
+
+const validationErrorHandler: ValidationErrorHandler = async (ctx, next) => {
+    if (ctx.invalid.error) {
+        ctx.status = 422;
+        ctx.body = {
+            message: "Validation failed",
+            details: ctx.invalid.body.flatten()
+        }
+    } else {
+        await next();
+    }
+
+    return;
+};
+
+
+export const appRouter = <T>(options: Router.IRouterOptions) => zodRouter<T>({
+    zodRouter: { exposeRequestErrors: true, exposeResponseErrors: true, validationErrorHandler },
     koaRouter: options
 })
