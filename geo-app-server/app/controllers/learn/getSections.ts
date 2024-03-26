@@ -1,5 +1,5 @@
 import { getSections } from "../../services/learn.service";
-import { specFactory } from "../../route-state";
+import { specFactory } from "../../config/route-state";
 
 export const getSectionsRoute = specFactory.createRouteSpec({
     method: 'get',

@@ -1,12 +1,12 @@
 import { DataSource } from 'typeorm'
 import dotenv from 'dotenv'
-import { Progress } from './progress.entity';
-import { Push } from './push.entity';
-import { Section } from './section.entity';
-import { Task } from './task.entity';
-import { Topic } from './topic.entity';
-import { User } from './user.entity';
-import { BaseEntity } from './base.entity'
+import { Progress } from '../entities/progress.entity';
+import { Push } from '../entities/push.entity';
+import { Section } from '../entities/section.entity';
+import { Task } from '../entities/task.entity';
+import { Topic } from '../entities/topic.entity';
+import { User } from '../entities/user.entity';
+import { BaseEntity } from '../entities/base.entity';
 
 dotenv.config()
 
@@ -16,12 +16,12 @@ export const AppDataSource = new DataSource({
     url: process.env.DB_URI,
     type: "postgres",
     logging: isDev,
-    entities: [User, Section, Topic, Task, Progress, Push, BaseEntity],
-    migrations: ['./migrations/*.ts'],
+    entities: [User, BaseEntity, Section, Topic, Task, Progress, Push],
+    migrations: ['.../../migrations/*.ts'],
     migrationsTableName: "migration",
     synchronize: isDev,
     ssl: true,
-})
+});
 
 export const DI = {
     em: AppDataSource.manager,

@@ -7,7 +7,7 @@ import { getProgressRoute } from "./getProgress";
 import { postReadTaskRoute } from "./postReadTask";
 import { postCompleteTaskRoute } from "./postCompleteTask";
 import { getTasksToRepeatRoute } from "./getTasksToRepeat";
-import { UserState } from "../../route-state";
+import { UserState } from "../../config/route-state";
 import { authMiddleware } from "../../middlewares/authMiddleware";
 import { UserRoles } from "../../entities/user.entity";
 

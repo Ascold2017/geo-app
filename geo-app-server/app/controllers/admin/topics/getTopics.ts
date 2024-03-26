@@ -1,5 +1,5 @@
 import { getTopicList } from "../../../services/admin.service";
-import { specFactory } from "../../../route-state";
+import { specFactory } from "../../../config/route-state";
 
 export const getTopicsRoute = specFactory.createRouteSpec({
     method: 'get',

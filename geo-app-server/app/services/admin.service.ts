@@ -1,5 +1,5 @@
 import { Not } from "typeorm";
-import { DI } from "../entities";
+import { DI } from "../config/data-source";
 import { UserRoles } from "../entities/user.entity";
 import { BaseUserDTO } from "../dto/user.dto";
 import { AdmSectionDTO, BaseSectionDTO } from "../dto/section.dto";

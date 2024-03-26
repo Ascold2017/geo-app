@@ -1,12 +1,13 @@
 import { z } from "zod";
 import { updateTask } from "../../../services/admin.service";
-import { specFactory } from "../../../route-state";
+import { specFactory } from "../../../config/route-state";
 
 export const patchTopicTaskRoute = specFactory.createRouteSpec({
     method: 'patch',
     path: '/topics/:topicId/tasks/:id',
     handler: async (ctx) => {
 
+        // @ts-ignore
         ctx.response.body = await updateTask(+ctx.params.topicId, +ctx.params.id, ctx.request.body)
     },
     validate: {

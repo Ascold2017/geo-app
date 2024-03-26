@@ -7,8 +7,8 @@ import koaBunyanLogger from "koa-bunyan-logger";
 import dotenv from "dotenv";
 import webPush from "web-push";
 import { apiRouter } from "./controllers";
-import { logger } from "./logger";
-import { AppDataSource } from "./entities";
+import { logger } from "./config/logger";
+import { AppDataSource } from "./config/data-source";
 import { checkRepeatNotifierDaemon } from "./services/learn.service";
 
 dotenv.config();

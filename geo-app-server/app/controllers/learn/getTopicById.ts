@@ -1,6 +1,6 @@
 import { getUserTopic } from "../../services/learn.service";
 import { z } from "zod";
-import { specFactory } from "../../route-state";
+import { specFactory } from "../../config/route-state";
 
 export const getTopicByIdRoute = specFactory.createRouteSpec({
     method: 'get',

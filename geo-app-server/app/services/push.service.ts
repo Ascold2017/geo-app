@@ -1,5 +1,5 @@
 import WebPush, { PushSubscription } from "web-push";
-import { DI } from "../entities"
+import { DI } from "../config/data-source";
 
 export const sendNotificationByUserId = async (userId: number, message: string) => {
     const subs = await DI.push.findBy({

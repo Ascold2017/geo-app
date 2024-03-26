@@ -1,7 +1,7 @@
 import { savePushSubscription, sendNotificationByUserId } from "../../services/push.service";
 import { checkIsShouldRepeatForUser } from "../../services/learn.service";
 import { z } from "zod";
-import { specFactory } from "../../route-state";
+import { specFactory } from "../../config/route-state";
 
 export const postSubscriptionRoute = specFactory.createRouteSpec({
     method: 'post',

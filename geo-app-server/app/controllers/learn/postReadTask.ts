@@ -1,7 +1,7 @@
 import { checkReadedTask, getUserNearestRepeatDate } from "../../services/learn.service";
 import { uncheckRecieveNotification } from "../../services/push.service";
 import { z } from "zod";
-import { specFactory } from "../../route-state";
+import { specFactory } from "../../config/route-state";
 
 export const postReadTaskRoute = specFactory.createRouteSpec({
     method: 'post',

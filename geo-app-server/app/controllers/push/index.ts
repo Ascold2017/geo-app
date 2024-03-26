@@ -1,7 +1,7 @@
 import zodRouter from "koa-zod-router";
 import { getVapidKeyRoute } from "./getVapidKey";
 import { postSubscriptionRoute } from "./postSubscription";
-import { UserState } from "../../route-state";
+import { UserState } from "../../config/route-state";
 import { authMiddleware } from "../../middlewares/authMiddleware";
 import { UserRoles } from "../../entities/user.entity";
 

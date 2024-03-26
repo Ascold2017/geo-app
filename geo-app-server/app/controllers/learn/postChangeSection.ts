@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { changeUserSection } from "../../services/learn.service";
-import { specFactory } from "../../route-state";
+import { specFactory } from "../../config/route-state";
 
 export const postChangeSectionRoute = specFactory.createRouteSpec({
     method: 'post',

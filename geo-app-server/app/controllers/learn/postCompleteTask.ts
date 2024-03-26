@@ -1,6 +1,6 @@
 import { checkCompletedTask } from "../../services/learn.service";
 import { z } from "zod";
-import { specFactory } from "../../route-state";
+import { specFactory } from "../../config/route-state";
 
 export const postCompleteTaskRoute = specFactory.createRouteSpec({
     method: 'post',

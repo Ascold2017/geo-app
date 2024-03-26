@@ -13,7 +13,7 @@ import { patchTopicByIdRoute } from "./topics/patchTopicById";
 import { postTopicTaskRoute } from "./topicTasks/postTopicTask";
 import { patchTopicTaskRoute } from "./topicTasks/patchTopicTask";
 import { deleteTopicTaskRoute } from "./topicTasks/deleteTopicTask";
-import { UserState } from "../../route-state";
+import { UserState } from "../../config/route-state";
 
 export const adminRouter = zodRouter<UserState>({ koaRouter: { prefix: '/adm' }, })
 adminRouter.use(authMiddleware([UserRoles.ADMIN]));

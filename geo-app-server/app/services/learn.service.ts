@@ -1,5 +1,5 @@
 import { LessThan, LessThanOrEqual } from "typeorm";
-import { DI } from "../entities";
+import { DI } from "../config/data-source";
 import { User } from "../entities/user.entity";
 import { ProgressListDTO } from "../dto/progress.dto";
 import { BaseSectionDTO } from "../dto/section.dto";

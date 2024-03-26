@@ -1,5 +1,5 @@
 import { getTasksToRepeat, getUserNearestRepeatDate } from "../../services/learn.service";
-import { specFactory } from "../../route-state";
+import { specFactory } from "../../config/route-state";
 import { ProgressListDTO } from "../../dto/progress.dto";
 
 export const getTasksToRepeatRoute = specFactory.createRouteSpec({

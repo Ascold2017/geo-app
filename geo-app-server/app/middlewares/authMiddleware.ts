@@ -1,7 +1,7 @@
 import { base64decode } from "nodejs-base64";
 import { UserRoles } from "../entities/user.entity";
-import { DI } from "../entities";
-import { specFactory } from "../route-state";
+import { DI } from "../config/data-source";
+import { specFactory } from "../config/route-state";
 import { z } from "zod";
 
 export const authMiddleware = (forUserRoles: UserRoles[]) => specFactory.createUseSpec({

@@ -1,6 +1,6 @@
 import { base64decode } from "nodejs-base64";
 import { UserDTO } from "../dto/user.dto";
-import { DI } from "../entities";
+import { DI } from "../config/data-source";
 
 
 export async function signIn(login: string, password: string) {

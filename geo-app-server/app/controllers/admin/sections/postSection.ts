@@ -1,6 +1,6 @@
 import { createSection } from "../../../services/admin.service";
 import { z } from "zod";
-import { specFactory } from "../../../route-state";
+import { specFactory } from "../../../config/route-state";
 
 export const postSectionRoute = specFactory.createRouteSpec({
     method: 'post',

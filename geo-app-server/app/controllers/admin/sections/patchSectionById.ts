@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { updateSection } from "../../../services/admin.service";
-import { specFactory } from "../../../route-state";
+import { specFactory } from "../../../config/route-state";
 
 export const patchSectionByIdRoute = specFactory.createRouteSpec({
     method: 'patch',
