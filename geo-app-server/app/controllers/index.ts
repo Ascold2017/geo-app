@@ -1,8 +1,7 @@
-import Router from "koa-router";
 import { pushRouter } from "./push";
 import { adminRouter } from "./admin";
 import { authRouter } from "./auth";
-import { learnRouter } from "./learn.controller";
+import { learnRouter } from "./learn";
 import zodRouter from "koa-zod-router";
 
 export const apiRouter = zodRouter({ koaRouter: { prefix: '/api' } });
