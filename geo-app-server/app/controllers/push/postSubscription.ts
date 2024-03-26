@@ -1,9 +1,9 @@
-import { createRouteSpec } from "koa-zod-router";
 import { savePushSubscription, sendNotificationByUserId } from "../../services/push.service";
 import { checkIsShouldRepeatForUser } from "../../services/learn.service";
 import { z } from "zod";
+import { specFactory } from "../../route-state";
 
-export const postSubscriptionRoute = createRouteSpec({
+export const postSubscriptionRoute = specFactory.createRouteSpec({
     method: 'post',
     path: '/subscription',
     handler: async (ctx) => {

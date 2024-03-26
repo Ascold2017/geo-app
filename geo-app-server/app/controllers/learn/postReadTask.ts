@@ -1,9 +1,9 @@
-import { createRouteSpec } from "koa-zod-router";
 import { checkReadedTask, getUserNearestRepeatDate } from "../../services/learn.service";
 import { uncheckRecieveNotification } from "../../services/push.service";
 import { z } from "zod";
+import { specFactory } from "../../route-state";
 
-export const postReadTaskRoute = createRouteSpec({
+export const postReadTaskRoute = specFactory.createRouteSpec({
     method: 'post',
     path: '/read-task/:id',
     handler: async (ctx) => {

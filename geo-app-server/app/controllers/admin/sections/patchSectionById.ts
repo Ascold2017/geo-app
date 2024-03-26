@@ -1,8 +1,8 @@
-import { createRouteSpec } from "koa-zod-router";
 import { z } from "zod";
 import { updateSection } from "../../../services/admin.service";
+import { specFactory } from "../../../route-state";
 
-export const patchSectionByIdRoute = createRouteSpec({
+export const patchSectionByIdRoute = specFactory.createRouteSpec({
     method: 'patch',
     path: '/sections/:id',
     handler: async (ctx) => {

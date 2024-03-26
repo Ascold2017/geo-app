@@ -1,8 +1,8 @@
-import { createRouteSpec } from "koa-zod-router";
 import { z } from "zod";
 import { updateTask } from "../../../services/admin.service";
+import { specFactory } from "../../../route-state";
 
-export const patchTopicTaskRoute = createRouteSpec({
+export const patchTopicTaskRoute = specFactory.createRouteSpec({
     method: 'patch',
     path: '/topics/:topicId/tasks/:id',
     handler: async (ctx) => {

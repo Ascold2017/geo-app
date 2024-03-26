@@ -1,7 +1,7 @@
-import { createRouteSpec } from "koa-zod-router";
 import { getTopicList } from "../../../services/admin.service";
+import { specFactory } from "../../../route-state";
 
-export const getTopicsRoute = createRouteSpec({
+export const getTopicsRoute = specFactory.createRouteSpec({
     method: 'get',
     path: '/topics',
     handler: async (ctx) => {

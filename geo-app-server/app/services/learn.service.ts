@@ -7,7 +7,7 @@ import { UserTopicDTO, UserTopicWithTasksDTO } from "../dto/topic.dto";
 import { sendNotificationByUserId } from "./push.service";
 import _ from "lodash";
 
-export async function checkIsShouldRepeatForUser(userId: string) {
+export async function checkIsShouldRepeatForUser(userId: number) {
   return await DI.progress.countBy({
     isCompleted: false,
     nextRepeat: LessThan(new Date().getTime()),

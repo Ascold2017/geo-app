@@ -1,8 +1,8 @@
-import { createRouteSpec } from "koa-zod-router";
 import { z } from "zod";
 import { changeUserSection } from "../../services/learn.service";
+import { specFactory } from "../../route-state";
 
-export const postChangeSectionRoute = createRouteSpec({
+export const postChangeSectionRoute = specFactory.createRouteSpec({
     method: 'post',
     path: '/change-section',
     handler: async (ctx) => {

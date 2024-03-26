@@ -1,13 +1,13 @@
-import { createRouteSpec } from "koa-zod-router";
 import { getUserTopic } from "../../services/learn.service";
 import { z } from "zod";
+import { specFactory } from "../../route-state";
 
-export const getTopicByIdRoute = createRouteSpec({
+export const getTopicByIdRoute = specFactory.createRouteSpec({
     method: 'get',
     path: '/topics/:id',
     handler: async (ctx) => {
         try {
-            ctx.response.body = await getUserTopic(ctx.state.user.id, +ctx.params.id)
+            ctx.response.body = await getUserTopic(ctx.state.user.id, +ctx.request.params.id)
         } catch {
             ctx.response.status = 404;
             ctx.response.body = { error: "Не найден(" };

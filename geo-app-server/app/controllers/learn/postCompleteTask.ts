@@ -1,8 +1,8 @@
-import { createRouteSpec } from "koa-zod-router";
 import { checkCompletedTask } from "../../services/learn.service";
 import { z } from "zod";
+import { specFactory } from "../../route-state";
 
-export const postCompleteTaskRoute = createRouteSpec({
+export const postCompleteTaskRoute = specFactory.createRouteSpec({
     method: 'post',
     path: '/complete-task/:id',
     handler: async (ctx) => {

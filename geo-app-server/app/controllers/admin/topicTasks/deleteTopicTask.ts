@@ -1,8 +1,8 @@
-import { createRouteSpec } from "koa-zod-router";
 import { deleteTask } from "../../../services/admin.service";
 import { z } from "zod";
+import { specFactory } from "../../../route-state";
 
-export const deleteTopicTaskRoute = createRouteSpec({
+export const deleteTopicTaskRoute = specFactory.createRouteSpec({
     method: 'delete',
     path: '/topics/:topicId/tasks/:id',
     handler: async (ctx) => {
