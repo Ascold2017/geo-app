@@ -11,7 +11,7 @@ import { UserState } from "../../route-state";
 import { authMiddleware } from "../../middlewares/authMiddleware";
 import { UserRoles } from "../../entities/user.entity";
 
-export const learnRouter =  zodRouter<UserState>({ koaRouter: { prefix: '/learn' } })
+export const learnRouter = zodRouter<UserState>({ koaRouter: { prefix: '/learn' } })
 learnRouter.use(authMiddleware([UserRoles.USER]))
 
 learnRouter.register(getSectionsRoute)
