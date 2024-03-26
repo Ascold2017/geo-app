@@ -8,8 +8,8 @@ import dotenv from "dotenv";
 import webPush from "web-push";
 import { apiRouter } from "./controllers";
 import { logger } from "./logger";
-// import { checkRepeatNotifierDaemon } from "./api/user/progress/progress.service";
 import { AppDataSource } from "./entities";
+import { checkRepeatNotifierDaemon } from "./services/learn.service";
 
 dotenv.config();
 
@@ -37,7 +37,7 @@ AppDataSource.initialize()
 
     app.listen(port, () => {
       console.log(`Server is Fire at http://localhost:${port}`);
-      // checkRepeatNotifierDaemon();
+      checkRepeatNotifierDaemon();
     });
   })
   .catch(console.error)

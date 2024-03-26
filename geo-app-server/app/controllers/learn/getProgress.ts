@@ -5,7 +5,7 @@ export const getProgressRoute = specFactory.createRouteSpec({
     method: 'get',
     path: '/progress',
     handler: async (ctx) => {
-        ctx.response.body = await getProgress(ctx.state.user.id, ctx.state.user.currentSection.id)
+        ctx.response.body = await getProgress(ctx.state.user.id, ctx.state.user.currentSection as unknown as number)
     },
     validate: {}
 })
