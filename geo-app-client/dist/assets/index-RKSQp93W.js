@@ -1,0 +1,1 @@
+import{e as t,f as c}from"./index-_tGX61Hg.js";const i=async()=>(await t({url:"/learn/topics"})).data,e=async a=>(await t({url:"/learn/topics/"+a})).data,p=c(a=>({topics:[],getTopics:async()=>{const s=await i();a({topics:s})}})),r=c(a=>({topic:null,getTopic:async s=>{const o=await e(s);a({topic:o})}}));export{r as a,p as u};
