@@ -17,7 +17,7 @@ export const AppDataSource = new DataSource({
     type: "postgres",
     logging: isDev,
     entities: [User, BaseEntity, Section, Topic, Task, Progress, Push],
-    migrations: ['.../../migrations/*.ts'],
+    migrations: ['../../migrations/*.ts'],
     migrationsTableName: "migration",
     synchronize: isDev,
     ssl: true,

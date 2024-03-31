@@ -12,8 +12,6 @@ const validationErrorHandler: ValidationErrorHandler = async (ctx, next) => {
     } else {
         await next();
     }
-
-    return;
 };
 
 
