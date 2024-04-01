@@ -1,0 +1,28 @@
+services:
+  server:
+    restart: on-failure
+    build: ./geo-app-server
+    hostname: geo-app-server
+    ports:
+      - '8000:8000'
+  client:
+    restart: on-failure
+    build: ./geo-app-client
+    hostname: geo-app-client
+    ports:
+      - '3001:3001'
+  admin:
+    restart: on-failure
+    build: ./geo-app-admin
+    hostname: geo-app-admin
+    ports:
+      - '3002:3002'
+  
+  nginx:
+    build: ./geo-app-nginx
+    ports:
+    - '80:80'
+    depends_on:
+    - server
+    - client
+    - admin

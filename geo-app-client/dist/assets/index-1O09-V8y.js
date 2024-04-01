@@ -1,1 +1,0 @@
-import{e as s,f as a}from"./index-_tGX61Hg.js";const n=async e=>(await s.request({url:"/auth/"+e,method:"GET"})).data,o=a(e=>({user:null,async getCurrentUser(){const r=localStorage.getItem("token");if(!r)return!1;try{const t=await n(r);return e({user:t}),!0}catch{return!1}},setUser:r=>e({user:r}),resetUser:()=>e({user:null})}));export{o as u};

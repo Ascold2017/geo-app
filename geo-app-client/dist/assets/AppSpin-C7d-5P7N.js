@@ -1,1 +1,0 @@
-import{j as s}from"./index-_tGX61Hg.js";const i=({spinning:n,children:p})=>n?s.jsxs(s.Fragment,{children:[s.jsx("div",{className:"app-spin",children:s.jsx("div",{className:"app-spin-spinner"})}),p]}):p;export{i as A};
