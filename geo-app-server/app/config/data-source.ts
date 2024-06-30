@@ -15,13 +15,14 @@ const isDev = process.env.TS_NODE_DEV === "true";
 export const AppDataSource = new DataSource({
     url: process.env.DB_URI,
     type: "postgres",
-    logging: isDev,
+    logging: true,
     entities: [User, BaseEntity, Section, Topic, Task, Progress, Push],
     migrations: ['./migrations/*.ts'],
     migrationsTableName: "migration",
-    synchronize: isDev,
+    synchronize: true,
     ssl: false,
 });
+
 
 export const DI = {
     em: AppDataSource.manager,
@@ -31,4 +32,4 @@ export const DI = {
     task: AppDataSource.getRepository(Task),
     progress: AppDataSource.getRepository(Progress),
     push: AppDataSource.getRepository(Push)
-}
+};

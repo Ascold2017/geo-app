@@ -23,7 +23,10 @@ const app = new Koa();
 const port = process.env.PORT || 8000;
 AppDataSource.initialize()
   .then(() => {
-
+    console.log('Migrations: ', AppDataSource.migrations)
+    return AppDataSource.runMigrations()
+  })
+  .then(() => {
     app.use(koaBunyanLogger(logger));
     app.use(cors());
     app.use(koaBody());
