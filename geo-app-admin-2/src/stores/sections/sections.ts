@@ -3,6 +3,7 @@ import type { BaseSection } from "@/models/sections.model";
 import { defineStore } from "pinia";
 import { ref } from "vue";
 
+
 export const useSectionsStore = defineStore('sections', () => {
     const sections = ref<BaseSection[]>([])
     const isLoading = ref(false)
@@ -19,9 +20,11 @@ export const useSectionsStore = defineStore('sections', () => {
         }
     }
 
+  
+
     return {
         sections,
         isLoading,
-        getSections
+        getSections,
     }
 })

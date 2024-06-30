@@ -2,7 +2,7 @@ import { httpClient } from "@/adapters/httpClient";
 import type { ParsedTopic, BaseTopic } from "@/models/topics.model";
 import { defineStore } from "pinia";
 import { computed, ref } from "vue";
-import { useSectionsStore } from "../sections";
+import { useSectionsStore } from "../sections/sections";
 import type { BaseSection } from "@/models/sections.model";
 
 export const useTopicsStore = defineStore('topics', () => {

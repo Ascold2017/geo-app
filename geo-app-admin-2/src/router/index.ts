@@ -28,6 +28,17 @@ const router = createRouter({
       name: 'sections',
       component: () => import('../views/Sections/index.vue')
     },
+    {
+      path: '/sections/new',
+      name: 'sectionNew',
+      component: () => import('../views/SectionEdit/index.vue')
+    },
+    {
+      path: '/sections/:id',
+      name: 'sectionEdit',
+      component: () => import('../views/SectionEdit/index.vue')
+    },
+
   ]
 })
 
