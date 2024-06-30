@@ -14,8 +14,6 @@ export interface User extends BaseUser {
 export interface AuthModelState {
     user: User;
     isAuth: boolean;
-    signIn: (login: string, password: string) => Promise<void>;
-    signUp: (login: string, password: string) => Promise<void>;
     getCurrentUser: () => Promise<boolean>;
     logout: () => void;
 }
