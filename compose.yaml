@@ -3,31 +3,13 @@ services:
     restart: on-failure
     build: ./geo-app-server
     hostname: geo-app-server
-    ports:
-      - '8000:80'
-  client:
-    restart: on-failure
-    build: ./geo-app-client
-    hostname: geo-app-client
-    ports:
-      - '3001:80'
-  admin:
-    restart: on-failure
-    build: ./geo-app-admin
-    hostname: geo-app-admin
-    ports:
-      - '3002:80'
   
   nginx:
-    build: ./geo-app-nginx
-    links:
-      - client:client
-      - admin:admin
-      - server:server
-
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    container_name: nginx
     ports:
-    - '80:80'
+      - "80:80"
     depends_on:
-    - server
-    - client
-    - admin
+      - server
