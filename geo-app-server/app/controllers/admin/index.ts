@@ -15,6 +15,7 @@ import { patchTopicTaskRoute } from "./topicTasks/patchTopicTask";
 import { deleteTopicTaskRoute } from "./topicTasks/deleteTopicTask";
 import { UserState } from "../../config/route-state";
 import { appRouter } from "../../config/appRouter";
+import { deleteTopicByIdRoute } from "./topics/deleteTopicById";
 
 export const adminRouter = appRouter<UserState>({ prefix: '/adm' })
 adminRouter.use(authMiddleware([UserRoles.ADMIN]));
@@ -34,4 +35,5 @@ adminRouter.register(deleteSectionByIdRoute);
 
 adminRouter.register(postTopicTaskRoute);
 adminRouter.register(patchTopicTaskRoute);
+adminRouter.register(deleteTopicByIdRoute);
 adminRouter.register(deleteTopicTaskRoute);

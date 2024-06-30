@@ -8,6 +8,16 @@ const router = createRouter({
       name: 'topics',
       component: () => import('../views/Topics/index.vue')
     },
+    {
+      path: '/topics/:id',
+      name: 'topicEdit',
+      component: () => import('../views/TopicEdit/index.vue')
+    },
+    {
+      path: '/topics/new',
+      name: 'topicEditNew',
+      component: () => import('../views/TopicEdit/index.vue')
+    }
   ]
 })
 
