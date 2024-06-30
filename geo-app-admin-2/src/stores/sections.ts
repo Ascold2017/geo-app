@@ -7,7 +7,7 @@ export const useSectionsStore = defineStore('sections', () => {
     const sections = ref<BaseSection[]>([])
     const isLoading = ref(false)
 
-    async function getSection() {
+    async function getSections() {
         isLoading.value = true;
         try {
             const data = await httpClient.request<undefined, BaseSection[]>({
@@ -22,6 +22,6 @@ export const useSectionsStore = defineStore('sections', () => {
     return {
         sections,
         isLoading,
-        getSection
+        getSections
     }
 })

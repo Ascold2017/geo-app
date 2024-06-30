@@ -17,7 +17,17 @@ const router = createRouter({
       path: '/topics/new',
       name: 'topicEditNew',
       component: () => import('../views/TopicEdit/index.vue')
-    }
+    },
+    {
+      path: '/users',
+      name: 'users',
+      component: () => import('../views/Users/index.vue')
+    },
+    {
+      path: '/sections',
+      name: 'sections',
+      component: () => import('../views/Sections/index.vue')
+    },
   ]
 })
 

@@ -32,7 +32,7 @@ export const useTopicsStore = defineStore('topics', () => {
                 await httpClient.request<undefined, BaseTopic[]>({
                     url: '/adm/topics'
                 }),
-                sectionsStore.getSection()
+                sectionsStore.getSections()
             ])
 
             topics.value = data;
