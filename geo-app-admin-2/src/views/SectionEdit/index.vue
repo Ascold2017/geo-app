@@ -13,6 +13,7 @@
             </v-toolbar>
 
             <v-text-field label="Название секции" v-model="section.title"/>
+            <ImageUploader label="Обложка" :value="section.imageUrl!" @change="section.imageUrl = $event"/>
         </v-card>
     </v-container>
 </template>
@@ -22,6 +23,7 @@ import { useSectionStore } from '@/stores/sections/section';
 import { storeToRefs } from 'pinia';
 import { onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import ImageUploader from '@/components/ImageUploader/index.vue';
 
 const sectionStore = useSectionStore()
 const route = useRoute<{ id?: string }>()
