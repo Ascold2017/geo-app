@@ -10,11 +10,8 @@
                 </v-toolbar>
             </template>
             <template v-slot:item.actions="{ item }">
-                <v-icon class="me-2" size="small" @click="router.push({ name: 'topicEdit', params: { id: item.id } })">
+                <v-icon size="small" @click="router.push({ name: 'topicEdit', params: { id: item.id } })">
                     mdi-pencil
-                </v-icon>
-                <v-icon size="small" @click="topicsStore.deleteTopic(item.id)">
-                    mdi-delete
                 </v-icon>
             </template>
 

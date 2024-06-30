@@ -41,27 +41,9 @@ export const useTopicsStore = defineStore('topics', () => {
         }
     }
 
-    async function deleteTopic(topicId: number) {
-        isLoading.value = true;
-        try {
-            const [_, data] = await Promise.all([
-                await httpClient.request<undefined, undefined>({
-                    url: '/adm/topics/' + topicId,
-                    method: 'DELETE'
-                }),
-                await httpClient.request<undefined, BaseTopic[]>({
-                    url: '/adm/topics'
-                })
-            ])
-
-            topics.value = data;
-        } finally {
-            isLoading.value = false
-        }
-    }
+    
     return {
         parsedTopics,
-        getTopicsAndSections,
-        deleteTopic
+        getTopicsAndSections
     }
 })
