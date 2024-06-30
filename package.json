@@ -12,7 +12,7 @@
     "start:server": "cd geo-app-server && npm start",
     "dev": "concurrently --names \"FRONT,ADMIN,SERVER\" -c \"bgBlue.bold,bgRed.bold,bgMagenta.bold\" \"npm run dev:client\" \"npm run dev:admin\" \"npm run dev:backend\"",
     "dev:client": "cd geo-app-client && npm run dev",
-    "dev:admin": "cd geo-app-admin && npm run dev",
+    "dev:admin": "cd geo-app-admin-2 && npm run dev",
     "dev:backend": "cd geo-app-server && npm run dev",
     "build": "concurrently --names \"FRONT,ADMIN,SERVER\" -c \"bgBlue.bold,bgRed.boldbgMagenta.bold\" \"npm run build:client\" \"npm run build:admin\" \"npm run build:backend\"",
     "build:client": "cd geo-app-client && npm run build",

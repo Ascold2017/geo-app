@@ -1,0 +1,1 @@
+<template>Topics page</template>

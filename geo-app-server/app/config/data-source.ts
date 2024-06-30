@@ -13,7 +13,7 @@ dotenv.config()
 const isDev = process.env.TS_NODE_DEV === "true";
 
 export const AppDataSource = new DataSource({
-    url: process.env.DB_URI,
+    url: isDev ? process.env.DB_URI : process.env.DB_URI_PROD,
     type: "postgres",
     logging: true,
     entities: [User, BaseEntity, Section, Topic, Task, Progress, Push],

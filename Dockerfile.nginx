@@ -29,6 +29,21 @@ COPY ./geo-app-admin/ .
 # Собираем приложение
 RUN npm run build
 
+FROM node:18-alpine as build-admin-2
+
+# Устанавливаем рабочую директорию
+WORKDIR /app-admin-2
+
+# Копируем package.json и устанавливаем зависимости
+COPY ./geo-app-admin-2/package*.json ./
+RUN npm install
+
+# Копируем остальные файлы
+COPY ./geo-app-admin-2/ .
+
+# Собираем приложение
+RUN npm run build
+
 
 # Stage 1: Сборка nginx с фронтендами
 FROM nginx:alpine
@@ -36,6 +51,7 @@ FROM nginx:alpine
 # Копируем собранные клиентские приложения
 COPY --from=build-client /app-client/dist /usr/share/nginx/html/client
 COPY --from=build-admin /app-admin/dist /usr/share/nginx/html/admin
+COPY --from=build-admin-2 /app-admin-2/dist /usr/share/nginx/html/admin-2
 COPY nginx.conf /etc/nginx/nginx.conf
 
 # Удаляем default.conf, чтобы избежать конфликтов
