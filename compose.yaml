@@ -1,0 +1,15 @@
+services:
+  server:
+    restart: on-failure
+    build: ./geo-app-server
+    hostname: geo-app-server
+  
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    container_name: nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - server

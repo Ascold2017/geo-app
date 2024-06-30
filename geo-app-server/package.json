@@ -7,9 +7,9 @@
     "start": "ts-node app/main.ts",
     "dev": "ts-node-dev app/main.ts",
     "format": "prettier . --write",
-    "schema:sync": "typeorm-ts-node-commonjs schema:sync -d ./app/data-source.ts",
-    "migration:up": "npm run schema:sync && typeorm-ts-node-commonjs migration:run -d ./app/data-source.ts",
-    "migration:drop": "typeorm-ts-node-commonjs schema:drop -d ./app/data-source.ts"
+    "schema:sync": "typeorm-ts-node-commonjs schema:sync -d ./app/config/data-source.ts",
+    "migration:up": "npm run schema:sync && typeorm-ts-node-commonjs migration:run -d ./app/config/data-source.ts",
+    "migration:drop": "typeorm-ts-node-commonjs schema:drop -d ./app/config/data-source.ts"
   },
   "keywords": [],
   "author": "",
@@ -25,13 +25,15 @@
     "koa-bunyan-logger": "^2.1.0",
     "koa-router": "^12.0.1",
     "koa-static": "^5.0.0",
+    "koa-zod-router": "^2.2.0",
     "koa2-swagger-ui": "^5.10.0",
     "nodejs-base64": "^2.0.0",
     "parser": "^0.1.4",
     "pg": "^8.11.3",
     "reflect-metadata": "^0.2.1",
     "typeorm": "^0.3.20",
-    "web-push": "^3.6.7"
+    "web-push": "^3.6.7",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",

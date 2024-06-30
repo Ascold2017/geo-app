@@ -1,2 +1,2 @@
 export { usePushModel } from './model/push';
-export { register } from './utils/servicesWorkerRegistration';
+export { registerPushSw } from './utils/registerPushSw';

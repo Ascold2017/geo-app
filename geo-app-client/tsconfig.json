@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "types": ["vite-plugin-pwa/react"],
     "paths": {
       "@app/*": ["./src/app/*"],
       "@shared": ["./src/shared/index"],

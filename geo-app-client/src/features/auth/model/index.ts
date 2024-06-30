@@ -21,7 +21,7 @@ export const useAuthModel = create<AuthModel>((set) => ({
     },
     signIn: async (login, password) => {
         const setUser = useUserModel.getState().setUser;
-        const response = await axiosInstance.post<User>('/users/sign-in', { login, password });
+        const response = await axiosInstance.post<User>('/auth/sign-in', { login, password });
         const user = response.data;
         set({ isAuth: true })
         setUser(user);
@@ -29,7 +29,7 @@ export const useAuthModel = create<AuthModel>((set) => ({
     },
     signUp: async (login, password) => {
         const setUser = useUserModel.getState().setUser;
-        const response = await axiosInstance.post<User>('/users/sign-up', { login, password });
+        const response = await axiosInstance.post<User>('/auth/sign-up', { login, password });
         const user = response.data;
         set({ isAuth: true });
         setUser(user);
