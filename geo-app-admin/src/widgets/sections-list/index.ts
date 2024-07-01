@@ -1,1 +1,0 @@
-export { SectionsList } from './ui/SectionsList'
