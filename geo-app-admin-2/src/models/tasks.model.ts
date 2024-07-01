@@ -13,4 +13,11 @@ export interface BaseTask {
     soundUrl?: string;
     imageUrl?: string;
 }
-export type IntTask = BaseTask & { _intId: string };
+export interface BaseTaskPayload {
+    type: TaskTypesEnum;
+    ka: string;
+    ru: string;
+    transcription: string;
+    soundUrl?: string;
+    imageUrl?: string;
+}

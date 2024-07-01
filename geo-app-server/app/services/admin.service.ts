@@ -67,11 +67,10 @@ export async function getTopicById(topicId: number) {
             section: { id: true }
         },
         relations: {
-            tasks: true,
             section: true
         }
     });
-    return new TopicWithTasksDTO(topic);
+    return new TopicDTO(topic);
 }
 
 export async function createTopic(payload: Partial<Topic>) {
@@ -104,7 +103,13 @@ export async function deleteTopic(topicId: number) {
 }
 
 // task //
+export async function getTopicTasks(topicId: number) {
+    const data = await DI.task.findBy({
+        topic: { id: topicId }
+    })
 
+    return data.map(task => new TaskDTO(task))
+}
 export async function createTask(topicId: number, payload: Partial<Task>) {
     await DI.topic.findOneByOrFail({ id: topicId });
 

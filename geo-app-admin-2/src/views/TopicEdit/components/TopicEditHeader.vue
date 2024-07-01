@@ -8,6 +8,10 @@
         <v-spacer></v-spacer>
         <v-btn @click="topicStore.saveTopic" :disabled="!isChanged">Сохранить</v-btn>
         <v-btn @click="deleteSection" v-if="!isNewTopic">Удалить</v-btn>
+        <v-btn v-if="route.params.id" :to="{ name: 'topicTasks', params: { id: route.params.id } }">
+            Упражнения
+            <v-icon>mdi-arrow-right</v-icon>
+        </v-btn>
     </v-toolbar>
 
 </template>

@@ -25,7 +25,7 @@ const youtubeId = computed({
         return topic.value.videoId ? `https://www.youtube.com/embed/${topic.value.videoId}` : '';
     },
     set(v) {
-        topic.value.videoId = youtubeLinkParser(v)!;
+        topic.value.videoId = youtubeLinkParser(v) as string;
     }
 })
 </script>

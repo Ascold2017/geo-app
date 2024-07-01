@@ -10,8 +10,13 @@ export interface BaseTopic {
     sectionId: number;
 }
 
-export interface BaseTopicWithTasks extends BaseTopic {
-    tasks: BaseTask[]
+export interface BaseTopicPayload {
+    title: string;
+    text: string;
+    videoId: string;
+    isPremium: boolean;
+    sectionId: number;
+    order: number;
 }
 
 export interface ParsedTopic extends BaseTopic {

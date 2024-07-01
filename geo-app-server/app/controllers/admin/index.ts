@@ -1,4 +1,4 @@
-import zodRouter from "koa-zod-router";
+
 import { UserRoles } from "../../entities/user.entity";
 import {authMiddleware} from "../../middlewares/authMiddleware";
 import { getUsersRoute } from "./getUsers";
@@ -17,6 +17,7 @@ import { UserState } from "../../config/route-state";
 import { appRouter } from "../../config/appRouter";
 import { deleteTopicByIdRoute } from "./topics/deleteTopicById";
 import { getSectionByIdRoute } from "./sections/getSectionById";
+import { getTopicTasksRoute } from "./topicTasks/getTopicTasks";
 
 export const adminRouter = appRouter<UserState>({ prefix: '/adm' })
 adminRouter.use(authMiddleware([UserRoles.ADMIN]));
@@ -35,6 +36,7 @@ adminRouter.register(postTopicRoute);
 adminRouter.register(patchTopicByIdRoute);
 adminRouter.register(deleteSectionByIdRoute);
 
+adminRouter.register(getTopicTasksRoute)
 adminRouter.register(postTopicTaskRoute);
 adminRouter.register(patchTopicTaskRoute);
 adminRouter.register(deleteTopicByIdRoute);

@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { createTask } from "../../../services/admin.service";
 import { specFactory } from "../../../config/route-state";
 
 export const postTopicTaskRoute = specFactory.createRouteSpec({
@@ -14,7 +15,7 @@ export const postTopicTaskRoute = specFactory.createRouteSpec({
     },
     validate: {
         params: z.object({
-            topicId: z.number(),
+            topicId: z.coerce.number(),
         }),
         body: z.object({
             ka: z.string(),

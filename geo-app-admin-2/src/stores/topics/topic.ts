@@ -2,28 +2,28 @@ import { httpClient } from "@/adapters/httpClient";
 import { defineStore } from "pinia";
 import { computed, ref } from "vue";
 import _ from 'lodash'
-import type { BaseTopicWithTasks } from "@/models/topics.model";
-const defaultTopic: BaseTopicWithTasks = {
+import type { BaseTopic, BaseTopicPayload } from "@/models/topics.model";
+
+const defaultTopic: BaseTopic = {
     id: 0,
     title: '',
     text:'',
     videoId: '',
     isPremium: false,
     sectionId: 0,
-    tasks: []
 }
 
 export const useTopicStore = defineStore('topic', () => {
     const isNewTopic = ref(true)
-    const topic = ref<BaseTopicWithTasks>(_.cloneDeep(defaultTopic))
-    const originalTopic = ref<BaseTopicWithTasks>(_.cloneDeep(defaultTopic))
+    const topic = ref<BaseTopic>(_.cloneDeep(defaultTopic))
+    const originalTopic = ref<BaseTopic>(_.cloneDeep(defaultTopic))
     const isLoading = ref(false)
     const isChanged = computed(() => !_.isEqual(topic.value, originalTopic.value))
 
     async function getTopicWithTasks(id: number) {
         isLoading.value = true;
         try {
-            const data = await httpClient.request<undefined, BaseTopicWithTasks>({
+            const data = await httpClient.request<undefined, BaseTopic>({
                 url: '/adm/topics/' + id
             })
             topic.value = _.clone(data)
@@ -45,22 +45,32 @@ export const useTopicStore = defineStore('topic', () => {
         isLoading.value = true;
         try {
             if (isNewTopic.value) {
-                const data = await httpClient.request<BaseTopicWithTasks, BaseTopicWithTasks>({
+                const data = await httpClient.request<BaseTopicPayload, BaseTopic>({
                     url: '/adm/topics',
                     method: 'POST',
                     data: {
-                        ...topic.value
+                        title: topic.value.title,
+                        text: topic.value.text!,
+                        sectionId: topic.value.sectionId,
+                        isPremium: topic.value.isPremium,
+                        videoId: topic.value.videoId,
+                        order: 999
                     }
                 })
                 topic.value = _.cloneDeep(data)
                 originalTopic.value = _.cloneDeep(data)
                 isNewTopic.value = false;
             } else {
-                const data = await httpClient.request<BaseTopicWithTasks, BaseTopicWithTasks>({
+                const data = await httpClient.request<BaseTopicPayload, BaseTopic>({
                     url: '/adm/topics/' + topic.value.id,
                     method: 'PATCH',
                     data: {
-                        ...topic.value
+                        title: topic.value.title,
+                        text: topic.value.text!,
+                        sectionId: topic.value.sectionId,
+                        isPremium: topic.value.isPremium,
+                        videoId: topic.value.videoId,
+                        order: 999
                     }
                 })
                 originalTopic.value = _.cloneDeep(data)
@@ -74,12 +84,10 @@ export const useTopicStore = defineStore('topic', () => {
     async function deleteTopic(topicId: number) {
         isLoading.value = true;
         try {
-
-                await httpClient.request<undefined, undefined>({
-                    url: '/adm/topics/' + topicId,
-                    method: 'DELETE'
-                })
-
+            await httpClient.request<undefined, undefined>({
+                url: '/adm/topics/' + topicId,
+                method: 'DELETE'
+            })
         } finally {
             isLoading.value = false
         }

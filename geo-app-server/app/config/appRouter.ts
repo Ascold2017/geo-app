@@ -7,7 +7,7 @@ const validationErrorHandler: ValidationErrorHandler = async (ctx, next) => {
         ctx.status = 422;
         ctx.body = {
             message: "Validation failed",
-            details: ctx.invalid.body.flatten()
+            details: ctx.invalid.params
         }
     } else {
         await next();
