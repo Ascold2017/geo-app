@@ -12,13 +12,12 @@ const defaultTopic: BaseTopicWithTasks = {
     isPremium: false,
     sectionId: 0,
     tasks: []
-    
 }
 
 export const useTopicStore = defineStore('topic', () => {
     const isNewTopic = ref(true)
-    const topic = ref<BaseSection>(defaultTopic)
-    const originalTopic = ref<BaseSection>(defaultTopic)
+    const topic = ref<BaseSection>(_.cloneDeep(defaultTopic))
+    const originalTopic = ref<BaseSection>(_.cloneDeep(defaultTopic))
     const isLoading = ref(false)
     const isChanged = computed(() => !_.isEqual(topic.value, originalTopic.value))
 
@@ -38,8 +37,8 @@ export const useTopicStore = defineStore('topic', () => {
 
     function resetTopic() {
         if (!isChanged.value) return;
-        topic.value = { ...defaultTopic };
-        originalTopic.value = { ...defaultTopic }
+        topic.value = _.cloneDeep(defaultTopic)
+        originalTopic.value = _.cloneDeep(defaultTopic)
         isNewTopic.value = true
     }
 
@@ -54,8 +53,8 @@ export const useTopicStore = defineStore('topic', () => {
                         ...topic.value
                     }
                 })
-                topic.value = _.clone(data)
-                originalTopic.value = _.clone(data)
+                topic.value = _.cloneDeep(data)
+                originalTopic.value = _.cloneDeep(data)
                 isNewTopic.value = false;
             } else {
                 const data = await httpClient.request<BaseSection, BaseSection>({
@@ -65,7 +64,7 @@ export const useTopicStore = defineStore('topic', () => {
                         ...topic.value
                     }
                 })
-                originalTopic.value = _.clone(data)
+                originalTopic.value = _.cloneDeep(data)
             }
 
         } finally {

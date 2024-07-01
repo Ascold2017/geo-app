@@ -11,8 +11,8 @@ const defaultSection: BaseSection = {
 
 export const useSectionStore = defineStore('section', () => {
     const isNewSection = ref(true)
-    const section = ref<BaseSection>(defaultSection)
-    const originalSection = ref<BaseSection>(defaultSection)
+    const section = ref<BaseSection>(_.clone(defaultSection))
+    const originalSection = ref<BaseSection>(_.clone(defaultSection))
     const isLoading = ref(false)
     const isChanged = computed(() => !_.isEqual(section.value, originalSection.value))
 

@@ -20,18 +20,17 @@ watch(() => props.value, (newValue) => {
 });
 
 const onFileChange = (newFile: File | File[]) => {
-    console.log(newFile)
     if (!newFile || Array.isArray(newFile)) {
-    file.value = null;
-    preview.value = null;
-    emit('change', null);
-    return;
+      file.value = null;
+      preview.value = null;
+      emit('change', null);
+      return;
     }
     file.value = newFile as File;
     const reader = new FileReader();
     reader.onload = (e) => {
-    preview.value = e.target?.result as string;
-    emit('change', preview.value);
+      preview.value = e.target?.result as string;
+      emit('change', preview.value);
     };
     reader.readAsDataURL(file.value);
 };
