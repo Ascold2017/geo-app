@@ -1,9 +1,8 @@
 import { httpClient } from "@/adapters/httpClient";
-import type { BaseSection } from "@/models/sections.model";
 import { defineStore } from "pinia";
 import { computed, ref } from "vue";
 import _ from 'lodash'
-import type { BaseTopic, BaseTopicWithTasks } from "@/models/topics.model";
+import type { BaseTopicWithTasks } from "@/models/topics.model";
 const defaultTopic: BaseTopicWithTasks = {
     id: 0,
     title: '',
@@ -16,8 +15,8 @@ const defaultTopic: BaseTopicWithTasks = {
 
 export const useTopicStore = defineStore('topic', () => {
     const isNewTopic = ref(true)
-    const topic = ref<BaseSection>(_.cloneDeep(defaultTopic))
-    const originalTopic = ref<BaseSection>(_.cloneDeep(defaultTopic))
+    const topic = ref<BaseTopicWithTasks>(_.cloneDeep(defaultTopic))
+    const originalTopic = ref<BaseTopicWithTasks>(_.cloneDeep(defaultTopic))
     const isLoading = ref(false)
     const isChanged = computed(() => !_.isEqual(topic.value, originalTopic.value))
 
@@ -46,7 +45,7 @@ export const useTopicStore = defineStore('topic', () => {
         isLoading.value = true;
         try {
             if (isNewTopic.value) {
-                const data = await httpClient.request<BaseSection, BaseSection>({
+                const data = await httpClient.request<BaseTopicWithTasks, BaseTopicWithTasks>({
                     url: '/adm/topics',
                     method: 'POST',
                     data: {
@@ -57,7 +56,7 @@ export const useTopicStore = defineStore('topic', () => {
                 originalTopic.value = _.cloneDeep(data)
                 isNewTopic.value = false;
             } else {
-                const data = await httpClient.request<BaseSection, BaseSection>({
+                const data = await httpClient.request<BaseTopicWithTasks, BaseTopicWithTasks>({
                     url: '/adm/topics/' + topic.value.id,
                     method: 'PATCH',
                     data: {
