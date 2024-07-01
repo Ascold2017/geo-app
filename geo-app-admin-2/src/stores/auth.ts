@@ -34,6 +34,7 @@ export const useAuthStore = defineStore('auth', () => {
         localStorage.removeItem('token');
         isAuthenticated.value = false;
         user.value = defaultUser;
+        location.href = '/'
     }
 
     return {

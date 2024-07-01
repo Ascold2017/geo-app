@@ -1,5 +1,5 @@
 <template>
-     <v-toolbar flat class="mb-3">
+    <v-toolbar flat class="mb-3">
         <v-btn :to="{ name: 'topicEdit', params: { id: route.params.id } }">
             <v-icon>mdi-arrow-left</v-icon>
         </v-btn>
@@ -9,19 +9,20 @@
         <v-btn @click="topicTaskStore.resetTask">Сбросить</v-btn>
         <v-btn @click="topicTaskStore.saveTask(+route.params.id)" :disabled="!isChanged">Сохранить</v-btn>
         <v-btn @click="topicTaskStore.deleteTask(+route.params.id)" v-if="!isNewTask">Удалить</v-btn>
-        
-    </v-toolbar>
 
-    <div class="d-flex">
-        <v-text-field label="Грузинский" v-model="currentTask.ka" />
-        <v-text-field label="Русский" v-model="currentTask.ru" />
+    </v-toolbar>
+    <div class="px-3 py-3">
+        <div class="d-flex">
+            <v-text-field label="Грузинский" v-model="currentTask.ka" />
+            <v-text-field label="Русский" v-model="currentTask.ru" />
+        </div>
+        <div class="d-flex">
+            <v-text-field label="Транскрипция" v-model="currentTask.transcription" />
+            <v-select label="Тип упражнения" v-model="currentTask.type" :items="taskTypes" />
+        </div>
+        <ImageUploader label="Изображение" :value="currentTask.imageUrl!" @change="currentTask.imageUrl = $event!" />
+        <AudioRecorder :value="currentTask.soundUrl!" @change="currentTask.soundUrl = $event!" />
     </div>
-    <div class="d-flex">
-        <v-text-field label="Транскрипция" v-model="currentTask.transcription" />
-        <v-select label="Тип упражнения" v-model="currentTask.type" :items="taskTypes"/>
-    </div>
-    <ImageUploader label="Изображение" :value="currentTask.imageUrl!" @change="currentTask.imageUrl = $event!"/>
-    <AudioRecorder :value="currentTask.soundUrl!" @change="currentTask.soundUrl = $event!" />
 </template>
 
 <script setup lang="ts">

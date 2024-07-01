@@ -5,15 +5,17 @@
                 <v-btn :to="{ name: 'sections' }">
                     <v-icon>mdi-arrow-left</v-icon>
                 </v-btn>
-                <v-toolbar-title>{{ sectionStore.isNewSection ? 'Создание секции' : 'Изменение секции' }}</v-toolbar-title>
+                <v-toolbar-title>{{ sectionStore.isNewSection ? 'Создание секции' : 'Изменение секции'
+                    }}</v-toolbar-title>
                 <v-divider class="mx-4" inset vertical></v-divider>
                 <v-spacer></v-spacer>
                 <v-btn @click="sectionStore.saveSection" :disabled="!isChanged">Сохранить</v-btn>
                 <v-btn @click="deleteSection" v-if="!sectionStore.isNewSection">Удалить</v-btn>
             </v-toolbar>
-
-            <v-text-field label="Название секции" v-model="section.title"/>
-            <ImageUploader label="Обложка" :value="section.imageUrl!" @change="section.imageUrl = $event"/>
+            <div class="px-3 py-3">
+                <v-text-field label="Название секции" v-model="section.title" />
+                <ImageUploader label="Обложка" :value="section.imageUrl!" @change="section.imageUrl = $event!" />
+            </div>
         </v-card>
     </v-container>
 </template>
