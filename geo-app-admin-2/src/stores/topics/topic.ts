@@ -20,7 +20,7 @@ export const useTopicStore = defineStore('topic', () => {
     const isLoading = ref(false)
     const isChanged = computed(() => !_.isEqual(topic.value, originalTopic.value))
 
-    async function getTopicWithTasks(id: number) {
+    async function getTopic(id: number) {
         isLoading.value = true;
         try {
             const data = await httpClient.request<undefined, BaseTopic>({
@@ -93,14 +93,19 @@ export const useTopicStore = defineStore('topic', () => {
         }
     }
 
+    function $reset() {
+        resetTopic();
+    }
+
     return {
         isLoading,
         isChanged,
         isNewTopic,
         topic,
-        getTopicWithTasks,
+        getTopic,
         saveTopic,
         resetTopic,
-        deleteTopic
+        deleteTopic,
+        $reset
     }
 })

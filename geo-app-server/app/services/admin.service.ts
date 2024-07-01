@@ -74,10 +74,14 @@ export async function getTopicById(topicId: number) {
 }
 
 export async function createTopic(payload: Partial<Topic>) {
-    const topic = DI.topic.create(payload);
+    const topic = DI.topic.create({
+        ...payload,
+        // @ts-ignore
+        section: { id: payload.sectionId }
+    });
     const createdTopic = await DI.topic.save(topic);
     // @ts-ignore
-    return new TopicDTO({ ...createdTopic, section: { id: createdTopic.section } });
+    return new TopicDTO({ ...createdTopic, section: { id: createdTopic.section.id } });
 }
 
 export async function updateTopic(topicId: number, payload: Partial<Topic>) {
