@@ -3,7 +3,7 @@
     <v-textarea label="Текст темы" v-model="topic.text" />
     <v-text-field label="Ccылка на Youtube-видеоурок" v-model="youtubeId" />
     <div class="d-flex">
-        <v-select class="flex-1" :items="sectionsStore.sections" item-value="id" item-text="title" v-model="topic.sectionId"/>
+        <v-select class="flex-1" label="Секция" :items="sectionsStore.sections" item-value="id" item-text="title" v-model="topic.sectionId"/>
         <v-divider class="mx-2" inset vertical />
         <v-switch class="flex-1" label="Для премиум-пользователей" v-model="topic.isPremium" />
     </div>

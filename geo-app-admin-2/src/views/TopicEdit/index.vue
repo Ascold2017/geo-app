@@ -5,6 +5,8 @@
             <TopicEditForm />
             <v-divider />
             <TopicTasksForm />
+            <v-divider />
+            <TopicTasksList />
         </v-card>
     </v-container>
 </template>
@@ -13,6 +15,7 @@
 import TopicEditHeader from './components/TopicEditHeader.vue'
 import TopicEditForm from './components/TopicEditForm.vue'
 import TopicTasksForm from './components/TopicTasksForm.vue'
+import TopicTasksList from './components/TopicTasksList.vue'
 import { useTopicStore } from '@/stores/topics/topic';
 import { storeToRefs } from 'pinia';
 import { onMounted } from 'vue'
