@@ -5,9 +5,14 @@ const router = createRouter({
   routes: [
     {
       path: '/auth',
-      name: 'auth',
       component: () => import('@/components/AuthLayout/index.vue'),
-      children: []
+      children: [
+        {
+          path: '',
+          name: 'auth',
+          component: () => import('@/views/Auth/index.vue')
+        }
+      ]
     },
     {
       path: '',

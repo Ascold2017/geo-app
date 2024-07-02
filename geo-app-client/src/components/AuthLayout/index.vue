@@ -1,7 +1,5 @@
 <template>
-    <v-app>
-        <v-main>
-            <router-view />
-        </v-main>
-    </v-app>
+    <v-main class="d-flex flex-column justify-center align-center">
+        <router-view />
+    </v-main>
 </template>
