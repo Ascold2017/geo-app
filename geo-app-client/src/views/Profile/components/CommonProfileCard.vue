@@ -6,6 +6,7 @@
             <p class="mb-3">Аккаунт: {{ parsedUser.isPremium ? 'Премиум' : 'Обычный' }}</p>
             <p class="mb-3">Зарегистрирован: {{ parsedUser.registeredAt.format('DD.MM.YYYY') }}</p>
             <v-select label="Уровень" density="compact" :items="sectionItems" :modelValue="parsedUser.sectionId" @update:model-value="authStore.updateUserSection" />
+            <v-btn color="error" @click="authStore.logout" block>Выйти</v-btn>
         </v-card-text>
     </v-card>
 </template>
