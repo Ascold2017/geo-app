@@ -1,29 +1,71 @@
 import { httpClient } from "@/adapters/httpClient";
-import type { User } from "@/models/user.model";
+import type { SignInPayload, SignUpPayload, User } from "@/models/user.model";
 import { defineStore } from "pinia";
 import { ref } from "vue";
+import { useRouter } from "vue-router";
+import dictionary from '@/dictionary.json'
+import _ from 'lodash'
 
-const defaultUser = {
+const defaultUser: User = {
     token: "",
     id: 0,
     username: "",
     role: 'user',
+    currentSectionId: undefined,
     isPremium: false,
     registeredAt: new Date()
 }
 
 export const useAuthStore = defineStore('auth', () => {
-    const user = ref(defaultUser)
+    const router = useRouter()
+
+    const user = ref<User>(_.clone(defaultUser))
     const isAuthenticated = ref(false);
 
+    function setUser(data: User) {
+        localStorage.setItem(dictionary.localStorageTokenKey, data.token)
+        user.value = data;
+        isAuthenticated.value = true;
+    }
+    function resetUser() {
+        localStorage.removeItem(dictionary.localStorageTokenKey)
+        user.value = _.clone(defaultUser)
+        isAuthenticated.value = false
+    }
+
+    async function signIn(payload: SignInPayload) {
+        try {
+            const data = await httpClient.request<SignInPayload, User>({
+                url: '/auth/sign-in', method: 'POST', data: payload
+            })
+            setUser(data)
+            data.role === 'user' ? router.push({ name: 'home' }) : location.href = '/admin'
+        } catch (e) {
+            console.log(e)
+            return Promise.reject(false)
+        }
+    }
+
+    async function signUp(payload: SignUpPayload) {
+        try {
+            const data = await httpClient.request<SignInPayload, User>({
+                url: '/auth/sign-up', method: 'POST', data: payload
+            })
+            setUser(data)
+            router.push({ name: 'home' })
+        } catch (e) {
+            console.log(e)
+            return Promise.reject(false)
+        }
+    }
+
     async function getCurrentUser() {
-        const token = localStorage.getItem('token')
+        const token = localStorage.getItem(dictionary.localStorageTokenKey)
         if (!token) return false;
         try {
             const data = await httpClient.request<undefined, User>({
                 url: '/auth/' + token, method: 'GET'
             })
-            console.log(data)
             user.value = data;
             return true
         } catch {
@@ -31,15 +73,15 @@ export const useAuthStore = defineStore('auth', () => {
         }
     }
     function logout() {
-        localStorage.removeItem('token');
-        isAuthenticated.value = false;
-        user.value = defaultUser;
+        resetUser()
         location.href = '/'
     }
 
     return {
         isAuthenticated,
         user,
+        signIn,
+        signUp,
         getCurrentUser,
         logout
     }
