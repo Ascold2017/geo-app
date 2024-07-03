@@ -1,10 +1,12 @@
 import { httpClient } from "@/adapters/httpClient";
 import type { SignInPayload, SignUpPayload, User } from "@/models/auth.model";
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { useRouter } from "vue-router";
 import dictionary from '@/dictionary.json'
 import _ from 'lodash'
+import dayjs from "dayjs";
+import type { UpdateSectionPayload } from "@/models/sections.model";
 
 const defaultUser: User = {
     token: "",
@@ -21,6 +23,14 @@ export const useAuthStore = defineStore('auth', () => {
 
     const user = ref<User>(_.clone(defaultUser))
     const isAuthenticated = ref(false);
+
+    const parsedUser = computed(() => ({
+        id: user.value.id,
+        sectionId: user.value.currentSectionId || null,
+        username: user.value.username,
+        isPremium: user.value.isPremium,
+        registeredAt: dayjs(user.value.registeredAt)
+    }));
 
     function setUser(data: User) {
         localStorage.setItem(dictionary.localStorageTokenKey, data.token)
@@ -80,12 +90,26 @@ export const useAuthStore = defineStore('auth', () => {
         location.href = '/'
     }
 
+    async function updateUserSection(sectionId: number) {
+        
+        try {
+            await httpClient.request<UpdateSectionPayload, undefined>({
+                url: '/learn/change-section', method: 'POST', data: { sectionId }
+            })
+            await getCurrentUser()
+        } catch (e) {
+           // TODO
+        }
+    }
+
     return {
         isAuthenticated,
         user,
+        parsedUser,
         signIn,
         signUp,
         getCurrentUser,
+        updateUserSection,
         logout
     }
 })
