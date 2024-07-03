@@ -21,12 +21,12 @@
 </template>
 
 <script setup lang="ts">
-import { useAuthStore } from '@/stores/auth';
+import { useProfileStore } from '@/stores/profile/profile';
 import { onMounted } from 'vue';
 
-const authStore = useAuthStore();
+const profileStore = useProfileStore();
 
 onMounted(() => {
-    authStore.getCurrentUser();
+    profileStore.getCurrentUser();
 })
 </script>
