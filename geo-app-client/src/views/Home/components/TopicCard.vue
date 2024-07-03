@@ -1,5 +1,5 @@
 <template>
-    <v-card variant="tonal">
+    <v-card variant="tonal" :to="{ name: 'topicIndex', params: { id: topic.id } }">
         <header class="d-flex align-center px-3">
             <v-icon color="primary" v-if="topic.isPremium" class="mr-3">mdi-palette-swatch</v-icon>
             <v-card-title class="px-0">{{ topic.title }}</v-card-title>
