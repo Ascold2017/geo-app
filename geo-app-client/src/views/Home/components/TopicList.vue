@@ -1,5 +1,5 @@
 <template>
-    <section class="d-flex ga-2 flex-wrap">
+    <section class="d-flex ga-4 flex-wrap">
         <TopicCard v-for="topic in homeTopicsStore.topics" :key="topic.id" :topic="topic" class="flex-1-0-100"/>
     </section>
 </template>
