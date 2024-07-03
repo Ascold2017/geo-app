@@ -2,7 +2,7 @@
     <v-main>
         <router-view />
         <v-bottom-navigation>
-            <v-btn :to="{ name: 'home' }">
+            <v-btn :to="{ name: 'home' }" exact>
                 <v-icon>mdi-heart</v-icon>
                 <span>Темы</span>
             </v-btn>
