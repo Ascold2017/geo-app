@@ -1,11 +1,9 @@
 <template>
     <v-card :title="title" max-width="320">
         <v-form class="px-3 py-3">
-            <v-card-body>
-                <v-text-field label="Логин" v-model="login" />
-                <v-text-field label="Пароль" v-model="password" type="password"/>
-                <v-text-field v-if="isSignUp" label="Повторить пароль" v-model="repeatPassword" type="password" />
-            </v-card-body>
+            <v-text-field label="Логин" v-model="login" />
+            <v-text-field label="Пароль" v-model="password" type="password"/>
+            <v-text-field v-if="isSignUp" label="Повторить пароль" v-model="repeatPassword" type="password" />
             <v-card-actions>
                 <v-btn variant="outlined" @click="submit">{{ isSignUp ? 'Зарегистрироваться' :
                     'Войти' }}</v-btn>

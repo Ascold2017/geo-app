@@ -1,5 +1,5 @@
 import { httpClient } from "@/adapters/httpClient";
-import type { SignInPayload, SignUpPayload, User } from "@/models/user.model";
+import type { SignInPayload, SignUpPayload, User } from "@/models/auth.model";
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
@@ -41,7 +41,7 @@ export const useAuthStore = defineStore('auth', () => {
             setUser(data)
             data.role === 'user' ? router.push({ name: 'home' }) : location.href = '/admin'
         } catch (e) {
-            console.log(e)
+            // TODO
             return Promise.reject(false)
         }
     }
@@ -54,22 +54,25 @@ export const useAuthStore = defineStore('auth', () => {
             setUser(data)
             router.push({ name: 'home' })
         } catch (e) {
-            console.log(e)
+            // TODO
             return Promise.reject(false)
         }
     }
 
     async function getCurrentUser() {
         const token = localStorage.getItem(dictionary.localStorageTokenKey)
-        if (!token) return false;
+        if (!token) {
+            router.push({ name: 'auth' })
+            return;
+        }
         try {
             const data = await httpClient.request<undefined, User>({
                 url: '/auth/' + token, method: 'GET'
             })
-            user.value = data;
-            return true
+            setUser(data)
         } catch {
-            return false
+            // TODO
+            router.push({ name: 'auth' })
         }
     }
     function logout() {
