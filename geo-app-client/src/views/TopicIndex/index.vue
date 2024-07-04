@@ -22,17 +22,17 @@ const { topicWithTasks } = storeToRefs(topicStore)
 const buttons = computed(() => {
     const list = []
 
-    if (topicWithTasks.value.videoId) {
+    if (topicWithTasks.value.text) {
         list.push({
-            icon: 'mdi-youtube',
+            icon: 'mdi-human-male-board',
             title: 'Лекция',
             to: { name: 'topicLecture', params: { id: route.params.id } }
         })
     }
 
-    if (topicWithTasks.value.text) {
+    if (topicWithTasks.value.videoId) {
         list.push({
-            icon: 'mdi-human-male-board',
+            icon: 'mdi-youtube',
             title: 'Видео-урок',
             to: { name: 'topicVideo', params: { id: route.params.id } }
         })
