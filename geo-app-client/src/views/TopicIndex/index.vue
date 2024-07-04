@@ -56,7 +56,8 @@ const buttons = computed(() => {
 
     list.push({
         icon: 'mdi-history',
-        title: 'Практика'
+        title: 'Практика',
+        to: { name: 'topicTraining', params: { id: route.params.id } }
     })
 
     return list;
