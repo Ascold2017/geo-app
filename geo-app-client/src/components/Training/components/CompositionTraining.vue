@@ -20,10 +20,9 @@
 import CommonCard from './CommonCard.vue'
 import { useTrainingStore } from '@/stores/training/training';
 import { storeToRefs } from 'pinia';
-import { computed, ref, watch } from 'vue';
+import { onUnmounted, ref, watch } from 'vue';
 import { useComposeTrainingStore } from '@/stores/training/composeTraining';
 import { splitVariant } from '@/utils/stringUtils';
-import { template } from 'lodash';
 
 const trainingStore = useTrainingStore();
 const composeTrainingStore = useComposeTrainingStore();
@@ -36,6 +35,10 @@ watch([isSuccess], (v) => {
     if (v) {
         commonCard.value?.playAudio();
     }
+})
+
+onUnmounted(() => {
+    composeTrainingStore.$reset()
 })
 
 

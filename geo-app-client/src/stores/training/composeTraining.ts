@@ -37,6 +37,10 @@ export const useComposeTrainingStore = defineStore('training/compose', () => {
         answerBlocks.value = []
     }
 
+    function $reset() {
+        answerBlocks.value = []
+    }
+
     return {
         isRevert,
         parsedCurrentTask,
@@ -45,6 +49,7 @@ export const useComposeTrainingStore = defineStore('training/compose', () => {
         isSuccess,
         addBlock,
         removeBlock,
-        next
+        next,
+        $reset
     }
 })
