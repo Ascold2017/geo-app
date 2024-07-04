@@ -24,7 +24,7 @@ import { storeToRefs } from 'pinia';
 import {  onMounted, onUnmounted } from 'vue';
 import { useRoute } from 'vue-router';
 import Training from '@/components/Training/index.vue';
-import { useTrainingStore } from '@/stores/training';
+import { useTrainingStore } from '@/stores/training/training';
 import { TrainingTypes } from '@/models/training.model';
 
 const route = useRoute()

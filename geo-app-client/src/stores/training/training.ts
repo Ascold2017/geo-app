@@ -2,7 +2,7 @@ import type { UserTask } from "@/models/task.model";
 import { shuffle } from "@/utils/shuffleArray";
 import { defineStore } from "pinia";
 import { computed, ref } from "vue";
-import { useTopicStore } from "./topic/topic";
+import { useTopicStore } from "../topic/topic";
 import { TrainingTypes } from "@/models/training.model";
 
 export const useTrainingStore = defineStore('training', () => {
@@ -12,18 +12,12 @@ export const useTrainingStore = defineStore('training', () => {
     const trainingTypes = ref<TrainingTypes[]>([])
 
     const currentTaskId = ref<number | null>(null)
+    const currentTrainingType = ref<TrainingTypes>(TrainingTypes.COMPOSE)
 
     const currentTask = computed(() => tasks.value.find(t => t.id === currentTaskId.value))
     const isHasNextTask = computed(() => {
         const indexOfCurrentTask = tasks.value.findIndex(task => task.id === currentTaskId.value);
         return indexOfCurrentTask < tasks.value.length -1
-    })
-
-    const parsedCurrentTask = computed(() => {
-        return {
-            ...currentTask.value,
-            trainingType: trainingTypes.value[trainingTypes.value.length * Math.random() << 0]
-        }
     })
     
     function setTasks(data: UserTask[], availableTrainingTypes: TrainingTypes[]) {
@@ -38,6 +32,7 @@ export const useTrainingStore = defineStore('training', () => {
         const nextTask = tasks.value[indexOfCurrentTask + 1];
         if (nextTask) {
             currentTaskId.value = nextTask.id;
+            currentTrainingType.value = trainingTypes.value[trainingTypes.value.length * Math.random() << 0];
         }
     }
 
@@ -45,10 +40,13 @@ export const useTrainingStore = defineStore('training', () => {
         currentTaskId.value = tasks.value[0]?.id || null;
         tasks.value = []
         trainingTypes.value = []
+        currentTrainingType.value = TrainingTypes.COMPOSE;
     }
     
     return {
-        parsedCurrentTask,
+        currentTask,
+        tasks,
+        currentTrainingType,
         isHasNextTask,
         setTasks,
         nextTask,
