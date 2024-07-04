@@ -41,7 +41,8 @@ const buttons = computed(() => {
     if (topicWithTasks.value.tasks.every(t => t.type === 'letter')) {
         list.push({
             icon: 'mdi-format-letter-case',
-            title: 'Новые буквы'
+            title: 'Новые буквы',
+            to: { name: 'topicLetters', params: { id: route.params.id } }
         })
     }
 

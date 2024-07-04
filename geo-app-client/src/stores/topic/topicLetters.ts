@@ -4,11 +4,11 @@ import { defineStore, storeToRefs } from "pinia";
 import { computed, ref, watch } from "vue";
 import { useTopicStore } from "./topic";
 
-export const useTopicWordsStore = defineStore('topic/words', () => {
+export const useTopicLettersStore = defineStore('topic/letters', () => {
     const topicStore = useTopicStore();
     const { topicWithTasks } = storeToRefs(topicStore)
 
-    const tasks = computed(() => topicWithTasks.value.tasks.filter(task => task.type === TaskTypesEnum.WORD))
+    const tasks = computed(() => topicWithTasks.value.tasks.filter(task => task.type === TaskTypesEnum.LETTER))
 
     const currentTaskId = ref<number | null>(null)
 

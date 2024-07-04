@@ -33,10 +33,22 @@ export const useTopicStore = defineStore('topic', () => {
         }
     }
 
+    async function checkReadedTask(taskId: number) {
+        try {
+            await httpClient.request({
+                url: '/learn/read-task/'+ taskId,
+                method: 'POST'
+            })
+        } catch {
+            return Promise.reject(false)
+        }
+    }
+
     return {
         loadedId,
         isLoading,
         getTopic,
+        checkReadedTask,
         topicWithTasks
     }
 })
