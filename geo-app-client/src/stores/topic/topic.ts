@@ -34,6 +34,7 @@ export const useTopicStore = defineStore('topic', () => {
     }
 
     return {
+        loadedId,
         isLoading,
         getTopic,
         topicWithTasks

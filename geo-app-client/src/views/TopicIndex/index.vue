@@ -48,7 +48,8 @@ const buttons = computed(() => {
     if (topicWithTasks.value.tasks.some(t => t.type === 'word')) {
         list.push({
             icon: 'mdi-file-word-box-outline',
-            title: 'Новые слова'
+            title: 'Новые слова',
+            to: { name: 'topicWords', params: { id: route.params.id } }
         })
     }
 
