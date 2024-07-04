@@ -19,6 +19,16 @@ const router = createRouter({
           component: () => import('@/views/TopicIndex/index.vue')
         },
         {
+          path: '/topic/:id/lecture',
+          name: 'topicLecture',
+          component: () => import('@/views/TopicLecture/index.vue')
+        },
+        {
+          path: '/topic/:id/video',
+          name: 'topicVideo',
+          component: () => import('@/views/TopicVideo/index.vue')
+        },
+        {
           path: '/training',
           name: 'training',
           component: () => import('@/views/Training/index.vue')

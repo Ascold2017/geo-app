@@ -2,7 +2,7 @@
     <v-container>
         <h3 class="text-center mb-6">{{ topicWithTasks.title }}</h3>
 
-        <v-btn class="d-flex w-100 justify-start mb-4" v-for="button in buttons">
+        <v-btn class="d-flex w-100 justify-start mb-4" v-for="button in buttons" :to="button.to">
             <v-icon class="mr-3">{{ button.icon }}</v-icon> {{ button.title}}
         </v-btn>
 
@@ -25,14 +25,16 @@ const buttons = computed(() => {
     if (topicWithTasks.value.videoId) {
         list.push({
             icon: 'mdi-youtube',
-            title: 'Лекция'
+            title: 'Лекция',
+            to: { name: 'topicLecture', params: { id: route.params.id } }
         })
     }
 
     if (topicWithTasks.value.text) {
         list.push({
             icon: 'mdi-human-male-board',
-            title: 'Видео-урок'
+            title: 'Видео-урок',
+            to: { name: 'topicVideo', params: { id: route.params.id } }
         })
     }
 
