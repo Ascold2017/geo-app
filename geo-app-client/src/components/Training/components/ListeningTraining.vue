@@ -6,11 +6,26 @@
         </template>
         <template v-slot:['card-bottom']>
             <div class="d-flex ga-2 flex-wrap align-center mb-2">
-                Ответ: <v-btn v-for="(block, i) in answerBlocks" variant="outlined" @click="listeningTrainingStore.removeBlock(i)">{{ block }}</v-btn>
+                Ответ:
+                <v-btn
+                    v-for="(block, i) in answerBlocks"
+                    class="text-none"
+                    size="small"
+                    density="comfortable"
+                    @click="listeningTrainingStore.removeBlock(i)">
+                    {{ block }}
+                </v-btn>
             </div>
             <v-divider class="mb-2" />
             <div class="d-flex ga-2 flex-wrap">
-                <v-btn v-for="(block, i) in composeBlocks" variant="outlined" @click="listeningTrainingStore.addBlock(i)">{{ block }}</v-btn>
+                <v-btn
+                    v-for="(block, i) in composeBlocks"
+                    class="text-none"
+                    variant="outlined"
+                    density="comfortable"
+                    @click="listeningTrainingStore.addBlock(i)">
+                    {{ block }}
+                </v-btn>
             </div>
         </template>
     </CommonCard>
