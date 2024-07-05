@@ -17,7 +17,7 @@ export const useAuthStore = defineStore('auth', () => {
     const isAuthenticated = ref(false);
 
     async function getCurrentUser() {
-        const token = localStorage.getItem('token')
+        const token = localStorage.getItem('auth-token')
         if (!token) return false;
         try {
             const data = await httpClient.request<undefined, User>({
@@ -31,7 +31,7 @@ export const useAuthStore = defineStore('auth', () => {
         }
     }
     function logout() {
-        localStorage.removeItem('token');
+        localStorage.removeItem('auth-token');
         isAuthenticated.value = false;
         user.value = defaultUser;
         location.href = '/'

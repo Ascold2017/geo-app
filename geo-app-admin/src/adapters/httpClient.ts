@@ -6,7 +6,7 @@ class HTTPClient {
         this.instance = Axios.create(options)
 
         this.instance.interceptors.request.use((requestConfig) => {
-            const lsToken = localStorage.getItem('token');
+            const lsToken = localStorage.getItem('auth-token');
             if (lsToken) {
                 requestConfig.headers.set('Token', lsToken)
             }
