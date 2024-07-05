@@ -1,1 +1,0 @@
-export { UserLayout as default } from './ui/UserLayout';

@@ -1,1 +1,0 @@
-export { TopicVideoPage as default } from './ui/TopicVideoPage'

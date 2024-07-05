@@ -1,1 +1,0 @@
-export { TopicLecturePage as default } from './ui/TopicLecturePage'

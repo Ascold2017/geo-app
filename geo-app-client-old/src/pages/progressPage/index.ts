@@ -1,1 +1,0 @@
-export { ProgressPage as default } from './ui/ProgressPage'

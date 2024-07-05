@@ -24,14 +24,15 @@ export async function signIn(login: string, password: string) {
 }
 
 export async function signUp(login: string, password: string) {
-    await DI.user.findOneByOrFail({ username: login, })
-
+    const existedUser = await DI.user.findOneBy({ username: login, })
+    if (existedUser) return Promise.reject()
+   
     const user = DI.user.create({
         username: login,
         password: password,
     });
     await DI.user.save(user)
-    return new UserDTO(user);
+    return new UserDTO(user);   
 }
 
 export async function authByToken(token: string) {

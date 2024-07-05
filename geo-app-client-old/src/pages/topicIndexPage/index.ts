@@ -1,1 +1,0 @@
-export { TopicIndexPage as default } from './ui/TopicIndexPage'
