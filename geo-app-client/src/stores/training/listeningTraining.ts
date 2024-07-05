@@ -1,34 +1,30 @@
 import { defineStore, storeToRefs } from "pinia";
 import { useTrainingStore } from "./training";
-import { TrainingTypes } from "@/models/training.model";
 import { generateBlocks, isMatchQA } from "@/utils/stringUtils";
 import { shuffle } from "lodash";
 import { computed, ref, watch } from "vue";
 
-export const useComposeTrainingStore = defineStore('training/compose', () => {
+export const useListeningTrainingStore = defineStore('training/listening', () => {
     const trainingStore = useTrainingStore();
-    const { currentTask, tasks, currentTrainingType } = storeToRefs(trainingStore)
+    const { currentTask, tasks } = storeToRefs(trainingStore)
 
     const answerBlocks = ref<string[]>([])
-
-    const isRevert = computed(() => currentTrainingType.value === TrainingTypes.COMPOSE_REVERT);
     const parsedCurrentTask = computed(() => currentTask.value)
 
     const composeBlocks = computed(() => {
         if (!currentTask.value) return []
         const ka = currentTask.value!.ka;
-        const ru = currentTask.value!.ru;
-        return generateBlocks(isRevert.value ? ka : ru, shuffle(tasks.value).slice(0, 3).map(t => isRevert.value ? t.ka : t.ru))
+        return generateBlocks(ka, shuffle(tasks.value).slice(0, 3).map(t => t.ka))
     })
 
-    const isSuccess = computed(() => isMatchQA(answerBlocks.value, isRevert.value ? parsedCurrentTask.value?.ka || '' : parsedCurrentTask.value?.ru || ''))
+    const isSuccess = computed(() => isMatchQA(answerBlocks.value, parsedCurrentTask.value?.ka || ''))
 
     watch(isSuccess, (v) => {
         if (v) {
             trainingStore.playAudio();
         }
     })
-
+    
     function addBlock(index: number) {
         answerBlocks.value = [...answerBlocks.value, composeBlocks.value[index]];
     }
@@ -48,7 +44,6 @@ export const useComposeTrainingStore = defineStore('training/compose', () => {
     }
 
     return {
-        isRevert,
         parsedCurrentTask,
         answerBlocks,
         composeBlocks,

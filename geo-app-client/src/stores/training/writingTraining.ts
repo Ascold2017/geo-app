@@ -2,7 +2,7 @@ import { defineStore, storeToRefs } from "pinia";
 import { useTrainingStore } from "./training";
 import { TrainingTypes } from "@/models/training.model";
 import { isMatchQA } from "@/utils/stringUtils";
-import { computed, ref } from "vue";
+import { computed, ref, watch } from "vue";
 
 export const useWritingTrainingStore = defineStore('training/writing', () => {
     const trainingStore = useTrainingStore();
@@ -15,6 +15,12 @@ export const useWritingTrainingStore = defineStore('training/writing', () => {
 
     const isSuccess = computed(() => isMatchQA(answerString.value, isRevert.value ? parsedCurrentTask.value?.ka || '' : parsedCurrentTask.value?.ru || ''))
 
+    watch(isSuccess, (v) => {
+        if (v) {
+            trainingStore.playAudio();
+        }
+    })
+    
     function next() {
         if (!isSuccess.value) return;
         trainingStore.nextTask()

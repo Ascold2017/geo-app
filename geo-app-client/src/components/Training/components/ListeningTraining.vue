@@ -1,16 +1,16 @@
 <template>
-    <CommonCard ref="commonCard" @next="composeTrainingStore.next" :isSuccess="isSuccess" :disabled="!isHasNextTask || !isSuccess">
+    <CommonCard ref="commonCard" @next="listeningTrainingStore.next" :isSuccess="isSuccess" :disabled="!isHasNextTask || !isSuccess">
         <template v-slot:card-content>
             <v-img v-if="parsedCurrentTask?.imageUrl" height="300" :src="parsedCurrentTask?.imageUrl" cover class="w-100" />
-            <pre class="title">{{ isRevert ? splitVariant(parsedCurrentTask?.ru || '') : parsedCurrentTask?.ka }}</pre>
+            <pre class="title">Что вы услышали?</pre>
         </template>
         <template v-slot:['card-bottom']>
             <div class="d-flex ga-2 flex-wrap align-center mb-2">
-                Ответ: <v-btn v-for="(block, i) in answerBlocks" variant="outlined" @click="composeTrainingStore.removeBlock(i)">{{ block }}</v-btn>
+                Ответ: <v-btn v-for="(block, i) in answerBlocks" variant="outlined" @click="listeningTrainingStore.removeBlock(i)">{{ block }}</v-btn>
             </div>
             <v-divider class="mb-2" />
             <div class="d-flex ga-2 flex-wrap">
-                <v-btn v-for="(block, i) in composeBlocks" variant="outlined" @click="composeTrainingStore.addBlock(i)">{{ block }}</v-btn>
+                <v-btn v-for="(block, i) in composeBlocks" variant="outlined" @click="listeningTrainingStore.addBlock(i)">{{ block }}</v-btn>
             </div>
         </template>
     </CommonCard>
@@ -21,18 +21,17 @@ import CommonCard from './CommonCard.vue'
 import { useTrainingStore } from '@/stores/training/training';
 import { storeToRefs } from 'pinia';
 import { onUnmounted, ref, watch } from 'vue';
-import { useComposeTrainingStore } from '@/stores/training/composeTraining';
-import { splitVariant } from '@/utils/stringUtils';
+import { useListeningTrainingStore } from '@/stores/training/listeningTraining';
 
 const trainingStore = useTrainingStore();
-const composeTrainingStore = useComposeTrainingStore();
+const listeningTrainingStore = useListeningTrainingStore();
 
 const { isHasNextTask } = storeToRefs(trainingStore);
-const { parsedCurrentTask, composeBlocks, answerBlocks, isSuccess, isRevert } = storeToRefs(composeTrainingStore)
+const { parsedCurrentTask, composeBlocks, answerBlocks, isSuccess } = storeToRefs(listeningTrainingStore)
 const commonCard = ref<typeof CommonCard | null>(null)
 
 onUnmounted(() => {
-    composeTrainingStore.$reset()
+    listeningTrainingStore.$reset()
 })
 
 

@@ -1,7 +1,7 @@
 import type { UserTask } from "@/models/task.model";
 import { shuffle } from "@/utils/shuffleArray";
 import { defineStore } from "pinia";
-import { computed, ref } from "vue";
+import { computed, ref, watch } from "vue";
 import { useTopicStore } from "../topic/topic";
 import { TrainingTypes } from "@/models/training.model";
 
@@ -20,6 +20,10 @@ export const useTrainingStore = defineStore('training', () => {
         return indexOfCurrentTask < tasks.value.length -1
     })
     
+    watch(currentTask, () => {
+        playAudio()
+    })
+    
     function setTasks(data: UserTask[], availableTrainingTypes: TrainingTypes[]) {
         tasks.value = shuffle(data)
         trainingTypes.value = availableTrainingTypes;
@@ -36,6 +40,14 @@ export const useTrainingStore = defineStore('training', () => {
         }
     }
 
+    function playAudio() {
+        const audio = new Audio(currentTask.value?.soundUrl);
+        audio.play().catch(error => {
+            console.error('Error playing audio:', error);
+        });
+    }
+    
+
     function $reset() {
         currentTaskId.value = tasks.value[0]?.id || null;
         tasks.value = []
@@ -50,6 +62,7 @@ export const useTrainingStore = defineStore('training', () => {
         isHasNextTask,
         setTasks,
         nextTask,
+        playAudio,
         $reset
     }
 })

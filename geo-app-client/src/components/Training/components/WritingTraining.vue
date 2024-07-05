@@ -25,12 +25,6 @@ const { isHasNextTask } = storeToRefs(trainingStore);
 const { parsedCurrentTask, answerString, isSuccess, isRevert } = storeToRefs(writingTrainingStore)
 const commonCard = ref<typeof CommonCard | null>(null)
 
-watch([isSuccess], (v) => {
-    if (v) {
-        commonCard.value?.playAudio();
-    }
-})
-
 onUnmounted(() => {
     writingTrainingStore.$reset()
 })
