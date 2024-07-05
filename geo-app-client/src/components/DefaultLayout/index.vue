@@ -17,10 +17,12 @@
                 <span>Профиль</span>
             </v-btn>
         </v-bottom-navigation>
+        <WelcomeModal />
     </v-main>
 </template>
 
 <script setup lang="ts">
+import WelcomeModal from '@/components/WelcomeModal/index.vue'
 import { useProfileStore } from '@/stores/profile/profile';
 import { onMounted } from 'vue';
 

@@ -29,6 +29,8 @@ export const useProfileStore = defineStore('profile', () => {
         registeredAt: dayjs(user.value.registeredAt)
     }));
 
+    const currentSectionId = computed(() => user.value.currentSectionId)
+
     function setUser(data: User) {
         localStorage.setItem(dictionary.localStorageTokenKey, data.token)
         user.value = data;
@@ -71,6 +73,7 @@ export const useProfileStore = defineStore('profile', () => {
     return {
         user,
         parsedUser,
+        currentSectionId,
         getCurrentUser,
         setUser,
         resetUser,
