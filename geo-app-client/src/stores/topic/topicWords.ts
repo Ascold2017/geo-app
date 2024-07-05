@@ -3,9 +3,12 @@ import _ from "lodash";
 import { defineStore, storeToRefs } from "pinia";
 import { computed, ref, watch } from "vue";
 import { useTopicStore } from "./topic";
+import { useTrainingStore } from "../training/training";
 
 export const useTopicWordsStore = defineStore('topic/words', () => {
     const topicStore = useTopicStore();
+    const trainingStore = useTrainingStore();
+    
     const { topicWithTasks } = storeToRefs(topicStore)
 
     const tasks = computed(() => topicWithTasks.value.tasks.filter(task => task.type === TaskTypesEnum.WORD))
@@ -25,7 +28,7 @@ export const useTopicWordsStore = defineStore('topic/words', () => {
     })
 
     async function nextWord() {
-        await topicStore.checkReadedTask(currentTask.value!.id)
+        await trainingStore.checkReadedTask(currentTask.value!.id)
         const indexOfCurrentTask = tasks.value.findIndex(task => task.id === currentTaskId.value);
         const nextTask = tasks.value[indexOfCurrentTask + 1];
         if (nextTask) {

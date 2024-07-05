@@ -15,7 +15,7 @@
 <script setup lang="ts">
 import { useTrainingStore } from '@/stores/training/training';
 
-const props = defineProps<{ isSuccess: boolean; disabled: boolean }>()
+const props = defineProps<{ isSuccess: boolean; disabled: boolean; }>()
 const emit = defineEmits<{ next: [] }>()
 
 const trainingStore = useTrainingStore();
@@ -25,6 +25,14 @@ const trainingStore = useTrainingStore();
 .training-card__container {
     position: relative;
     height: 300px;
+}
+
+.training-card__finish {
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .training-card__status {

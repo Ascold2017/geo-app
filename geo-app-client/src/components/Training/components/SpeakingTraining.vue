@@ -1,5 +1,5 @@
 <template>
-    <CommonCard ref="commonCard" @next="speakingTrainingStore.next" :isSuccess="isSuccess" :disabled="!isHasNextTask || !isSuccess">
+    <CommonCard ref="commonCard" @next="speakingTrainingStore.next" :isSuccess="isSuccess" :disabled="!isSuccess">
         <template v-slot:card-content>
             <v-img v-if="parsedCurrentTask?.imageUrl" height="300" :src="parsedCurrentTask?.imageUrl" cover class="w-100" />
             <pre class="title">{{ parsedCurrentTask?.ka }}</pre>
@@ -26,15 +26,12 @@
 
 <script setup lang="ts">
 import CommonCard from './CommonCard.vue'
-import { useTrainingStore } from '@/stores/training/training';
 import { storeToRefs } from 'pinia';
 import { onUnmounted, ref, watch } from 'vue';
 import { useSpeakingTrainingStore } from '@/stores/training/speakingTraining';
 
-const trainingStore = useTrainingStore();
 const speakingTrainingStore = useSpeakingTrainingStore();
 
-const { isHasNextTask } = storeToRefs(trainingStore);
 const { parsedCurrentTask, answerString, isSuccess, isRecording } = storeToRefs(speakingTrainingStore)
 const commonCard = ref<typeof CommonCard | null>(null)
 

@@ -19,3 +19,8 @@ export interface UserTask extends BaseTask {
     isCompleted: boolean;
     nextRepeat: number;
 }
+
+export interface TasksToRepeatResponse {
+    tasks: UserTask[];
+    nextRepeat?: number
+}

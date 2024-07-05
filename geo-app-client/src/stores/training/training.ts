@@ -2,11 +2,10 @@ import type { UserTask } from "@/models/task.model";
 import { shuffle } from "@/utils/shuffleArray";
 import { defineStore } from "pinia";
 import { computed, ref, watch } from "vue";
-import { useTopicStore } from "../topic/topic";
 import { TrainingTypes } from "@/models/training.model";
+import { httpClient } from "@/adapters/httpClient";
 
 export const useTrainingStore = defineStore('training', () => {
-    const topicStore = useTopicStore();
 
     const tasks = ref<UserTask[]>([]);
     const trainingTypes = ref<TrainingTypes[]>([])
@@ -19,6 +18,7 @@ export const useTrainingStore = defineStore('training', () => {
         const indexOfCurrentTask = tasks.value.findIndex(task => task.id === currentTaskId.value);
         return indexOfCurrentTask < tasks.value.length -1
     })
+    const isFinished = ref(false);
     
     watch(currentTask, () => {
         playAudio()
@@ -28,15 +28,18 @@ export const useTrainingStore = defineStore('training', () => {
         tasks.value = shuffle(data)
         trainingTypes.value = availableTrainingTypes;
         currentTaskId.value = data[0]?.id || null;
+        currentTrainingType.value = availableTrainingTypes[availableTrainingTypes.length * Math.random() << 0];
     }
 
     async function nextTask() {
-        await topicStore.checkReadedTask(currentTask.value!.id)
+        await checkReadedTask(currentTask.value!.id)
         const indexOfCurrentTask = tasks.value.findIndex(task => task.id === currentTaskId.value);
         const nextTask = tasks.value[indexOfCurrentTask + 1];
         if (nextTask) {
             currentTaskId.value = nextTask.id;
             currentTrainingType.value = trainingTypes.value[trainingTypes.value.length * Math.random() << 0];
+        } else {
+            isFinished.value = true;
         }
     }
 
@@ -53,13 +56,30 @@ export const useTrainingStore = defineStore('training', () => {
         tasks.value = []
         trainingTypes.value = []
         currentTrainingType.value = TrainingTypes.COMPOSE;
+        isFinished.value = false;
     }
+
+    async function checkReadedTask(taskId: number) {
+        try {
+            await httpClient.request({
+                url: '/learn/read-task/'+ taskId,
+                method: 'POST'
+            })
+        } catch {
+            return Promise.reject(false)
+        }
+    }
+
+    
     
     return {
+        trainingTypes,
         currentTask,
         tasks,
         currentTrainingType,
         isHasNextTask,
+        isFinished,
+        checkReadedTask,
         setTasks,
         nextTask,
         playAudio,

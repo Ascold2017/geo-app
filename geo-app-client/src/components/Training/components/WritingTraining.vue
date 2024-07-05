@@ -1,5 +1,5 @@
 <template>
-    <CommonCard ref="commonCard" @next="writingTrainingStore.next" :isSuccess="isSuccess" :disabled="!isHasNextTask || !isSuccess">
+    <CommonCard ref="commonCard" @next="writingTrainingStore.next" :isSuccess="isSuccess" :disabled="!isSuccess">
         <template v-slot:card-content>
             <v-img v-if="parsedCurrentTask?.imageUrl" height="300" :src="parsedCurrentTask?.imageUrl" cover class="w-100" />
             <pre class="title">{{ isRevert ? splitVariant(parsedCurrentTask?.ru || '') : parsedCurrentTask?.ka }}</pre>
@@ -12,16 +12,13 @@
 
 <script setup lang="ts">
 import CommonCard from './CommonCard.vue'
-import { useTrainingStore } from '@/stores/training/training';
 import { storeToRefs } from 'pinia';
 import { onUnmounted, ref, watch } from 'vue';
 import { useWritingTrainingStore } from '@/stores/training/writingTraining';
 import { splitVariant } from '@/utils/stringUtils';
 
-const trainingStore = useTrainingStore();
 const writingTrainingStore = useWritingTrainingStore();
 
-const { isHasNextTask } = storeToRefs(trainingStore);
 const { parsedCurrentTask, answerString, isSuccess, isRevert } = storeToRefs(writingTrainingStore)
 const commonCard = ref<typeof CommonCard | null>(null)
 
