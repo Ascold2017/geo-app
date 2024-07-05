@@ -1,6 +1,5 @@
 import { defineStore, storeToRefs } from "pinia";
 import { useTrainingStore } from "./training";
-import { TrainingTypes } from "@/models/training.model";
 import { isMatchQA } from "@/utils/stringUtils";
 import { computed, ref, watch } from "vue";
 
@@ -12,7 +11,7 @@ export const useSpeakingTrainingStore = defineStore('training/speaking', () => {
     const isRecording = ref(false);
     const error = ref<string | null>(null);
 
-    let recognition: SpeechRecognition | null = null;
+    let recognition: any | null = null;
 
     const parsedCurrentTask = computed(() => currentTask.value)
 
@@ -50,12 +49,12 @@ export const useSpeakingTrainingStore = defineStore('training/speaking', () => {
         recognition.interimResults = false;
         recognition.maxAlternatives = 1;
 
-        recognition.onresult = (event: SpeechRecognitionEvent) => {
+        recognition.onresult = (event: any) => {
             answerString.value = event.results[0][0].transcript;
             isRecording.value = false;
         };
 
-        recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
+        recognition.onerror = (event: any) => {
             error.value = event.error;
             isRecording.value = false;
         };

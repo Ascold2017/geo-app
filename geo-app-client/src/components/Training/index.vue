@@ -1,10 +1,8 @@
 <template>
-    <SpeakingTraining />
-    <!--
     <CompositionTraining v-if="[TrainingTypes.COMPOSE, TrainingTypes.COMPOSE_REVERT].includes(currentTrainingType)" />
     <WritingTraining v-if="[TrainingTypes.WRITING, TrainingTypes.WRITING_REVERT].includes(currentTrainingType)" />
     <ListeningTraining v-if="currentTrainingType === TrainingTypes.LISTENING" />
-    -->
+    <SpeakingTraining v-if="currentTrainingType === TrainingTypes.SPEAKING" />
 </template>
 
 <script setup lang="ts">
