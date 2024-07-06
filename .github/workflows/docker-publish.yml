@@ -49,5 +49,6 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
+          file: ./Dockerfile.nginx
           push: true
           tags: ascold2017/geo-app-nginx:latest
