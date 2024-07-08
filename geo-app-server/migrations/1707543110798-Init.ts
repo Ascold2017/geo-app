@@ -70,6 +70,7 @@ export class Init1707543110798 implements MigrationInterface {
                 topic: task.topicId,
                 ka: task.ka,
                 ru: task.ru,
+                type: task.type,
                 transcription: task.transcription,
                 soundUrl: task.soundUrl,
                 imageUrl: task.imageUrl,
