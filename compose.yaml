@@ -1,22 +1,8 @@
 services:
-  postgres:
-    build: ./geo-app-database
-    container_name: postgres
-    environment:
-      POSTGRES_DB: geo_app
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
-    restart: unless-stopped
-    ports:
-      - "5432:5432"
   server:
     restart: on-failure
     build: ./geo-app-server
     hostname: geo-app-server
-    depends_on:
-      - postgres
-    environment:
-      DATABASE_URL: postgres://postgres:password@postgres:5432/geo_app
   
   nginx:
     build:
