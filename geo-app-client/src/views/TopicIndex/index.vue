@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+    <v-container style="max-width: 768px">
         <h3 class="text-center mb-6">{{ topicWithTasks.title }}</h3>
 
         <v-btn class="d-flex w-100 justify-start mb-4" v-for="button in buttons" :to="button.to">

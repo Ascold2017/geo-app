@@ -1,7 +1,9 @@
 <template>
-    <section class="d-flex ga-4 flex-wrap">
-        <TopicCard v-for="topic in homeTopicsStore.topics" :key="topic.id" :topic="topic" class="flex-1-0-100"/>
-    </section>
+    <v-row>
+        <v-col v-for="topic in homeTopicsStore.topics" :key="topic.id" cols="12" md="6" lg="4">
+            <TopicCard :topic="topic" />
+        </v-col>
+    </v-row>
 </template>
 
 <script setup lang="ts">
