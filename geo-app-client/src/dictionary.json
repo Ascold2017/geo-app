@@ -1,3 +1,4 @@
 {
-    "localStorageTokenKey": "auth-token"
+    "localStorageTokenKey": "auth-token",
+    "localStorageDeviceIdKey": "device-id"
 }

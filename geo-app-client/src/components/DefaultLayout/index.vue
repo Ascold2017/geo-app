@@ -24,11 +24,14 @@
 <script setup lang="ts">
 import WelcomeModal from '@/components/WelcomeModal/index.vue'
 import { useProfileStore } from '@/stores/profile/profile';
+import { usePush } from '@/stores/push';
 import { onMounted } from 'vue';
 
 const profileStore = useProfileStore();
+const pushStore = usePush()
 
 onMounted(() => {
     profileStore.getCurrentUser();
+    pushStore.init()
 })
 </script>
