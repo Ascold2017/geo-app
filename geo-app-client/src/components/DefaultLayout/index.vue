@@ -30,8 +30,8 @@ import { onMounted } from 'vue';
 const profileStore = useProfileStore();
 const pushStore = usePush()
 
-onMounted(() => {
-    profileStore.getCurrentUser();
+onMounted(async () => {
+    await profileStore.getCurrentUser();
     pushStore.init()
 })
 </script>
