@@ -10,7 +10,7 @@
                <v-icon>mdi-arrow-left</v-icon>
                Покинуть урок
            </v-btn>
-           <v-btn :to="{ name: 'topicVideo', params: { id: route.params.id } }" :disabled="topicWordsStore.isHasNextTask">
+           <v-btn :to="{ name: 'topicTraining', params: { id: route.params.id } }" :disabled="topicWordsStore.isHasNextTask">
                Практика
                <v-icon>mdi-arrow-right</v-icon>
            </v-btn>

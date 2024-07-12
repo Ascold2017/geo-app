@@ -17,7 +17,7 @@
                 <v-icon>mdi-arrow-left</v-icon>
                 Покинуть урок
             </v-btn>
-            <v-btn :to="{ name: 'topicIndex', params: { id: route.params.id } }">
+            <v-btn :to="{ name: 'topicWords', params: { id: route.params.id } }">
                 Новые слова
                 <v-icon>mdi-arrow-right</v-icon>
             </v-btn>
