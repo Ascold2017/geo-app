@@ -6,9 +6,11 @@ import { useRouter } from "vue-router";
 
 import _ from 'lodash'
 import { useProfileStore } from "./profile/profile";
+import { usePush } from "./push";
 
 export const useAuthStore = defineStore('auth', () => {
     const profileStore = useProfileStore();
+    const pushStore = usePush()
 
     const router = useRouter()
     const isAuthenticated = ref(false);
@@ -20,7 +22,12 @@ export const useAuthStore = defineStore('auth', () => {
             })
             profileStore.setUser(data)
             isAuthenticated.value = true;
-            data.role === 'user' ? router.push({ name: 'home' }) : location.href = '/admin'
+            if (data.role === 'user') {
+                router.push({ name: 'home' })
+            } else {
+                await pushStore.unregister()
+                location.href = '/admin'
+            }
         } catch (e) {
             // TODO
             return Promise.reject(false)

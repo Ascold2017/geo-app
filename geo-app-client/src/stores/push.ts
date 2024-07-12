@@ -17,6 +17,20 @@ export const usePush = defineStore('push', () => {
         }
     }
 
+    async function unregister() {
+        if ('serviceWorker' in navigator) {
+            // Отключение существующих сервис-воркеров для администраторов
+            try {
+                const registrations = await navigator.serviceWorker.getRegistrations();
+                for (let registration of registrations) {
+                    await registration.unregister();
+                }
+            } catch (error) {
+                console.error('Failed to unregister service workers:', error);
+            }
+        }
+    }
+
     async function subscribePush(registration: ServiceWorkerRegistration) {
         try {
             const publicKey = await getVapidKey();
@@ -78,7 +92,8 @@ export const usePush = defineStore('push', () => {
 
 
     return {
-        init
+        init,
+        unregister
     }
 
 })
