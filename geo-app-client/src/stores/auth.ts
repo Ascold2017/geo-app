@@ -48,7 +48,8 @@ export const useAuthStore = defineStore('auth', () => {
         }
     }
     
-    function logout() {
+    async function logout() {
+        await pushStore.unregister()
         profileStore.resetUser()
         location.href = '/'
     }
