@@ -6,7 +6,7 @@ export const usePush = defineStore('push', () => {
 
     function init() {
         if ('serviceWorker' in navigator && 'PushManager' in window) {
-            navigator.serviceWorker.register('/swPush.js').then(registration => {
+            navigator.serviceWorker.register('/push/swPush.js').then(registration => {
                 // Запрашиваем разрешение на получение уведомлений
                 Notification.requestPermission().then(permission => {
                     if (permission === 'granted') {

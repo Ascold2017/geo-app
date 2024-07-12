@@ -17,11 +17,12 @@ export default defineConfig({
       },
       workbox: {
         skipWaiting: true,
+        clientsClaim: true,
       },
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
       manifest: {
         name: 'Geo App',
-        short_name: 'GeoApp',
+        short_name: 'Geo App',
         description: 'Geo App - приложение для изучения грузинского языка',
         theme_color: '#ffffff',
         icons: [
