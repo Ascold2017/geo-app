@@ -8,6 +8,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.nginx
+      env_file:
+        - .env
     container_name: nginx
     ports:
       - "80:80"
