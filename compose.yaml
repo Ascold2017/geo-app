@@ -1,17 +1,26 @@
 services:
+  database:
+    restart: unless-stopped
+    build: ./database
+    hostname: database
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: geo-app
+      
   server:
     restart: on-failure
     build: ./geo-app-server
     hostname: geo-app-server
+    depends_on:
+      - database
   
   nginx:
     build:
       context: .
       dockerfile: Dockerfile.nginx
-      env_file:
-        - .env
-    container_name: nginx
+    container_name: geo-app-nginx
     ports:
-      - "80:80"
+      - "3001:80"
     depends_on:
       - server
