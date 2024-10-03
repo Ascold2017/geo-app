@@ -1,3 +1,0 @@
-"id","createdAt","username","password","role","isPremium","currentSectionId"
-"1","1707550329115","test","test","user","True","NULL"
-"7","1707550329592","admin","admin","admin","False","NULL"

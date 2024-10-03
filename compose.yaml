@@ -1,13 +1,13 @@
 services:
   database:
     restart: unless-stopped
-    build: ./database
+    build: ./geo-app-database
     hostname: database
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
       POSTGRES_DB: geo-app
-      
+
   server:
     restart: on-failure
     build: ./geo-app-server
