@@ -10,8 +10,10 @@ import { BaseEntity } from '../entities/base.entity';
 
 dotenv.config()
 
+const isDev = !!process.env.TS_NODE_DEV;
+
 export const AppDataSource = new DataSource({
-    url: process.env.DB_URI,
+    url: isDev ? process.env.DB_URI_LOCAL : process.env.DB_URI,
     type: "postgres",
     logging: true,
     entities: [User, BaseEntity, Section, Topic, Task, Progress, Push],

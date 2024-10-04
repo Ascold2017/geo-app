@@ -4,72 +4,79 @@ import { User } from "../entities/user.entity";
 import { ProgressListDTO } from "../dto/progress.dto";
 import { BaseSectionDTO } from "../dto/section.dto";
 import { UserTopicDTO, UserTopicWithTasksDTO } from "../dto/topic.dto";
-import { sendNotificationByUserId } from "./push.service";
 import _ from "lodash";
+import { PushService } from "./push.service";
 
-export async function checkIsShouldRepeatForUser(userId: number) {
-  return await DI.progress.countBy({
-    isCompleted: false,
-    nextRepeat: LessThan(new Date().getTime()),
-    // @ts-ignore
-    user: { id: userId },
-  }) > 0;
-}
+export class LearnService {
+  constructor(private pushService = new PushService()) {}
 
-export async function changeUserSection(user: User, sectionId: number) {
-  // @ts-ignore
-  await DI.user.update(user.id, { currentSection: sectionId })
-}
-
-export async function checkReadedTask(userId: number, taskId: number) {
-  let taskProgress = await DI.progress.findOneBy({ user: { id: userId }, task: { id: taskId } });
-  if (!taskProgress) {
-    // @ts-ignore
-    taskProgress = DI.progress.create({ user: userId, task: taskId });
-    taskProgress = await DI.progress.save(taskProgress)
-  }
-  const genMinutes = (mins: number) => mins * 60 * 1000;
-  const genHours = (hours: number) => hours * genMinutes(60);
-  const nextRepeatDates = [
-    new Date(), // zero repeat
-    new Date(), // first repeat
-    new Date(Date.now() + genMinutes(15)), // third repeat - after 15 min
-    new Date(Date.now() + genHours(10)), // fourth repeat - after 10 hours
-    new Date(Date.now() + genHours(28)), // fifth repeat - after 28 hours
-    new Date(Date.now() + genHours(24 * 4)), // sixth repeat - after 4 days
-  ];
-
-  if (taskProgress.repeated < 5) {
-    DI.progress.merge(taskProgress, {
-      nextRepeat: nextRepeatDates[taskProgress.repeated + 1].getTime(),
-      repeated: taskProgress.repeated + 1,
-    });
-  } else {
-    DI.progress.merge(taskProgress, {
-      isCompleted: true,
-    });
+  async checkIsShouldRepeatForUser(userId: number) {
+    return (
+      (await DI.progress.countBy({
+        isCompleted: false,
+        nextRepeat: LessThan(new Date().getTime()),
+        // @ts-ignore
+        user: { id: userId },
+      })) > 0
+    );
   }
 
-  await DI.progress.save(taskProgress);
-}
+  async changeUserSection(user: User, sectionId: number) {
+    // @ts-ignore
+    await DI.user.update(user.id, { currentSection: sectionId });
+  }
 
-export async function checkCompletedTask(userId: number, taskId: number, value: boolean) {
-  const taskProgress = await DI.progress.findOneByOrFail({
-    user: { id: userId },
-    task: { id: taskId },
-  });
-  DI.progress.merge(taskProgress, {
-    isCompleted: value,
-    nextRepeat: new Date().getTime(),
-    repeated: 1,
-  });
+  async checkReadedTask(userId: number, taskId: number) {
+    let taskProgress = await DI.progress.findOneBy({
+      user: { id: userId },
+      task: { id: taskId },
+    });
+    if (!taskProgress) {
+      // @ts-ignore
+      taskProgress = DI.progress.create({ user: userId, task: taskId });
+      taskProgress = await DI.progress.save(taskProgress);
+    }
+    const genMinutes = (mins: number) => mins * 60 * 1000;
+    const genHours = (hours: number) => hours * genMinutes(60);
+    const nextRepeatDates = [
+      new Date(), // zero repeat
+      new Date(), // first repeat
+      new Date(Date.now() + genMinutes(15)), // third repeat - after 15 min
+      new Date(Date.now() + genHours(10)), // fourth repeat - after 10 hours
+      new Date(Date.now() + genHours(28)), // fifth repeat - after 28 hours
+      new Date(Date.now() + genHours(24 * 4)), // sixth repeat - after 4 days
+    ];
 
-  await DI.progress.save(taskProgress);
-}
+    if (taskProgress.repeated < 5) {
+      DI.progress.merge(taskProgress, {
+        nextRepeat: nextRepeatDates[taskProgress.repeated + 1].getTime(),
+        repeated: taskProgress.repeated + 1,
+      });
+    } else {
+      DI.progress.merge(taskProgress, {
+        isCompleted: true,
+      });
+    }
 
-export async function getTasksToRepeat(userId: number, sectionId: number) {
-  return await DI.progress.find(
-    {
+    await DI.progress.save(taskProgress);
+  }
+
+  async checkCompletedTask(userId: number, taskId: number, value: boolean) {
+    const taskProgress = await DI.progress.findOneByOrFail({
+      user: { id: userId },
+      task: { id: taskId },
+    });
+    DI.progress.merge(taskProgress, {
+      isCompleted: value,
+      nextRepeat: new Date().getTime(),
+      repeated: 1,
+    });
+
+    await DI.progress.save(taskProgress);
+  }
+
+  async getTasksToRepeat(userId: number, sectionId: number) {
+    return await DI.progress.find({
       where: {
         user: { id: userId },
         isCompleted: false,
@@ -77,177 +84,165 @@ export async function getTasksToRepeat(userId: number, sectionId: number) {
         task: {
           topic: {
             section: {
-              id: sectionId
-            }
-          }
-        }
+              id: sectionId,
+            },
+          },
+        },
       },
       relations: {
-        task: true
-      }
+        task: true,
+      },
     });
-}
+  }
 
-export async function getProgress(userId: number, sectionId: number) {
-  const progress = await DI.progress.find({
-    where: {
-      user: { id: userId },
-      task: {
-        topic: {
-          section: {
-            id: sectionId
-          }
-        }
-      }
-    },
-    relations: {
-      task: true
-    }
-  });
+  async getProgress(userId: number, sectionId: number) {
+    const progress = await DI.progress.find({
+      where: {
+        user: { id: userId },
+        task: {
+          topic: {
+            section: {
+              id: sectionId,
+            },
+          },
+        },
+      },
+      relations: {
+        task: true,
+      },
+    });
 
-  return new ProgressListDTO(progress).tasks;
-}
+    return new ProgressListDTO(progress).tasks;
+  }
 
-export async function getSections() {
-  const sections = await DI.section.find({});
-  return sections.map(
-    (section) => new BaseSectionDTO(section),
-  );
-}
+  async getSections() {
+    const sections = await DI.section.find({});
+    return sections.map((section) => new BaseSectionDTO(section));
+  }
 
-export async function getTopicList(userId: number, sectionId: number) {
-  const topics = await DI.topic.find(
-    {
+  async getTopicList(userId: number, sectionId: number) {
+    const topics = await DI.topic.find({
       where: {
         section: { id: sectionId },
       },
       order: {
-        order: 1
+        order: 1,
       },
       relations: {
         section: true,
-        tasks: true
-      }
+        tasks: true,
+      },
+    });
 
-    },
-  );
+    const progress = await DI.progress.find({
+      select: {
+        repeated: true,
+        task: {
+          id: true,
+          topic: {
+            id: true,
+          },
+        },
+      },
+      where: {
+        user: { id: userId },
+      },
+      relations: {
+        task: {
+          topic: true,
+        },
+      },
+    });
 
-  const progress = await DI.progress.find({
-    select: {
-      repeated: true,
-      task: {
-        id: true,
-        topic: {
-          id: true
-        }
-      }
-    },
-    where: {
-      user: { id: userId }
-    },
-    relations: {
-      task: {
-        topic: true
-      }
-    }
-  })
+    return topics.map(
+      (topic) =>
+        new UserTopicDTO(
+          topic,
+          progress.filter((p) => p.task.topic.id === topic.id)
+        )
+    );
+  }
 
-  return topics.map(topic => new UserTopicDTO(topic, progress.filter(p => p.task.topic.id === topic.id)))
+  async getUserTopic(userId: number, topicId: number) {
+    const topic = await DI.topic.findOne({
+      where: {
+        id: topicId,
+      },
+      order: {
+        order: 1,
+      },
+      relations: {
+        section: true,
+        tasks: true,
+      },
+    });
 
-}
+    const progress = await DI.progress.find({
+      select: {
+        repeated: true,
+        task: {
+          id: true,
+          topic: {
+            id: true,
+          },
+        },
+      },
+      where: {
+        user: { id: userId },
+        task: {
+          topic: { id: topicId },
+        },
+      },
+      relations: {
+        task: {
+          topic: true,
+        },
+      },
+    });
 
-export async function getUserTopic(userId: number, topicId: number) {
-  const topic = await DI.topic.findOne({
+    return new UserTopicWithTasksDTO(topic, progress);
+  }
 
-    where: {
-      id: topicId,
-    },
-    order: {
-      order: 1
-    },
-    relations: {
-      section: true,
-      tasks: true
-    }
-
-  });
-
-
-  const progress = await DI.progress.find({
-    select: {
-      repeated: true,
-      task: {
-        id: true,
-        topic: {
-          id: true
-        }
-      }
-    },
-    where: {
-      user: { id: userId },
-      task: {
-        topic: { id: topicId, }
-      }
-    },
-    relations: {
-      task: {
-        topic: true
-      }
-    }
-  })
-
-  return new UserTopicWithTasksDTO(
-    topic, progress
-  );
-}
-
-export const getUserNearestRepeatDate = async (user: User) => {
-  if (!user.currentSection) return null;
-  const progress = await DI.progress.findOne(
-    {
+  async getUserNearestRepeatDate(user: User) {
+    if (!user.currentSection) return null;
+    const progress = await DI.progress.findOne({
       where: {
         user: { id: user.id },
         isCompleted: false,
         task: {
           topic: {
-            section: { id: user.currentSection as unknown as number  }
-          }
-        }
+            section: { id: user.currentSection as unknown as number },
+          },
+        },
       },
       order: {
-        nextRepeat: 1
+        nextRepeat: 1,
       },
-      
-    },
-  );
-
-  return progress ? +progress.nextRepeat : null;
-};
-
-export const checkRepeatNotifierDaemon = () => 
-{
-  
-  async function daemon() {
-    const list = await DI.progress.find({
-      where: {
-        isCompleted: false,
-        nextRepeat: LessThan(new Date().getTime()),
-      },
-      relations: {
-        user: true
-      }
-      
     });
-    const userIds = _.uniq(list.map((tp) => tp.user.id));
 
-    userIds.forEach((id) => sendNotificationByUserId(id, "Пора потренироваться!"));
+    return progress ? +progress.nextRepeat : null;
   }
-  daemon();
-  setInterval(
-    async () => {
+
+  async checkRepeatNotifierDaemon() {
+    const daemon = async () => {
+      const list = await DI.progress.find({
+        where: {
+          isCompleted: false,
+          nextRepeat: LessThan(new Date().getTime()),
+        },
+        relations: {
+          user: true,
+        },
+      });
+      const userIds = _.uniq(list.map((tp) => tp.user.id));
+
+      userIds.forEach((id) =>
+        this.pushService.sendNotificationByUserId(id, "Пора потренироваться!")
+      );
+    };
+    daemon();
+    setInterval(async () => {
       daemon();
-    },
-    10 * 1000,
-  ); // every 15 mins
-  
-};
+    }, 10 * 1000); // every 15 mins
+  }
+}

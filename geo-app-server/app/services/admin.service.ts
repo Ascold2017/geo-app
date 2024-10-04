@@ -9,129 +9,138 @@ import { Topic } from "../entities/topic.entity";
 import { Task } from "../entities/task.entity";
 import { TaskDTO } from "../dto/task.dto";
 
-export async function getUsers() {
+export class AdminService {
+  async getUsers() {
     const users = await DI.user.find({
-        where: { role: Not(UserRoles.ADMIN) },
+      where: { role: Not(UserRoles.ADMIN) },
     });
     return users.map((u) => new BaseUserDTO(u));
-}
+  }
 
-export async function getSections() {
-    const sections = await DI.section.find({ select: { topics: { id: true } }, relations: { topics: true } });
-    return sections.map(
-        (section) => new AdmSectionDTO(section),
-    );
-}
+  async getSections() {
+    const sections = await DI.section.find({
+      select: { topics: { id: true } },
+      relations: { topics: true },
+    });
+    return sections.map((section) => new AdmSectionDTO(section));
+  }
 
-export async function getSectionById(sectionId: number) {
-    const section = await DI.section.findOneOrFail({ where: { id: sectionId } });
+  async getSectionById(sectionId: number) {
+    const section = await DI.section.findOneOrFail({
+      where: { id: sectionId },
+    });
 
     return new BaseSectionDTO(section);
-}
+  }
 
-
-export async function createSection(title: string, imageUrl: string) {
+  async createSection(title: string, imageUrl: string) {
     const section = DI.section.create({ title, imageUrl });
     await DI.section.save(section);
     return new BaseSectionDTO(section);
-}
+  }
 
-export async function updateSection(sectionId: number, payload: Partial<Section>) {
+  async updateSection(sectionId: number, payload: Partial<Section>) {
     const section = await DI.section.findOneByOrFail({ id: sectionId });
 
-    DI.section.merge(section, payload)
+    DI.section.merge(section, payload);
     await DI.section.save(section);
     return new BaseSectionDTO(section);
-}
+  }
 
-export async function deleteSection(sectionId: number) {
-    const section = await DI.section.findOneOrFail({ where: { id: sectionId } });
-    await DI.section.remove(section)
-}
+  async deleteSection(sectionId: number) {
+    const section = await DI.section.findOneOrFail({
+      where: { id: sectionId },
+    });
+    await DI.section.remove(section);
+  }
 
-// topics //
-
-export async function getTopicList() {
+  async getTopicList() {
     const topics = await DI.topic.find({
-        select: { section: { id: true } },
-        relations: { section: true }, order: { order: 1 }
+      select: { section: { id: true } },
+      relations: { section: true },
+      order: { order: 1 },
     });
 
-    return topics.map((topic) => new TopicDTO(topic))
-}
+    return topics.map((topic) => new TopicDTO(topic));
+  }
 
-export async function getTopicById(topicId: number) {
+  async getTopicById(topicId: number) {
     const topic = await DI.topic.findOneOrFail({
-        where: { id: topicId },
-        select: {
-            section: { id: true }
-        },
-        relations: {
-            section: true
-        }
+      where: { id: topicId },
+      select: {
+        section: { id: true },
+      },
+      relations: {
+        section: true,
+      },
     });
     return new TopicDTO(topic);
-}
+  }
 
-export async function createTopic(payload: Partial<Topic>) {
+  async createTopic(payload: Partial<Topic>) {
     const topic = DI.topic.create({
-        ...payload,
-        // @ts-ignore
-        section: { id: payload.sectionId }
+      ...payload,
+      // @ts-ignore
+      section: { id: payload.sectionId },
     });
     const createdTopic = await DI.topic.save(topic);
-    // @ts-ignore
-    return new TopicDTO({ ...createdTopic, section: { id: createdTopic.section.id } });
-}
+    
+    return new TopicDTO({
+      ...createdTopic,
+      // @ts-ignore
+      section: { id: createdTopic.section.id },
+    });
+  }
 
-export async function updateTopic(topicId: number, payload: Partial<Topic>) {
+  async updateTopic(topicId: number, payload: Partial<Topic>) {
     const topic = await DI.topic.findOne({
-        where: { id: topicId },
-        select: {
-            section: { id: true }
-        },
-        relations: {
-            section: true,
-        }
+      where: { id: topicId },
+      select: {
+        section: { id: true },
+      },
+      relations: {
+        section: true,
+      },
     });
 
-    DI.topic.merge(topic, payload)
-    DI.topic.save(topic)
+    DI.topic.merge(topic, payload);
+    DI.topic.save(topic);
 
     return new TopicDTO(topic);
-}
+  }
 
-export async function deleteTopic(topicId: number) {
-    const topic = await DI.topic.findOneOrFail({ where: { id: topicId } })
+  async deleteTopic(topicId: number) {
+    const topic = await DI.topic.findOneOrFail({ where: { id: topicId } });
     await DI.topic.remove(topic);
-}
+  }
 
-// task //
-export async function getTopicTasks(topicId: number) {
+  async getTopicTasks(topicId: number) {
     const data = await DI.task.findBy({
-        topic: { id: topicId }
-    })
+      topic: { id: topicId },
+    });
 
-    return data.map(task => new TaskDTO(task))
-}
-export async function createTask(topicId: number, payload: Partial<Task>) {
+    return data.map((task) => new TaskDTO(task));
+  }
+
+  async createTask(topicId: number, payload: Partial<Task>) {
     await DI.topic.findOneByOrFail({ id: topicId });
 
     const task = DI.task.create(payload);
     await DI.task.save(task);
     return new TaskDTO(task);
-}
+  }
 
-export async function updateTask(topicId: number, taskId: number, payload: Partial<Task>) {
+  async updateTask(topicId: number, taskId: number, payload: Partial<Task>) {
     await DI.topic.findOneByOrFail({ id: topicId });
     const task = await DI.task.findOneByOrFail({ id: taskId });
 
-    DI.task.merge(task, payload)
+    DI.task.merge(task, payload);
     await DI.task.save(task);
     return new TaskDTO(task);
-}
+  }
 
-export async function deleteTask(taskId: number) {
+  async deleteTask(taskId: number) {
     const task = await DI.task.findOneByOrFail({ id: taskId });
     await DI.task.remove(task);
+  }
 }
