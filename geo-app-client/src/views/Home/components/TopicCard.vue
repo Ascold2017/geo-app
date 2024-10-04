@@ -9,13 +9,13 @@
                 <v-progress-circular :model-value="topic.progress" :rotate="360" :size="30" :width="4" color="teal"
                     style="font-size: 0.8rem;">
                     {{ topic.progress }}
-                </v-progress-circular> %
+                </v-progress-circular>  %
             </template>
 
         </header>
 
 
-        <v-img height="200px" :src="coverUrl" cover></v-img>
+        <v-img height="250px" :src="coverUrl" cover></v-img>
     </v-card>
 </template>
 

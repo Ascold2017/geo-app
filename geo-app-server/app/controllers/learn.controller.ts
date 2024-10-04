@@ -42,7 +42,7 @@ export class LearnController {
   }
 
   @Access([UserRoles.USER])
-  @Get("/topic/:id")
+  @Get("/topics/:id")
   async getTopicById(
     @Request() req,
     @Response() res,

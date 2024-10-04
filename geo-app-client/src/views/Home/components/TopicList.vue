@@ -1,6 +1,6 @@
 <template>
     <v-row>
-        <v-col v-for="topic in homeTopicsStore.topics" :key="topic.id" cols="12" md="6" lg="4">
+        <v-col v-for="topic in homeTopicsStore.topics" :key="topic.id" cols="12" md="6" lg="3">
             <TopicCard :topic="topic" />
         </v-col>
     </v-row>
