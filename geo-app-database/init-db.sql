@@ -328,6 +328,9 @@ ALTER TABLE ONLY public.topic ALTER COLUMN id SET DEFAULT nextval('public.topic_
 ALTER TABLE ONLY public."user" ALTER COLUMN id SET DEFAULT nextval('public.user_id_seq'::regclass);
 
 
+COPY public."user" (id, "createdAt", username, password, role, "isPremium", "currentSectionId") FROM stdin  WITH (FORMAT csv, DELIMITER '|', NULL 'NULL');
+1|1719746288124|admin|admin|admin|false|1
+\.
 
 --
 -- TOC entry 4902 (class 0 OID 16420)
