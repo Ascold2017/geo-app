@@ -12,6 +12,7 @@ import { UserRoles } from "../entities/user.entity";
 import { LearnService } from "../services/learn.service";
 import { PushService } from "../services/push.service";
 import { ProgressListDTO } from "../dto/progress.dto";
+import { ChangeSectionPayload, CompleteTaskPayload } from "../types/learn.model";
 
 @Controller("/learn")
 export class LearnController {
@@ -63,7 +64,7 @@ export class LearnController {
   async changeSection(
     @Request() req,
     @Response() res,
-    @Body() body: { sectionId: number }
+    @Body() body: ChangeSectionPayload
   ) {
     const { sectionId } = body;
     await this.learnService.changeUserSection(req.state.user, +sectionId);
@@ -92,7 +93,7 @@ export class LearnController {
     @Request() req,
     @Response() res,
     @Params("id") id: number,
-    @Body() body: { value: boolean }
+    @Body() body: CompleteTaskPayload
   ) {
     await this.learnService.checkCompletedTask(
       req.state.user.id,

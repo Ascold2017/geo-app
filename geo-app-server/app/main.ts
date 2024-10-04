@@ -5,12 +5,12 @@ import cors from "cors";
 import dotenv from "dotenv";
 import webPush from "web-push";
 import { AppDataSource } from "./config/data-source";
-// import { checkRepeatNotifierDaemon } from "./services/learn.service";
 import { attachControllers } from "@decorators/express";
 import { AuthController } from "./controllers/auth.controller";
 import { PushController } from "./controllers/push.controller";
 import { LearnController } from "./controllers/learn.controller";
 import { AdminController } from "./controllers/admin.controller";
+import { LearnService } from "./services/learn.service";
 
 dotenv.config();
 
@@ -28,12 +28,13 @@ attachControllers(apiRouter, [AuthController, PushController, LearnController, A
 
 app.use('/api', apiRouter);
 
+const learnService = new LearnService()
 AppDataSource.initialize()
   .then(() => {
 
     app.listen(port, () => {
       console.log(`Server is Fire at http://localhost:${port}`);
-      // checkRepeatNotifierDaemon();
+      learnService.checkRepeatNotifierDaemon();
     });
   })
   .catch(console.error)

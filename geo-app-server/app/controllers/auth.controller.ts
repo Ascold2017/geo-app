@@ -7,6 +7,7 @@ import {
   Response,
 } from "@decorators/express";
 import { AuthService } from "../services/auth.service";
+import { AuthPayload } from "../types/auth.model";
 
 @Controller("/auth")
 export class AuthController {
@@ -15,7 +16,7 @@ export class AuthController {
   @Post("/sign-in")
   async signIn(
     @Response() res,
-    @Body() body: { login: string; password: string }
+    @Body() body: AuthPayload
   ) {
     const { login, password } = body;
     try {
@@ -30,7 +31,7 @@ export class AuthController {
   @Post("/sign-up")
   async signUp(
     @Response() res,
-    @Body() body: { login: string; password: string }
+    @Body() body: AuthPayload
   ) {
     const { login, password } = body;
     try {

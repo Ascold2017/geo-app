@@ -4,6 +4,7 @@ import { Access } from "../middlewares/Access";
 import { UserRoles } from "../entities/user.entity";
 import { PushService } from "../services/push.service";
 import { LearnService } from "../services/learn.service";
+import { PostSubscriptionPayload } from "../types/push.model";
 
 @Controller('/push')
 export class PushController {
@@ -18,7 +19,7 @@ export class PushController {
 
     @Access([UserRoles.USER])
     @Post('/subscription')
-    async postSubscription(@Request() req, @Response() res, @Body() body: { subscription: PushSubscription, deviceId: string }) {
+    async postSubscription(@Request() req, @Response() res, @Body() body: PostSubscriptionPayload) {
         const userId = req.state.user.id
         await this.pushService.savePushSubscription(userId, body.subscription, body.deviceId);
         

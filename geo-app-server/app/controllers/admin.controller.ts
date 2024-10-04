@@ -12,6 +12,11 @@ import { AdminService } from "../services/admin.service";
 import { Access } from "../middlewares/Access";
 import { UserRoles } from "../entities/user.entity";
 import { TaskTypes } from "../entities/task.entity";
+import {
+  PostSectionPayload,
+  PostTaskPaylad,
+  PostTopicPayload,
+} from "../types/admin.model";
 
 @Controller("/adm")
 export class AdminController {
@@ -41,10 +46,7 @@ export class AdminController {
 
   @Access([UserRoles.ADMIN])
   @Post("/sections")
-  async postSection(
-    @Response() res,
-    @Body() body: { title: string; imageUrl: string }
-  ) {
+  async postSection(@Response() res, @Body() body: PostSectionPayload) {
     const section = await this.adminService.createSection(
       body.title,
       body.imageUrl
@@ -57,7 +59,7 @@ export class AdminController {
   async patchSectionById(
     @Response() res,
     @Params("id") id: number,
-    @Body() body: { title: string; imageUrl: string }
+    @Body() body: PostSectionPayload
   ) {
     const section = await this.adminService.updateSection(+id, body);
     res.json(section);
@@ -90,14 +92,7 @@ export class AdminController {
   async postTopic(
     @Response() res,
     @Body()
-    body: {
-      title: string;
-      text: string;
-      videoId: string;
-      sectionId: number;
-      isPremium: boolean;
-      order: number;
-    }
+    body: PostTopicPayload
   ) {
     const topic = await this.adminService.createTopic(body);
     res.json(topic);
@@ -109,14 +104,7 @@ export class AdminController {
     @Response() res,
     @Params("id") id: number,
     @Body()
-    body: {
-      title: string;
-      text: string;
-      videoId: string;
-      sectionId: number;
-      isPremium: boolean;
-      order: number;
-    }
+    body: PostTopicPayload
   ) {
     const topic = await this.adminService.updateTopic(+id, body);
     res.json(topic);
@@ -143,14 +131,7 @@ export class AdminController {
     @Response() res,
     @Params("topicId") topicId: number,
     @Body()
-    body: {
-      ka: string;
-      ru: string;
-      transcription: string;
-      imageUrl: string;
-      soundUrl: string;
-      type: TaskTypes;
-    }
+    body: PostTaskPaylad
   ) {
     const task = await this.adminService.createTask(+topicId, body);
     res.json(task);
@@ -163,14 +144,7 @@ export class AdminController {
     @Params("topicId") topicId: number,
     @Params("taskId") taskId: number,
     @Body()
-    body: {
-      ka: string;
-      ru: string;
-      transcription: string;
-      imageUrl: string;
-      soundUrl: string;
-      type: TaskTypes;
-    }
+    body: PostTaskPaylad
   ) {
     const task = await this.adminService.updateTask(+topicId, +taskId, body);
     res.json(task);
